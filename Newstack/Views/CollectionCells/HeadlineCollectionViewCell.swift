@@ -6,13 +6,11 @@
 //
 
 import UIKit
-
-import UIKit
 import Alamofire
 
 class HeadlineCollectionViewCell: UICollectionViewCell {
     
-    static var identifier: String = "CollectionCell"
+    static var identifier: String = "headlineCell"
     
     var headlineArticle: [NewsSource.Article] = []
     var gradient = CAGradientLayer()

@@ -22,6 +22,8 @@
 		1A5AC9D324A506A50030A43A /* UILabel+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D224A506A50030A43A /* UILabel+Style.swift */; };
 		1A5AC9D624A506EA0030A43A /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D524A506EA0030A43A /* ArticleDetailViewController.swift */; };
 		1A5AC9D824A507190030A43A /* UIButton+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D724A507190030A43A /* UIButton+Style.swift */; };
+		1A5AC9DE24A526B80030A43A /* EverythingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9DD24A526B80030A43A /* EverythingCollectionViewCell.swift */; };
+		1A5AC9E024A548C30030A43A /* PinterestStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9DF24A548C30030A43A /* PinterestStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +64,8 @@
 		1A5AC9D224A506A50030A43A /* UILabel+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Style.swift"; sourceTree = "<group>"; };
 		1A5AC9D524A506EA0030A43A /* ArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewController.swift; sourceTree = "<group>"; };
 		1A5AC9D724A507190030A43A /* UIButton+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Style.swift"; sourceTree = "<group>"; };
+		1A5AC9DD24A526B80030A43A /* EverythingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EverythingCollectionViewCell.swift; sourceTree = "<group>"; };
+		1A5AC9DF24A548C30030A43A /* PinterestStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +121,7 @@
 				1A244A5624A4F84D0091518D /* Views */,
 				1A244A5824A4F85A0091518D /* Controllers */,
 				1A244A5524A4F7E00091518D /* Resources */,
+				1A5AC9DF24A548C30030A43A /* PinterestStyle.swift */,
 			);
 			path = Newstack;
 			sourceTree = "<group>";
@@ -154,7 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				1A5AC9D124A506950030A43A /* Styles */,
-				1A5AC9C924A505BD0030A43A /* Cells */,
+				1A5AC9C924A505BD0030A43A /* CollectionCells */,
 				1A5AC9D924A507DD0030A43A /* Storyboards */,
 			);
 			path = Views;
@@ -203,12 +208,13 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		1A5AC9C924A505BD0030A43A /* Cells */ = {
+		1A5AC9C924A505BD0030A43A /* CollectionCells */ = {
 			isa = PBXGroup;
 			children = (
 				1A5AC9CA24A505E30030A43A /* HeadlineCollectionViewCell.swift */,
+				1A5AC9DD24A526B80030A43A /* EverythingCollectionViewCell.swift */,
 			);
-			path = Cells;
+			path = CollectionCells;
 			sourceTree = "<group>";
 		};
 		1A5AC9D124A506950030A43A /* Styles */ = {
@@ -380,6 +386,8 @@
 				1A5AC9CD24A5060C0030A43A /* News.swift in Sources */,
 				1A5AC9CB24A505E30030A43A /* HeadlineCollectionViewCell.swift in Sources */,
 				1A244A5A24A4F8800091518D /* HomeViewController.swift in Sources */,
+				1A5AC9DE24A526B80030A43A /* EverythingCollectionViewCell.swift in Sources */,
+				1A5AC9E024A548C30030A43A /* PinterestStyle.swift in Sources */,
 				1A5AC9D624A506EA0030A43A /* ArticleDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

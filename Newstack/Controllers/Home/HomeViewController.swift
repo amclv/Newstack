@@ -17,10 +17,10 @@ class HomeViewController: UIViewController {
     //=======================
     // MARK: - Properties
     let mainNewsTitle = CustomLabel(style: .header, text: "Headlines")
-    let secondNewsTitle = CustomLabel(style: .header, text: "Trump")
+    let secondNewsTitle = CustomLabel(style: .header, text: "Everything")
 
     //=======================
-    // MARK: - Computed Propties
+    // MARK: - Computed Properties
     let mainHStack: UIStackView = {
         let mainHStack = UIStackView()
         mainHStack.translatesAutoresizingMaskIntoConstraints = false
@@ -40,11 +40,26 @@ class HomeViewController: UIViewController {
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 300, height: 300)
         layout.minimumLineSpacing = 30
+        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.register(HeadlineCollectionViewCell.self, forCellWithReuseIdentifier: "headlineCell")
         cv.backgroundColor = .systemBackground
         cv.showsHorizontalScrollIndicator = false
+        return cv
+    }()
+    
+    let everythingCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: 180, height: 200)
+        layout.minimumLineSpacing = 10
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.register(EverythingCollectionViewCell.self, forCellWithReuseIdentifier: "everythingCell")
+        cv.backgroundColor = .systemBackground
+        cv.showsVerticalScrollIndicator = false
         return cv
     }()
 
@@ -53,6 +68,9 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         headlineCollectionView.delegate = self
         headlineCollectionView.dataSource = self
+        
+        everythingCollectionView.delegate = self
+        everythingCollectionView.dataSource = self
         setupNavigationController()
         setupSubviews()
         setupConstraints()
@@ -67,9 +85,29 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController {
+    func fetchEverything() {
+        let everythingURL = AF.request("https://newsapi.org/v2/everything?q=trump&apiKey=569bbdc4ab8c42af93e505b90149e026")
+            .validate()
+        everythingURL.responseDecodable(of: NewsSource.self) { (response) in
+            guard let articles = response.value else { return }
+            self.articles = articles.articles
+            self.everythingCollectionView.reloadData()
+        }
+    }
+    
+    func fetchHeadlines() {
+        let headlineURL = AF.request("https://newsapi.org/v2/top-headlines?country=us&apiKey=569bbdc4ab8c42af93e505b90149e026")
+            .validate()
+        headlineURL.responseDecodable(of: NewsSource.self) { (response) in
+            guard let headlineArticles = response.value else { return }
+            self.headlineArticle = headlineArticles.articles
+            self.headlineCollectionView.reloadData()
+        }
+    }
+    
     func setupSubviews() {
         secondHStack.addArrangedSubview(secondNewsTitle)
-        
+        view.addSubview(everythingCollectionView)
         view.addSubview(headlineCollectionView)
         view.addSubview(secondHStack)
     }
@@ -84,26 +122,44 @@ extension HomeViewController {
             secondHStack.topAnchor.constraint(equalTo: headlineCollectionView.bottomAnchor, constant: 20),
             secondHStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             secondHStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            everythingCollectionView.topAnchor.constraint(equalTo: secondHStack.bottomAnchor, constant: 20),
+            everythingCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            everythingCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            everythingCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
     }
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return headlineArticle.count
+        if headlineCollectionView == self.headlineCollectionView {
+            return headlineArticle.count
+        }
+        return articles.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "headlineCell", for: indexPath) as! HeadlineCollectionViewCell
-        let article = headlineArticle[indexPath.item]
-        cell.headlineTitle.text = article.title
-        cell.headlineAuthor.text = article.author
-        
-        let url = URL(string: "\(article.urlToImage!)")
-        let data = try? Data(contentsOf: url!)
-        cell.headlineImage.image = UIImage(data: data!)
-        cell.layoutIfNeeded()
-        return cell
+        if collectionView == headlineCollectionView {
+            let headlineCell = collectionView.dequeueReusableCell(withReuseIdentifier: "headlineCell", for: indexPath) as! HeadlineCollectionViewCell
+            let headlineArt = headlineArticle[indexPath.item]
+            headlineCell.headlineTitle.text = headlineArt.title
+            headlineCell.headlineAuthor.text = headlineArt.author
+            let url = URL(string: "\(headlineArt.urlToImage!)")
+            let data = try? Data(contentsOf: url!)
+            headlineCell.headlineImage.image = UIImage(data: data!)
+            headlineCell.layoutIfNeeded()
+            return headlineCell
+        } else {
+            let everythingCell = collectionView.dequeueReusableCell(withReuseIdentifier: "everythingCell", for: indexPath) as! EverythingCollectionViewCell
+            let article = articles[indexPath.item]
+            everythingCell.articleTitle.text = article.title
+            everythingCell.articleDate.text = article.formattedDate
+            let url = URL(string: "\(article.urlToImage!)")
+            let data = try? Data(contentsOf: url!)
+            everythingCell.articleImage.image = UIImage(data: data!)
+            return everythingCell
+        }
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -123,28 +179,5 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 250, height: 150)
-    }
-}
-
-extension HomeViewController {
-    
-    func fetchEverything() {
-        let everythingURL = AF.request("https://newsapi.org/v2/everything?q=trump&apiKey=569bbdc4ab8c42af93e505b90149e026")
-            .validate()
-        everythingURL.responseDecodable(of: NewsSource.self) { (response) in
-            guard let articles = response.value else { return }
-            self.articles = articles.articles
-            self.headlineCollectionView.reloadData()
-        }
-    }
-    
-    func fetchHeadlines() {
-        let headlineURL = AF.request("https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=569bbdc4ab8c42af93e505b90149e026")
-            .validate()
-        headlineURL.responseDecodable(of: NewsSource.self) { (response) in
-            guard let headlineArticles = response.value else { return }
-            self.headlineArticle = headlineArticles.articles
-            self.headlineCollectionView.reloadData()
-        }
     }
 }
