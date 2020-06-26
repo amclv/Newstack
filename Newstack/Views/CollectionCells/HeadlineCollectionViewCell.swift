@@ -12,7 +12,7 @@ class HeadlineCollectionViewCell: UICollectionViewCell {
     
     static var identifier: String = "headlineCell"
     
-    var headlineArticle: [NewsSource.Article] = []
+    var headlineArticle: [NewsSource.ArticleRepresentation] = []
     var gradient = CAGradientLayer()
     
     let headlineTitle = CustomLabel(style: .collectionTitle, text: "")

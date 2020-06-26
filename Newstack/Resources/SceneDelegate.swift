@@ -20,14 +20,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window = UIWindow(windowScene: windowScene)
             let home = UINavigationController(rootViewController: HomeViewController())
             home.tabBarItem.image = UIImage(systemName: "house")
-            let settings = SettingsViewController()
-            settings.tabBarItem.image = UIImage(systemName: "gear")
+//            let settings = SettingsViewController()
+//            settings.tabBarItem.image = UIImage(systemName: "gear")
             let bookmark = BookmarkViewController()
             bookmark.tabBarItem.image = UIImage(systemName: "bookmark")
             let tabBar = UITabBarController()
             window?.rootViewController = tabBar
-            tabBar.viewControllers = [bookmark, home, settings]
-            tabBar.selectedIndex = 2
+            tabBar.viewControllers = [bookmark, home]
+            tabBar.selectedIndex = 1
             tabBar.tabBar.barTintColor = .black
             window?.makeKeyAndVisible()
         }

@@ -10,9 +10,9 @@ import Alamofire
 
 class HomeViewController: UIViewController {
     
-    var articles = [NewsSource.Article]()
-    var headlineArticle = [NewsSource.Article]()
-    var selectedArticle: NewsSource.Article?
+    var articles = [NewsSource.ArticleRepresentation]()
+    var headlineArticle = [NewsSource.ArticleRepresentation]()
+    var selectedArticle: NewsSource.ArticleRepresentation?
     
     //=======================
     // MARK: - Properties
@@ -146,8 +146,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             headlineCell.headlineTitle.text = headlineArt.title
             headlineCell.headlineAuthor.text = headlineArt.author
             let url = URL(string: "\(headlineArt.urlToImage!)")
-            let data = try? Data(contentsOf: url!)
-            headlineCell.headlineImage.image = UIImage(data: data!)
+            if let data = try? Data(contentsOf: url!) {
+                headlineCell.headlineImage.image = UIImage(data: data)
+            } else {
+                headlineCell.headlineImage.image = UIImage(systemName: "xmark.seal")?.withTintColor(.systemRed)
+            }
             headlineCell.layoutIfNeeded()
             return headlineCell
         } else {
@@ -156,8 +159,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             everythingCell.articleTitle.text = article.title
             everythingCell.articleDate.text = article.formattedDate
             let url = URL(string: "\(article.urlToImage!)")
-            let data = try? Data(contentsOf: url!)
-            everythingCell.articleImage.image = UIImage(data: data!)
+            if let data = try? Data(contentsOf: url!) {
+                everythingCell.articleImage.image = UIImage(data: data)
+            } else {
+                everythingCell.articleImage.image = UIImage(systemName: "xmark.seal")?.withTintColor(.systemRed)
+            }
             everythingCell.layoutIfNeeded()
             return everythingCell
         }
@@ -167,18 +173,27 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let vc: ArticleDetailViewController = ArticleDetailViewController()
         selectedArticle = headlineArticle[indexPath.item]
         guard let url = selectedArticle?.urlToImage else { return }
-        let data = try? Data(contentsOf: url)
         vc.articleTitle.text = selectedArticle?.title
         vc.articleDate.text = selectedArticle?.formattedDate
         vc.articleDetail.text = selectedArticle?.content ?? "No Content"
         vc.articleAuthorName.text = selectedArticle?.author ?? "No Author"
         vc.articleAuthorPaper.text = selectedArticle?.source.name ?? "No Source"
-        vc.topViewBackgroundImage.image = UIImage(data: data!)
+        if let data = try? Data(contentsOf: url) {
+            vc.topViewBackgroundImage.image = UIImage(data: data)
+        } else {
+            vc.topViewBackgroundImage.image = UIImage(systemName: "xmark.seal")?.withTintColor(.systemRed)
+        }
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 250, height: 150)
+    }
+}
+
+extension HomeViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
     }
 }

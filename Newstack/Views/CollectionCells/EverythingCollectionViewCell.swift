@@ -12,7 +12,7 @@ class EverythingCollectionViewCell: UICollectionViewCell {
     
     static var identifier: String = "everythingCell"
     
-    var everyArticle: [NewsSource.Article] = []
+    var everyArticle: [NewsSource.ArticleRepresentation] = []
     var gradient = CAGradientLayer()
 
     let articleImage: UIImageView = {

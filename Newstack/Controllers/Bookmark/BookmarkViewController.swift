@@ -9,21 +9,49 @@ import UIKit
 
 class BookmarkViewController: UIViewController {
     
-    let bookmarkTableView = UITableView()
+    lazy var bookmarkCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.itemSize.width = view.bounds.width
+        layout.itemSize.height = 100
+        layout.minimumLineSpacing = 1
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "bookmarkCell")
+        cv.backgroundColor = .systemBackground
+        cv.showsVerticalScrollIndicator = false
+        return cv
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
+        bookmarkCollectionView.dataSource = self
+        bookmarkCollectionView.delegate = self
+        setupCollectionView()
     }
     
-    func setupTableView() {
-        bookmarkTableView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(bookmarkTableView)
+    func setupCollectionView() {
+        view.addSubview(bookmarkCollectionView)
         NSLayoutConstraint.activate([
-            bookmarkTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            bookmarkTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            bookmarkTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            bookmarkTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            bookmarkCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            bookmarkCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bookmarkCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bookmarkCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
+}
+
+extension BookmarkViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bookmarkCell", for: indexPath)
+        cell.backgroundColor = .red
+        return cell
+    }
+    
+    
 }

@@ -11,8 +11,8 @@ import Alamofire
 
 class ArticleDetailViewController: UIViewController {
     
-    var articles: NewsSource.Article?
-    var listArticle: [NewsSource.Article] = []
+    var articles: NewsSource.ArticleRepresentation?
+    var bookmarkedArticles: [NewsSource.ArticleRepresentation] = []
     var socialMediaButtons: CGFloat = 30
     var gradientView = CAGradientLayer()
     
@@ -175,6 +175,7 @@ class ArticleDetailViewController: UIViewController {
     }
     
     @objc func bookmarkArticleTapped() {
+        
     }
     
     private func addGradientDetail() {

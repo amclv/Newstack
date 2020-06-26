@@ -9,9 +9,9 @@ import Foundation
 
 struct NewsSource: Decodable {
     let status: String?
-    let articles: [Article]
+    let articles: [ArticleRepresentation]
     
-    struct Article: Decodable {
+    struct ArticleRepresentation: Decodable {
         let source: Source
         let author: String?
         let title: String?
