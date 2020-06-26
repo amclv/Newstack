@@ -8,22 +8,22 @@
 import UIKit
 
 class BookmarkViewController: UIViewController {
+    
+    let bookmarkTableView = UITableView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
-        // Do any additional setup after loading the view.
+        setupTableView()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setupTableView() {
+        bookmarkTableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bookmarkTableView)
+        NSLayoutConstraint.activate([
+            bookmarkTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            bookmarkTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bookmarkTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            bookmarkTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
-    */
-
 }

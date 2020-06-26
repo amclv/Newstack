@@ -27,7 +27,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let tabBar = UITabBarController()
             window?.rootViewController = tabBar
             tabBar.viewControllers = [bookmark, home, settings]
-            tabBar.selectedIndex = 1
+            tabBar.selectedIndex = 2
+            tabBar.tabBar.barTintColor = .black
             window?.makeKeyAndVisible()
         }
     }

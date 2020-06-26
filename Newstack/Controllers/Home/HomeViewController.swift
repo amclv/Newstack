@@ -86,7 +86,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController {
     func fetchEverything() {
-        let everythingURL = AF.request("https://newsapi.org/v2/everything?q=trump&apiKey=569bbdc4ab8c42af93e505b90149e026")
+        let everythingURL = AF.request("https://newsapi.org/v2/everything?q=a&apiKey=9eca91b2275d4214bd7f6b88f726f3df")
             .validate()
         everythingURL.responseDecodable(of: NewsSource.self) { (response) in
             guard let articles = response.value else { return }
@@ -96,7 +96,7 @@ extension HomeViewController {
     }
     
     func fetchHeadlines() {
-        let headlineURL = AF.request("https://newsapi.org/v2/top-headlines?country=us&apiKey=569bbdc4ab8c42af93e505b90149e026")
+        let headlineURL = AF.request("https://newsapi.org/v2/top-headlines?country=us&apiKey=9eca91b2275d4214bd7f6b88f726f3df")
             .validate()
         headlineURL.responseDecodable(of: NewsSource.self) { (response) in
             guard let headlineArticles = response.value else { return }
@@ -107,9 +107,9 @@ extension HomeViewController {
     
     func setupSubviews() {
         secondHStack.addArrangedSubview(secondNewsTitle)
-        view.addSubview(everythingCollectionView)
         view.addSubview(headlineCollectionView)
         view.addSubview(secondHStack)
+        view.addSubview(everythingCollectionView)
     }
 
     func setupConstraints() {
@@ -125,7 +125,7 @@ extension HomeViewController {
             
             everythingCollectionView.topAnchor.constraint(equalTo: secondHStack.bottomAnchor, constant: 20),
             everythingCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            everythingCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            everythingCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
             everythingCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
     }
@@ -158,6 +158,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let url = URL(string: "\(article.urlToImage!)")
             let data = try? Data(contentsOf: url!)
             everythingCell.articleImage.image = UIImage(data: data!)
+            everythingCell.layoutIfNeeded()
             return everythingCell
         }
     }
