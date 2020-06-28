@@ -5,4 +5,9 @@
 //  Created by Aaron Cleveland on 6/26/20.
 //
 
-import Foundation
+import CoreData
+
+extension Article {
+    
+}
+

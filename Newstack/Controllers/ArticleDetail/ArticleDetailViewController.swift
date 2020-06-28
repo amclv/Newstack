@@ -171,11 +171,11 @@ class ArticleDetailViewController: UIViewController {
     }
     
     @objc func backButtonTapped() {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     @objc func bookmarkArticleTapped() {
-        
+        dismiss(animated: true, completion: nil)
     }
     
     private func addGradientDetail() {

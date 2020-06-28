@@ -145,7 +145,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let headlineArt = headlineArticle[indexPath.item]
             headlineCell.headlineTitle.text = headlineArt.title
             headlineCell.headlineAuthor.text = headlineArt.author
-            let url = URL(string: "\(headlineArt.urlToImage!)")
+            let url = URL(string: "\(headlineArt.urlToImage ?? URL.init(string: "aaroncleveland.com"))")
             if let data = try? Data(contentsOf: url!) {
                 headlineCell.headlineImage.image = UIImage(data: data)
             } else {
