@@ -32,7 +32,7 @@ class EverythingCollectionViewCell: UICollectionViewCell {
         articleTitle.numberOfLines = 0
         return articleTitle
     }()
-
+    
     let articleDate: UILabel = {
         let articleDate = UILabel()
         articleDate.translatesAutoresizingMaskIntoConstraints = false

@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Alamofire
 
 class HomeViewController: UIViewController {
     
@@ -62,20 +61,20 @@ class HomeViewController: UIViewController {
         cv.showsVerticalScrollIndicator = false
         return cv
     }()
+    
+    let networkManager = NetworkingManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         headlineCollectionView.delegate = self
         headlineCollectionView.dataSource = self
-        
         everythingCollectionView.delegate = self
         everythingCollectionView.dataSource = self
+        networkManager.getHeadlines()
         setupNavigationController()
         setupSubviews()
         setupConstraints()
-        fetchEverything()
-        fetchHeadlines()
     }
     
     func setupNavigationController() {
@@ -85,26 +84,6 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController {
-    func fetchEverything() {
-        let everythingURL = AF.request("https://newsapi.org/v2/everything?q=a&apiKey=9eca91b2275d4214bd7f6b88f726f3df")
-            .validate()
-        everythingURL.responseDecodable(of: NewsSource.self) { (response) in
-            guard let articles = response.value else { return }
-            self.articles = articles.articles
-            self.everythingCollectionView.reloadData()
-        }
-    }
-    
-    func fetchHeadlines() {
-        let headlineURL = AF.request("https://newsapi.org/v2/top-headlines?country=us&apiKey=9eca91b2275d4214bd7f6b88f726f3df")
-            .validate()
-        headlineURL.responseDecodable(of: NewsSource.self) { (response) in
-            guard let headlineArticles = response.value else { return }
-            self.headlineArticle = headlineArticles.articles
-            self.headlineCollectionView.reloadData()
-        }
-    }
-    
     func setupSubviews() {
         secondHStack.addArrangedSubview(secondNewsTitle)
         view.addSubview(headlineCollectionView)
