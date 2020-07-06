@@ -11,7 +11,12 @@ class HeadlineCollectionViewCell: UICollectionViewCell {
     
     static var identifier: String = "headlineCell"
     
-    var headlineArticle: [NewsSource.ArticleRepresentation] = []
+    var newsFeed: Article? {
+        didSet {
+            updateViews()
+        }
+    }
+    
     var gradient = CAGradientLayer()
     
     let headlineTitle = CustomLabel(style: .collectionTitle, text: "")
@@ -54,6 +59,11 @@ class HeadlineCollectionViewCell: UICollectionViewCell {
         gradient.frame = headlineImage.bounds
         gradient.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
         headlineImage.layer.insertSublayer(gradient, at: 0)
+    }
+    
+    func updateViews() {
+        guard let newsFeed = newsFeed else { return }
+        headlineTitle.text = newsFeed.title
     }
 }
 

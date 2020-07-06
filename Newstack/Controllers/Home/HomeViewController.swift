@@ -9,15 +9,17 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    var articles = [NewsSource.ArticleRepresentation]()
-    var headlineArticle = [NewsSource.ArticleRepresentation]()
-    var selectedArticle: NewsSource.ArticleRepresentation?
+    //    var articles = [NewsFeed.ArticleRepresentation]()
+    //    var headlineArticle = [NewsFeed.ArticleRepresentation]()
+    //    var selectedArticle: NewsFeed.ArticleRepresentation?
+    
+    private let networkManager = NetworkingManager()
     
     //=======================
     // MARK: - Properties
     let mainNewsTitle = CustomLabel(style: .header, text: "Headlines")
     let secondNewsTitle = CustomLabel(style: .header, text: "Everything")
-
+    
     //=======================
     // MARK: - Computed Properties
     let mainHStack: UIStackView = {
@@ -26,7 +28,7 @@ class HomeViewController: UIViewController {
         mainHStack.axis = .horizontal
         return mainHStack
     }()
-
+    
     let secondHStack: UIStackView = {
         let secondHStack = UIStackView()
         secondHStack.translatesAutoresizingMaskIntoConstraints = false
@@ -56,14 +58,12 @@ class HomeViewController: UIViewController {
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(EverythingCollectionViewCell.self, forCellWithReuseIdentifier: "everythingCell")
+//        cv.register(EverythingCollectionViewCell.self, forCellWithReuseIdentifier: "everythingCell")
         cv.backgroundColor = .systemBackground
         cv.showsVerticalScrollIndicator = false
         return cv
     }()
     
-    let networkManager = NetworkingManager()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -71,7 +71,7 @@ class HomeViewController: UIViewController {
         headlineCollectionView.dataSource = self
         everythingCollectionView.delegate = self
         everythingCollectionView.dataSource = self
-        networkManager.getHeadlines()
+        headlineCollectionView.reloadData()
         setupNavigationController()
         setupSubviews()
         setupConstraints()
@@ -90,14 +90,14 @@ extension HomeViewController {
         view.addSubview(secondHStack)
         view.addSubview(everythingCollectionView)
     }
-
+    
     func setupConstraints() {
         NSLayoutConstraint.activate([
             headlineCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             headlineCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             headlineCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             headlineCollectionView.heightAnchor.constraint(equalToConstant: 300),
-
+            
             secondHStack.topAnchor.constraint(equalTo: headlineCollectionView.bottomAnchor, constant: 20),
             secondHStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             secondHStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -112,67 +112,25 @@ extension HomeViewController {
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if headlineCollectionView == self.headlineCollectionView {
-            return headlineArticle.count
-        }
-        return articles.count
+        print(networkManager.headlineArticle.count)
+        return networkManager.headlineArticle.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == headlineCollectionView {
-            let headlineCell = collectionView.dequeueReusableCell(withReuseIdentifier: "headlineCell", for: indexPath) as! HeadlineCollectionViewCell
-            let headlineArt = headlineArticle[indexPath.item]
-            headlineCell.headlineTitle.text = headlineArt.title
-            headlineCell.headlineAuthor.text = headlineArt.author
-            let url = URL(string: "\(headlineArt.urlToImage ?? URL.init(string: "aaroncleveland.com"))")
-            if let data = try? Data(contentsOf: url!) {
-                headlineCell.headlineImage.image = UIImage(data: data)
-            } else {
-                headlineCell.headlineImage.image = UIImage(systemName: "xmark.seal")?.withTintColor(.systemRed)
-            }
-            headlineCell.layoutIfNeeded()
-            return headlineCell
+        let headlineCell = collectionView.dequeueReusableCell(withReuseIdentifier: "headlineCell", for: indexPath) as! HeadlineCollectionViewCell
+        let headlineArt = networkManager.headlineArticle[indexPath.item]
+        headlineCell.headlineTitle.text = headlineArt.title
+        let url = URL(string: "\(headlineArt.urlToImage)")
+        if let data = try? Data(contentsOf: url!) {
+            headlineCell.headlineImage.image = UIImage(data: data)
         } else {
-            let everythingCell = collectionView.dequeueReusableCell(withReuseIdentifier: "everythingCell", for: indexPath) as! EverythingCollectionViewCell
-            let article = articles[indexPath.item]
-            everythingCell.articleTitle.text = article.title
-            everythingCell.articleDate.text = article.formattedDate
-            let url = URL(string: "\(article.urlToImage!)")
-            if let data = try? Data(contentsOf: url!) {
-                everythingCell.articleImage.image = UIImage(data: data)
-            } else {
-                everythingCell.articleImage.image = UIImage(systemName: "xmark.seal")?.withTintColor(.systemRed)
-            }
-            everythingCell.layoutIfNeeded()
-            return everythingCell
+            headlineCell.headlineImage.image = UIImage(systemName: "xmark.seal")?.withTintColor(.systemRed)
         }
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let vc: ArticleDetailViewController = ArticleDetailViewController()
-        selectedArticle = headlineArticle[indexPath.item]
-        guard let url = selectedArticle?.urlToImage else { return }
-        vc.articleTitle.text = selectedArticle?.title
-        vc.articleDate.text = selectedArticle?.formattedDate
-        vc.articleDetail.text = selectedArticle?.content ?? "No Content"
-        vc.articleAuthorName.text = selectedArticle?.author ?? "No Author"
-        vc.articleAuthorPaper.text = selectedArticle?.source.name ?? "No Source"
-        if let data = try? Data(contentsOf: url) {
-            vc.topViewBackgroundImage.image = UIImage(data: data)
-        } else {
-            vc.topViewBackgroundImage.image = UIImage(systemName: "xmark.seal")?.withTintColor(.systemRed)
-        }
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        headlineCell.layoutIfNeeded()
+        return headlineCell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 250, height: 150)
-    }
-}
-
-extension HomeViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
     }
 }

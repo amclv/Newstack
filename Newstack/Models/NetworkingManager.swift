@@ -22,6 +22,8 @@ class NetworkingManager {
     
     let secretAPIKey = URLQueryItem(name: "apiKey", value: "569bbdc4ab8c42af93e505b90149e026")
     
+    var headlineArticle: [Article] = []
+    
 //    let search = URLQueryItem(name: "q", value: "uber")
 //    let fromDate = URLQueryItem(name: "from", value: "2018-07-14")  // needs to be converted to Date
 //    let toDate = URLQueryItem(name: "to", value: "2018-07-17") // needs to be converted to Date
@@ -37,22 +39,23 @@ class NetworkingManager {
         request.httpMethod = HTTPMethod.get.rawValue
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
-            print(request.url)
             if let error = error {
-                print("An error occured", error)
+                print("Error fetching data: \(error)")
                 return
             }
             
-            if let data = data {
-                do {
-                    if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                        print("json", json)
-                    }
-                } catch let error {
-                    print("Couldn't parse data into JSON", error)
-                }
+            guard let data = data else {
+                print("No data returned from data task")
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let getHeadline = try decoder.decode(Article.self, from: data)
+                self.headlineArticle.append(getHeadline.self)
+            } catch {
+                print("Unable to decode data into object of type [NewsFeed]: \(error)")
             }
         }.resume()
     }
-    
 }

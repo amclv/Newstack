@@ -7,12 +7,11 @@
 
 import Foundation
 import UIKit
-import Alamofire
 
 class ArticleDetailViewController: UIViewController {
     
-    var articles: NewsSource.ArticleRepresentation?
-    var bookmarkedArticles: [NewsSource.ArticleRepresentation] = []
+    var articles: NewsFeed?
+    var bookmarkedArticles: [NewsFeed] = []
     var socialMediaButtons: CGFloat = 30
     var gradientView = CAGradientLayer()
     
