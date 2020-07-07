@@ -23,6 +23,7 @@
 		1A865F6C24B379AC004B547C /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A865F6B24B379AC004B547C /* Article.swift */; };
 		1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */; };
 		1AB4DEF924A99D710047D688 /* TestUIStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB4DEF824A99D710047D688 /* TestUIStyle.swift */; };
+		1ABEE19E24B4CD4300F46B02 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABEE19D24B4CD4300F46B02 /* PinterestLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		1A865F6B24B379AC004B547C /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		1AB4DEF824A99D710047D688 /* TestUIStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUIStyle.swift; sourceTree = "<group>"; };
+		1ABEE19D24B4CD4300F46B02 /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +121,7 @@
 				1A244A5624A4F84D0091518D /* Views */,
 				1A244A5824A4F85A0091518D /* Controllers */,
 				1A244A5524A4F7E00091518D /* Resources */,
+				1ABEE19D24B4CD4300F46B02 /* PinterestLayout.swift */,
 			);
 			path = Newstack;
 			sourceTree = "<group>";
@@ -381,6 +384,7 @@
 				1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */,
 				1A244A2824A4F7960091518D /* SceneDelegate.swift in Sources */,
 				1A244A6124A4F8C00091518D /* SettingsViewController.swift in Sources */,
+				1ABEE19E24B4CD4300F46B02 /* PinterestLayout.swift in Sources */,
 				1A5AC9CB24A505E30030A43A /* HeadlineCollectionViewCell.swift in Sources */,
 				1AB4DEF924A99D710047D688 /* TestUIStyle.swift in Sources */,
 				1A244A5A24A4F8800091518D /* HomeViewController.swift in Sources */,

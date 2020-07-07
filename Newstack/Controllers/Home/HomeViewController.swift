@@ -10,6 +10,7 @@ import UIKit
 class HomeViewController: UIViewController {
     
     private let networkManager = NetworkingManager()
+    var images = [UIImage]()
     
     //=======================
     // MARK: - Properties
@@ -34,15 +35,15 @@ class HomeViewController: UIViewController {
     let headlineCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 375, height: 250)
-        layout.minimumLineSpacing = 20
-        layout.minimumInteritemSpacing = 0
+        layout.itemSize = CGSize(width: 200, height: 300)
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 10
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.register(HeadlineCollectionViewCell.self, forCellWithReuseIdentifier: HeadlineCollectionViewCell.identifier)
         cv.backgroundColor = .systemBackground
-        cv.showsHorizontalScrollIndicator = false
+        cv.showsVerticalScrollIndicator = false
         return cv
     }()
     
@@ -78,8 +79,8 @@ extension HomeViewController {
     func setupConstraints() {
         NSLayoutConstraint.activate([
             headlineCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            headlineCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            headlineCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            headlineCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
+            headlineCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
             headlineCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
@@ -92,7 +93,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadlineCollectionViewCell.identifier, for: indexPath) as? HeadlineCollectionViewCell else { return UICollectionViewCell() }
-
+        
         let newArticle = networkManager.myFeed[indexPath.item]
         cell.article = newArticle
         
@@ -100,18 +101,19 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         networkManager.fetchImage(imageURL: url) { (data) in
             guard let newImage = UIImage(data: data) else { return }
             cell.headlineImage.image = newImage
+            self.images.append(newImage)
         }
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let itemWidth = collectionView.bounds.width
-            let itemHeight = collectionView.bounds.height
-            return CGSize(width: itemWidth, height: itemHeight)
     }
     
 //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        guard let article = networkManager.myFeed[indexPath.item]
 //    }
 
+}
+
+extension HomeViewController: PinterestLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
 }
