@@ -17,7 +17,6 @@
 		1A244A5E24A4F8AA0091518D /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A5D24A4F8AA0091518D /* BookmarkViewController.swift */; };
 		1A244A6124A4F8C00091518D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A6024A4F8C00091518D /* SettingsViewController.swift */; };
 		1A5AC9CB24A505E30030A43A /* HeadlineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9CA24A505E30030A43A /* HeadlineCollectionViewCell.swift */; };
-		1A5AC9CD24A5060C0030A43A /* NewsFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9CC24A5060C0030A43A /* NewsFeed.swift */; };
 		1A5AC9D324A506A50030A43A /* UILabel+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D224A506A50030A43A /* UILabel+Style.swift */; };
 		1A5AC9D624A506EA0030A43A /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D524A506EA0030A43A /* ArticleDetailViewController.swift */; };
 		1A5AC9D824A507190030A43A /* UIButton+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D724A507190030A43A /* UIButton+Style.swift */; };
@@ -60,7 +59,6 @@
 		1A244A5D24A4F8AA0091518D /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		1A244A6024A4F8C00091518D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1A5AC9CA24A505E30030A43A /* HeadlineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineCollectionViewCell.swift; sourceTree = "<group>"; };
-		1A5AC9CC24A5060C0030A43A /* NewsFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeed.swift; sourceTree = "<group>"; };
 		1A5AC9D224A506A50030A43A /* UILabel+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Style.swift"; sourceTree = "<group>"; };
 		1A5AC9D524A506EA0030A43A /* ArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewController.swift; sourceTree = "<group>"; };
 		1A5AC9D724A507190030A43A /* UIButton+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Style.swift"; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 			isa = PBXGroup;
 			children = (
 				1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */,
-				1A5AC9CC24A5060C0030A43A /* NewsFeed.swift */,
 				1A865F6B24B379AC004B547C /* Article.swift */,
 			);
 			path = Models;
@@ -384,7 +381,6 @@
 				1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */,
 				1A244A2824A4F7960091518D /* SceneDelegate.swift in Sources */,
 				1A244A6124A4F8C00091518D /* SettingsViewController.swift in Sources */,
-				1A5AC9CD24A5060C0030A43A /* NewsFeed.swift in Sources */,
 				1A5AC9CB24A505E30030A43A /* HeadlineCollectionViewCell.swift in Sources */,
 				1AB4DEF924A99D710047D688 /* TestUIStyle.swift in Sources */,
 				1A244A5A24A4F8800091518D /* HomeViewController.swift in Sources */,

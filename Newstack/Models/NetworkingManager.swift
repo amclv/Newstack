@@ -14,48 +14,44 @@ enum HTTPMethod: String {
     case delete = "DELETE"
 }
 
+enum SortOptions: String {
+    case relevancy // articles more closely related to q come first.
+    case popularity // articles from popular sources and publishers come first.
+    case publishedAt // newest articles come first.
+}
+
 class NetworkingManager {
     
-    var topHeadlinesURL = URLComponents(string:"https://newsapi.org/v2/top-headlines?")!
-    var everythingURL = URLComponents(string: "https://newsapi.org/v2/everything?")
-    var sourcesURL = URL(string: "https://newsapi.org/v2/sources?") // convenience endpoint for tracking publishers
+    var myFeed: [NewsSource.Article] = []
+    let url = URL(string: "https://newsapi.org/v2/everything?q=trump&apiKey=569bbdc4ab8c42af93e505b90149e026")
     
-    let secretAPIKey = URLQueryItem(name: "apiKey", value: "569bbdc4ab8c42af93e505b90149e026")
-    
-    var headlineArticle: [Article] = []
-    
-//    let search = URLQueryItem(name: "q", value: "uber")
-//    let fromDate = URLQueryItem(name: "from", value: "2018-07-14")  // needs to be converted to Date
-//    let toDate = URLQueryItem(name: "to", value: "2018-07-17") // needs to be converted to Date
-//    let sortBy = URLQueryItem(name: "sortBy", value: SortOptions.publishedAt.rawValue) //should be an enum with options
-//    let language = URLQueryItem(name: "language", value: "en")
-    let country = URLQueryItem(name: "country", value: "us")
-//    let sourcesName = URLQueryItem(name: "sources", value: "bbc-news")
-    
-    func getHeadlines() {
-        topHeadlinesURL.queryItems?.append(country)
-        topHeadlinesURL.queryItems?.append(secretAPIKey)
-        var request = URLRequest(url: topHeadlinesURL.url!)
-        request.httpMethod = HTTPMethod.get.rawValue
+    func fetchNews(completionHandler: @escaping () -> Void) {
+        let request = URLRequest(url: url!)
         
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                print("Error fetching data: \(error)")
-                return
-            }
-            
-            guard let data = data else {
-                print("No data returned from data task")
-                return
-            }
-            
+        URLSession.shared.dataTask(with: request) { (data, _, _) in
             let decoder = JSONDecoder()
             do {
-                let getHeadline = try decoder.decode(Article.self, from: data)
-                self.headlineArticle.append(getHeadline.self)
+                let source = try decoder.decode(NewsSource.self, from: data!)
+                let articles = source.articles
+                self.myFeed = articles
+                DispatchQueue.main.async {
+                    completionHandler()
+                }
             } catch {
-                print("Unable to decode data into object of type [NewsFeed]: \(error)")
+                print("Error decoding: \(error)")
+            }
+        }.resume()
+    }
+    
+    func fetchImage(imageURL: URL, completionHandler: @escaping (Data) -> Void) {
+        let imageRequest = URLRequest(url: imageURL)
+        
+        URLSession.shared.dataTask(with: imageRequest) { (data, _, _) in
+            guard let data = data else { return }
+            DispatchQueue.main.async {
+                completionHandler(data)                
             }
         }.resume()
     }
 }
+

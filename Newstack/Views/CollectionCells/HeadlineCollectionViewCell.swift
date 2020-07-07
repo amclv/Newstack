@@ -11,7 +11,7 @@ class HeadlineCollectionViewCell: UICollectionViewCell {
     
     static var identifier: String = "headlineCell"
     
-    var newsFeed: Article? {
+    var article: NewsSource.Article? {
         didSet {
             updateViews()
         }
@@ -62,8 +62,8 @@ class HeadlineCollectionViewCell: UICollectionViewCell {
     }
     
     func updateViews() {
-        guard let newsFeed = newsFeed else { return }
-        headlineTitle.text = newsFeed.title
+        self.headlineTitle.text = article?.title
+        self.headlineAuthor.text = article?.author
     }
 }
 

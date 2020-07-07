@@ -9,16 +9,11 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    //    var articles = [NewsFeed.ArticleRepresentation]()
-    //    var headlineArticle = [NewsFeed.ArticleRepresentation]()
-    //    var selectedArticle: NewsFeed.ArticleRepresentation?
-    
     private let networkManager = NetworkingManager()
     
     //=======================
     // MARK: - Properties
     let mainNewsTitle = CustomLabel(style: .header, text: "Headlines")
-    let secondNewsTitle = CustomLabel(style: .header, text: "Everything")
     
     //=======================
     // MARK: - Computed Properties
@@ -38,29 +33,15 @@ class HomeViewController: UIViewController {
     
     let headlineCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = .vertical
         layout.itemSize = CGSize(width: 300, height: 300)
         layout.minimumLineSpacing = 30
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(HeadlineCollectionViewCell.self, forCellWithReuseIdentifier: "headlineCell")
+        cv.register(HeadlineCollectionViewCell.self, forCellWithReuseIdentifier: HeadlineCollectionViewCell.identifier)
         cv.backgroundColor = .systemBackground
         cv.showsHorizontalScrollIndicator = false
-        return cv
-    }()
-    
-    let everythingCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 180, height: 200)
-        layout.minimumLineSpacing = 10
-        
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.translatesAutoresizingMaskIntoConstraints = false
-//        cv.register(EverythingCollectionViewCell.self, forCellWithReuseIdentifier: "everythingCell")
-        cv.backgroundColor = .systemBackground
-        cv.showsVerticalScrollIndicator = false
         return cv
     }()
     
@@ -69,9 +50,9 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .systemBackground
         headlineCollectionView.delegate = self
         headlineCollectionView.dataSource = self
-        everythingCollectionView.delegate = self
-        everythingCollectionView.dataSource = self
-        headlineCollectionView.reloadData()
+        networkManager.fetchNews {
+            self.updateViews()
+        }
         setupNavigationController()
         setupSubviews()
         setupConstraints()
@@ -81,14 +62,16 @@ class HomeViewController: UIViewController {
         self.navigationItem.title = "Headlines"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
+    
+    func updateViews() {
+        print(networkManager.myFeed)
+        headlineCollectionView.reloadData()
+    }
 }
 
 extension HomeViewController {
     func setupSubviews() {
-        secondHStack.addArrangedSubview(secondNewsTitle)
         view.addSubview(headlineCollectionView)
-        view.addSubview(secondHStack)
-        view.addSubview(everythingCollectionView)
     }
     
     func setupConstraints() {
@@ -96,41 +79,33 @@ extension HomeViewController {
             headlineCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             headlineCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             headlineCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            headlineCollectionView.heightAnchor.constraint(equalToConstant: 300),
-            
-            secondHStack.topAnchor.constraint(equalTo: headlineCollectionView.bottomAnchor, constant: 20),
-            secondHStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            secondHStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
-            everythingCollectionView.topAnchor.constraint(equalTo: secondHStack.bottomAnchor, constant: 20),
-            everythingCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            everythingCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
-            everythingCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            headlineCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
         ])
     }
 }
 
-extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(networkManager.headlineArticle.count)
-        return networkManager.headlineArticle.count
+        print(networkManager.myFeed.count)
+        return networkManager.myFeed.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let headlineCell = collectionView.dequeueReusableCell(withReuseIdentifier: "headlineCell", for: indexPath) as! HeadlineCollectionViewCell
-        let headlineArt = networkManager.headlineArticle[indexPath.item]
-        headlineCell.headlineTitle.text = headlineArt.title
-        let url = URL(string: "\(headlineArt.urlToImage)")
-        if let data = try? Data(contentsOf: url!) {
-            headlineCell.headlineImage.image = UIImage(data: data)
-        } else {
-            headlineCell.headlineImage.image = UIImage(systemName: "xmark.seal")?.withTintColor(.systemRed)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadlineCollectionViewCell.identifier, for: indexPath) as? HeadlineCollectionViewCell else { return UICollectionViewCell() }
+
+        let newArticle = networkManager.myFeed[indexPath.item]
+        cell.article = newArticle
+        
+        guard let url = newArticle.urlToImage else { return UICollectionViewCell() }
+        networkManager.fetchImage(imageURL: url) { (data) in
+            guard let newImage = UIImage(data: data) else { return }
+            cell.headlineImage.image = newImage
         }
-        headlineCell.layoutIfNeeded()
-        return headlineCell
+        return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 250, height: 150)
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let article = networkManager.myFeed[indexPath.item]
     }
+
 }
