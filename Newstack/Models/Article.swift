@@ -9,7 +9,6 @@ import Foundation
 
 struct NewsSource: Codable {
     let status: String?
-    let totalResults: Int?
     let articles: [Article]
     
     struct Article: Codable {
@@ -19,7 +18,6 @@ struct NewsSource: Codable {
         let description: String?
         let url: URL?
         let urlToImage: URL?
-        let publishedAt: String?
         
         var formattedDate: String {
             guard let publishedAt = publishedAt else { return "" }
@@ -33,15 +31,12 @@ struct NewsSource: Codable {
             return dateString
         }
         
+        let publishedAt: String?
+        let content: String?
+        
         struct Source: Codable {
             let id: String?
             let name: String?
         }
-    }
-    
-    private enum CodingKeys: String, CodingKey {
-        case status
-        case totalResults
-        case articles
     }
 }

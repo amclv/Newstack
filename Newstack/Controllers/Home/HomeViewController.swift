@@ -59,7 +59,7 @@ class HomeViewController: UIViewController {
     }
     
     func setupNavigationController() {
-        self.navigationItem.title = "Headlines"
+        self.navigationItem.title = "Newstack"
         navigationController?.navigationBar.prefersLargeTitles = true
     }
     
@@ -104,8 +104,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let article = networkManager.myFeed[indexPath.item]
-    }
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        guard let article = networkManager.myFeed[indexPath.item]
+//    }
 
 }

@@ -10,8 +10,6 @@ import UIKit
 
 class ArticleDetailViewController: UIViewController {
     
-    var articles: NewsSource.ArticleRepresentation?
-    var bookmarkedArticles: [NewsSource.ArticleRepresentation] = []
     var socialMediaButtons: CGFloat = 30
     var gradientView = CAGradientLayer()
     
