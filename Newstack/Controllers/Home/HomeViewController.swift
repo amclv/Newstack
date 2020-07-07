@@ -34,8 +34,9 @@ class HomeViewController: UIViewController {
     let headlineCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 300, height: 300)
-        layout.minimumLineSpacing = 30
+        layout.itemSize = CGSize(width: 375, height: 250)
+        layout.minimumLineSpacing = 20
+        layout.minimumInteritemSpacing = 0
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
@@ -76,17 +77,16 @@ extension HomeViewController {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            headlineCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            headlineCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            headlineCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            headlineCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20),
+            headlineCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            headlineCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            headlineCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            headlineCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(networkManager.myFeed.count)
         return networkManager.myFeed.count
     }
 
@@ -102,6 +102,12 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.headlineImage.image = newImage
         }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            let itemWidth = collectionView.bounds.width
+            let itemHeight = collectionView.bounds.height
+            return CGSize(width: itemWidth, height: itemHeight)
     }
     
 //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

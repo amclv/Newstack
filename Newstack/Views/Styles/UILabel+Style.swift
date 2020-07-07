@@ -71,10 +71,10 @@ class CustomLabel: UILabel {
             
             // collectionView
         case .collectionTitle:
-            font = .systemFont(ofSize: 20, weight: .semibold)
+            font = .systemFont(ofSize: 14, weight: .semibold)
             textColor = .white
         case .collectionAuthor:
-            font = .systemFont(ofSize: 14, weight: .light)
+            font = .systemFont(ofSize: 12, weight: .light)
             textColor = .white
         default:
             break
