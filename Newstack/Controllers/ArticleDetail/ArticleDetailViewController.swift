@@ -12,26 +12,19 @@ class ArticleDetailViewController: UIViewController {
     
     var socialMediaButtons: CGFloat = 30
     var gradientView = CAGradientLayer()
+    var activityViewController: UIActivityViewController?
     
     let articleDate = CustomLabel(style: .detailDate, text: "")
     let articleTitle = CustomLabel(style: .detailTitle, text: "")
     let articleDetail = CustomLabel(style: .detailContent, text: "")
     let articleAuthorName = CustomLabel(style: .detailAuthor, text: "")
     let articleAuthorPaper = CustomLabel(style: .detailPaper, text: "")
+    var articleURL: [URL] = []
     
-    let facebookButton: CustomButton = {
-        let facebookButton = CustomButton(style: .socialMedia)
-        facebookButton.setImage(UIImage(named: "facebook")?.scaled(to: 15), for: .normal)
-        return facebookButton
-    }()
-    let twitterButton: CustomButton = {
-        let twitterButton = CustomButton(style: .socialMedia)
-        twitterButton.setImage(UIImage(named: "twitter")?.scaled(to: 15), for: .normal)
-        return twitterButton
-    }()
     let shareButton: CustomButton = {
         let shareButton = CustomButton(style: .socialMedia)
         shareButton.setImage(UIImage(named: "share")?.scaled(to: 15), for: .normal)
+        shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         return shareButton
     }()
     
@@ -52,7 +45,7 @@ class ArticleDetailViewController: UIViewController {
     
     let bookmarkButton: CustomButton = {
         let bookButton = CustomButton(style: .bookButton)
-        bookButton.setImage(UIImage(systemName: "bookmark")?.scaled(to: 35)?.withTintColor(.white, renderingMode: .alwaysOriginal), for: .normal)
+        bookButton.setImage(UIImage(systemName: "bookmark")?.scaled(to: 35)?.withTintColor(.clear, renderingMode: .alwaysOriginal), for: .normal)
         bookButton.addTarget(self, action: #selector(bookmarkArticleTapped), for: .touchUpInside)
         return bookButton
     }()
@@ -130,7 +123,6 @@ class ArticleDetailViewController: UIViewController {
         articleDetailVStack.spacing = 10
         return articleDetailVStack
     }()
-    
 
     let authorDetailHStack: UIStackView = {
         let authorHStack = UIStackView()
@@ -175,6 +167,11 @@ class ArticleDetailViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @objc func shareButtonTapped() {
+        activityViewController = UIActivityViewController(activityItems: [], applicationActivities: nil)
+        present(activityViewController!, animated: true, completion: nil)
+    }
+    
     private func addGradientDetail() {
         gradientView.frame = topViewBackgroundImage.bounds
         gradientView.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
@@ -210,8 +207,6 @@ extension ArticleDetailViewController {
         topView.addSubview(topButtons)
         topView.addSubview(articleDetailVStack)
 
-        socialMediaHStack.addArrangedSubview(facebookButton)
-        socialMediaHStack.addArrangedSubview(twitterButton)
         socialMediaHStack.addArrangedSubview(shareButton)
         socialMediaHStack.addArrangedSubview(blankView)
 
@@ -265,10 +260,6 @@ extension ArticleDetailViewController {
             socialMediaHStack.leadingAnchor.constraint(equalTo: formContentStack.leadingAnchor),
             socialMediaHStack.widthAnchor.constraint(equalToConstant: 100),
 
-            facebookButton.widthAnchor.constraint(equalToConstant: socialMediaButtons),
-            facebookButton.heightAnchor.constraint(equalTo: facebookButton.widthAnchor),
-            twitterButton.widthAnchor.constraint(equalToConstant: socialMediaButtons),
-            twitterButton.heightAnchor.constraint(equalTo: twitterButton.widthAnchor),
             shareButton.widthAnchor.constraint(equalToConstant: socialMediaButtons),
             shareButton.heightAnchor.constraint(equalTo: shareButton.widthAnchor),
 

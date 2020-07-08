@@ -10,6 +10,7 @@ import UIKit
 class HomeViewController: UIViewController {
     
     private let networkManager = NetworkingManager()
+    private let articleDetailVC = ArticleDetailViewController()
     var images = [UIImage]()
     
     //=======================
@@ -35,10 +36,10 @@ class HomeViewController: UIViewController {
     let headlineCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 200, height: 300)
+        layout.itemSize = CGSize(width: 190, height: 300)
         layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 10
-        
+        layout.minimumInteritemSpacing = 0
+
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.register(HeadlineCollectionViewCell.self, forCellWithReuseIdentifier: HeadlineCollectionViewCell.identifier)
@@ -46,7 +47,7 @@ class HomeViewController: UIViewController {
         cv.showsVerticalScrollIndicator = false
         return cv
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -55,6 +56,10 @@ class HomeViewController: UIViewController {
         networkManager.fetchNews {
             self.updateViews()
         }
+        if let layout = headlineCollectionView.collectionViewLayout as? PinterestLayout {
+            layout.delegate = self
+        }
+        headlineCollectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         setupNavigationController()
         setupSubviews()
         setupConstraints()
@@ -66,7 +71,6 @@ class HomeViewController: UIViewController {
     }
     
     func updateViews() {
-        print(networkManager.myFeed)
         headlineCollectionView.reloadData()
     }
 }
@@ -90,7 +94,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return networkManager.myFeed.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadlineCollectionViewCell.identifier, for: indexPath) as? HeadlineCollectionViewCell else { return UICollectionViewCell() }
         
@@ -106,14 +110,33 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        guard let article = networkManager.myFeed[indexPath.item]
-//    }
-
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc: ArticleDetailViewController = ArticleDetailViewController()
+        let selectedArticle = networkManager.myFeed[indexPath.item]
+        
+        guard let url = selectedArticle.urlToImage else { return }
+        let data = try? Data(contentsOf: url)
+        vc.articleTitle.text = selectedArticle.title
+        vc.articleDate.text = selectedArticle.formattedDate
+        vc.articleDetail.text = selectedArticle.content ?? "No Content"
+        vc.articleAuthorName.text = selectedArticle.author ?? "No Author"
+        vc.articleAuthorPaper.text = selectedArticle.source.name ?? "No Source"
+        vc.topViewBackgroundImage.image = UIImage(data: data!)
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
 }
 
 extension HomeViewController: PinterestLayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        return 200
+        var height: CGFloat = 0
+        let article = networkManager.myFeed[indexPath.item]
+        guard let url = article.urlToImage else { return 0 }
+        networkManager.fetchImage(imageURL: url) { (data) in
+            guard let newImage = UIImage(data: data) else { return }
+            height = newImage.size.height
+        }
+        return height
     }
 }
