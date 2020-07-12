@@ -16,6 +16,8 @@
 		1A244A5A24A4F8800091518D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A5924A4F8800091518D /* HomeViewController.swift */; };
 		1A244A5E24A4F8AA0091518D /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A5D24A4F8AA0091518D /* BookmarkViewController.swift */; };
 		1A244A6124A4F8C00091518D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A6024A4F8C00091518D /* SettingsViewController.swift */; };
+		1A3708F624BAB6BD0047419B /* EverythingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3708F524BAB6BD0047419B /* EverythingCollectionViewCell.swift */; };
+		1A3708F924BAB7A60047419B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3708F824BAB7A60047419B /* SearchViewController.swift */; };
 		1A5AC9CB24A505E30030A43A /* HeadlineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9CA24A505E30030A43A /* HeadlineCollectionViewCell.swift */; };
 		1A5AC9D324A506A50030A43A /* UILabel+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D224A506A50030A43A /* UILabel+Style.swift */; };
 		1A5AC9D624A506EA0030A43A /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D524A506EA0030A43A /* ArticleDetailViewController.swift */; };
@@ -23,7 +25,7 @@
 		1A865F6C24B379AC004B547C /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A865F6B24B379AC004B547C /* Article.swift */; };
 		1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */; };
 		1AB4DEF924A99D710047D688 /* TestUIStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB4DEF824A99D710047D688 /* TestUIStyle.swift */; };
-		1ABEE19E24B4CD4300F46B02 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABEE19D24B4CD4300F46B02 /* PinterestLayout.swift */; };
+		1ADC857124BAC52B008251C2 /* UIStackView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		1A244A5924A4F8800091518D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1A244A5D24A4F8AA0091518D /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		1A244A6024A4F8C00091518D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		1A3708F524BAB6BD0047419B /* EverythingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EverythingCollectionViewCell.swift; sourceTree = "<group>"; };
+		1A3708F824BAB7A60047419B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		1A5AC9CA24A505E30030A43A /* HeadlineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineCollectionViewCell.swift; sourceTree = "<group>"; };
 		1A5AC9D224A506A50030A43A /* UILabel+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Style.swift"; sourceTree = "<group>"; };
 		1A5AC9D524A506EA0030A43A /* ArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewController.swift; sourceTree = "<group>"; };
@@ -66,7 +70,7 @@
 		1A865F6B24B379AC004B547C /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		1AB4DEF824A99D710047D688 /* TestUIStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUIStyle.swift; sourceTree = "<group>"; };
-		1ABEE19D24B4CD4300F46B02 /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
+		1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Style.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,7 +125,6 @@
 				1A244A5624A4F84D0091518D /* Views */,
 				1A244A5824A4F85A0091518D /* Controllers */,
 				1A244A5524A4F7E00091518D /* Resources */,
-				1ABEE19D24B4CD4300F46B02 /* PinterestLayout.swift */,
 			);
 			path = Newstack;
 			sourceTree = "<group>";
@@ -177,6 +180,7 @@
 		1A244A5824A4F85A0091518D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1A3708F724BAB7930047419B /* Search */,
 				1A5AC9D424A506D70030A43A /* ArticleDetail */,
 				1A244A5F24A4F8B40091518D /* Settings */,
 				1A244A5C24A4F89E0091518D /* Bookmark */,
@@ -209,10 +213,19 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		1A3708F724BAB7930047419B /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				1A3708F824BAB7A60047419B /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
 		1A5AC9C924A505BD0030A43A /* CollectionCells */ = {
 			isa = PBXGroup;
 			children = (
 				1A5AC9CA24A505E30030A43A /* HeadlineCollectionViewCell.swift */,
+				1A3708F524BAB6BD0047419B /* EverythingCollectionViewCell.swift */,
 			);
 			path = CollectionCells;
 			sourceTree = "<group>";
@@ -223,6 +236,7 @@
 				1A5AC9D224A506A50030A43A /* UILabel+Style.swift */,
 				1A5AC9D724A507190030A43A /* UIButton+Style.swift */,
 				1AB4DEF824A99D710047D688 /* TestUIStyle.swift */,
+				1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */,
 			);
 			path = Styles;
 			sourceTree = "<group>";
@@ -382,9 +396,11 @@
 				1A244A2624A4F7960091518D /* AppDelegate.swift in Sources */,
 				1A5AC9D824A507190030A43A /* UIButton+Style.swift in Sources */,
 				1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */,
+				1A3708F624BAB6BD0047419B /* EverythingCollectionViewCell.swift in Sources */,
+				1ADC857124BAC52B008251C2 /* UIStackView+Style.swift in Sources */,
 				1A244A2824A4F7960091518D /* SceneDelegate.swift in Sources */,
+				1A3708F924BAB7A60047419B /* SearchViewController.swift in Sources */,
 				1A244A6124A4F8C00091518D /* SettingsViewController.swift in Sources */,
-				1ABEE19E24B4CD4300F46B02 /* PinterestLayout.swift in Sources */,
 				1A5AC9CB24A505E30030A43A /* HeadlineCollectionViewCell.swift in Sources */,
 				1AB4DEF924A99D710047D688 /* TestUIStyle.swift in Sources */,
 				1A244A5A24A4F8800091518D /* HomeViewController.swift in Sources */,
@@ -559,6 +575,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7G4A2JWWKQ;
 				INFOPLIST_FILE = "$(SRCROOT)/Newstack/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -578,6 +595,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7G4A2JWWKQ;
 				INFOPLIST_FILE = "$(SRCROOT)/Newstack/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -597,7 +615,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7G4A2JWWKQ;
 				INFOPLIST_FILE = NewstackTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -619,7 +637,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7G4A2JWWKQ;
 				INFOPLIST_FILE = NewstackTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -640,6 +658,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7G4A2JWWKQ;
 				INFOPLIST_FILE = NewstackUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -660,6 +679,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7G4A2JWWKQ;
 				INFOPLIST_FILE = NewstackUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

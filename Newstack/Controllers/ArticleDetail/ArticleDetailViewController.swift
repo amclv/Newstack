@@ -23,7 +23,7 @@ class ArticleDetailViewController: UIViewController {
     
     let shareButton: CustomButton = {
         let shareButton = CustomButton(style: .socialMedia)
-        shareButton.setImage(UIImage(named: "share")?.scaled(to: 15), for: .normal)
+        shareButton.setImage(UIImage(systemName: "square.and.arrow.up")?.scaled(to: 15), for: .normal)
         shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
         return shareButton
     }()

@@ -13,20 +13,13 @@ class HomeViewController: UIViewController {
     private let articleDetailVC = ArticleDetailViewController()
     var images = [UIImage]()
     
+    
     //=======================
-    // MARK: - Properties
+    // MARK: - Stored Properties
     let mainNewsTitle = CustomLabel(style: .header, text: "Headlines")
+    let secondaryNewsLabel = CustomLabel(style: .header, text: "Everything")
     
-    //=======================
-    // MARK: - Computed Properties
-    let mainHStack: UIStackView = {
-        let mainHStack = UIStackView()
-        mainHStack.translatesAutoresizingMaskIntoConstraints = false
-        mainHStack.axis = .horizontal
-        return mainHStack
-    }()
-    
-    let secondHStack: UIStackView = {
+    let secondaryHStack: UIStackView = {
         let secondHStack = UIStackView()
         secondHStack.translatesAutoresizingMaskIntoConstraints = false
         secondHStack.axis = .horizontal
@@ -35,31 +28,43 @@ class HomeViewController: UIViewController {
     
     let headlineCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 190, height: 300)
-        layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 0
-
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 300, height: 275)
+        layout.minimumLineSpacing = 20
+        
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.register(HeadlineCollectionViewCell.self, forCellWithReuseIdentifier: HeadlineCollectionViewCell.identifier)
+        cv.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
         cv.backgroundColor = .systemBackground
+        cv.showsHorizontalScrollIndicator = false
+        return cv
+    }()
+    
+    //TODO: - Change this collectionview to tableview.
+    let everythingCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: 375, height: 100)
+        
+        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        cv.translatesAutoresizingMaskIntoConstraints = false
+        cv.register(EverythingCollectionViewCell.self, forCellWithReuseIdentifier: "everythingCell")
+        cv.backgroundColor = .brown
         cv.showsVerticalScrollIndicator = false
         return cv
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "Background")
         headlineCollectionView.delegate = self
         headlineCollectionView.dataSource = self
+        everythingCollectionView.delegate = self
+        everythingCollectionView.dataSource = self
         networkManager.fetchNews {
             self.updateViews()
         }
-        if let layout = headlineCollectionView.collectionViewLayout as? PinterestLayout {
-            layout.delegate = self
-        }
-        headlineCollectionView.contentInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         setupNavigationController()
         setupSubviews()
         setupConstraints()
@@ -72,42 +77,65 @@ class HomeViewController: UIViewController {
     
     func updateViews() {
         headlineCollectionView.reloadData()
+        everythingCollectionView.reloadData()
     }
 }
 
 extension HomeViewController {
     func setupSubviews() {
+        secondaryHStack.addArrangedSubview(secondaryNewsLabel)
+        
         view.addSubview(headlineCollectionView)
+        view.addSubview(secondaryHStack)
+        view.addSubview(everythingCollectionView)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            headlineCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            headlineCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            headlineCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            headlineCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            headlineCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headlineCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            headlineCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            headlineCollectionView.heightAnchor.constraint(equalToConstant: 300),
+            
+            secondaryHStack.topAnchor.constraint(equalTo: headlineCollectionView.bottomAnchor, constant: 20),
+            secondaryHStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            secondaryHStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            everythingCollectionView.topAnchor.constraint(equalTo: secondaryHStack.bottomAnchor, constant: 20),
+            everythingCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            everythingCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            everythingCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
     }
 }
 
-extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return networkManager.myFeed.count
+        if headlineCollectionView == headlineCollectionView {
+            return networkManager.myFeed.count
+        }
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadlineCollectionViewCell.identifier, for: indexPath) as? HeadlineCollectionViewCell else { return UICollectionViewCell() }
-        
-        let newArticle = networkManager.myFeed[indexPath.item]
-        cell.article = newArticle
-        
-        guard let url = newArticle.urlToImage else { return UICollectionViewCell() }
-        networkManager.fetchImage(imageURL: url) { (data) in
-            guard let newImage = UIImage(data: data) else { return }
-            cell.headlineImage.image = newImage
-            self.images.append(newImage)
+        if collectionView == headlineCollectionView {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadlineCollectionViewCell.identifier, for: indexPath) as? HeadlineCollectionViewCell else { return UICollectionViewCell() }
+            
+            let newArticle = networkManager.myFeed[indexPath.item]
+            cell.article = newArticle
+            
+            guard let url = newArticle.urlToImage else { return UICollectionViewCell() }
+            networkManager.fetchImage(imageURL: url) { (data) in
+                guard let newImage = UIImage(data: data) else { return }
+                cell.headlineImage.image = newImage
+                self.images.append(newImage)
+            }
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EverythingCollectionViewCell.identifier, for: indexPath) as? EverythingCollectionViewCell else { return UICollectionViewCell() }
+            cell.backgroundColor = .blue
+            return cell
         }
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -124,19 +152,5 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         vc.topViewBackgroundImage.image = UIImage(data: data!)
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
-    }
-    
-}
-
-extension HomeViewController: PinterestLayoutDelegate {
-    func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
-        var height: CGFloat = 0
-        let article = networkManager.myFeed[indexPath.item]
-        guard let url = article.urlToImage else { return 0 }
-        networkManager.fetchImage(imageURL: url) { (data) in
-            guard let newImage = UIImage(data: data) else { return }
-            height = newImage.size.height
-        }
-        return height
     }
 }

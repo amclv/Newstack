@@ -68,14 +68,14 @@ class HeadlineCollectionViewCell: UICollectionViewCell {
 }
 
 extension HeadlineCollectionViewCell {
-    func setupCellSubviews() {
+    private func setupCellSubviews() {
         headlineVStack.addArrangedSubview(headlineTitle)
         headlineVStack.addArrangedSubview(headlineAuthor)
         contentView.addSubview(headlineImage)
         contentView.addSubview(headlineVStack)
     }
 
-    func setupCellConstraints() {
+    private func setupCellConstraints() {
         NSLayoutConstraint.activate([
             headlineImage.topAnchor.constraint(equalTo: contentView.topAnchor),
             headlineImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
