@@ -34,40 +34,31 @@ class CustomLabel: UILabel {
     private func setupStyling() {
         translatesAutoresizingMaskIntoConstraints = false
         numberOfLines = 0
+        textColor = .label
 
         switch style {
         case .header:
             font = .systemFont(ofSize: 20, weight: .bold)
-            textColor = .label
         case .title:
             font = .systemFont(ofSize: 14, weight: .semibold)
-            textColor = .label
         case .description:
             font = .systemFont(ofSize: 16, weight: .light)
-            textColor = .label
         case .dates:
             font = .systemFont(ofSize: 12, weight: .medium)
-            textColor = .label
         case .author:
             font = .systemFont(ofSize: 16, weight: .regular)
-            textColor = .label
-    
+            
             // article detail
         case .detailTitle:
             font = .systemFont(ofSize: 26, weight: .semibold)
-            textColor = .white
         case .detailDate:
             font = .systemFont(ofSize: 12, weight: .medium)
-            textColor = .white
         case .detailAuthor:
             font = .systemFont(ofSize: 16, weight: .regular)
-            textColor = .white
         case .detailPaper:
             font = .systemFont(ofSize: 12, weight: .light)
-            textColor = .white
         case .detailContent:
             font = .systemFont(ofSize: 16, weight: .light)
-            textColor = .label
             
             // collectionView
         case .collectionTitle:

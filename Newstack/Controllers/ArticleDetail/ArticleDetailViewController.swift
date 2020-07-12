@@ -10,7 +10,6 @@ import UIKit
 
 class ArticleDetailViewController: UIViewController {
     
-    var socialMediaButtons: CGFloat = 30
     var gradientView = CAGradientLayer()
     var activityViewController: UIActivityViewController?
     
@@ -21,34 +20,6 @@ class ArticleDetailViewController: UIViewController {
     let articleAuthorPaper = CustomLabel(style: .detailPaper, text: "")
     var articleURL: [URL] = []
     
-    let shareButton: CustomButton = {
-        let shareButton = CustomButton(style: .socialMedia)
-        shareButton.setImage(UIImage(systemName: "square.and.arrow.up")?.scaled(to: 15), for: .normal)
-        shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
-        return shareButton
-    }()
-    
-    let topButtons: UIStackView = {
-        let topButton = UIStackView()
-        topButton.translatesAutoresizingMaskIntoConstraints = false
-        topButton.axis = .horizontal
-        topButton.spacing = 300
-        return topButton
-    }()
-    
-    let backButton: CustomButton = {
-        let backButton = CustomButton(style: .backButton)
-        backButton.setImage(UIImage(systemName: "arrow.left")?.scaled(to: 35)?.withTintColor(.white, renderingMode: .alwaysOriginal), for: .normal)
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        return backButton
-    }()
-    
-    let bookmarkButton: CustomButton = {
-        let bookButton = CustomButton(style: .bookButton)
-        bookButton.setImage(UIImage(systemName: "bookmark")?.scaled(to: 35)?.withTintColor(.clear, renderingMode: .alwaysOriginal), for: .normal)
-        bookButton.addTarget(self, action: #selector(bookmarkArticleTapped), for: .touchUpInside)
-        return bookButton
-    }()
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -59,7 +30,7 @@ class ArticleDetailViewController: UIViewController {
         scrollView.bounces = false
         return scrollView
     }()
-
+    
     // ContentStack that controls everything on UI.
     let contentStack: UIStackView = {
         let contentStack = UIStackView()
@@ -82,10 +53,10 @@ class ArticleDetailViewController: UIViewController {
     let topView: UIView = {
         var topView = UIView()
         topView.translatesAutoresizingMaskIntoConstraints = false
-        topView.contentMode = .scaleAspectFit
+        topView.contentMode = .scaleAspectFill
         topView.clipsToBounds = true
         topView.layer.cornerRadius = 10
-        topView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+//        topView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         return topView
     }()
     
@@ -96,22 +67,6 @@ class ArticleDetailViewController: UIViewController {
         topImage.image = UIImage(named: "")
         topImage.backgroundColor = .blue
         return topImage
-    }()
-
-    let socialMediaHStack: UIStackView = {
-        let socialMediaHStack = UIStackView()
-        socialMediaHStack.translatesAutoresizingMaskIntoConstraints = false
-        socialMediaHStack.axis = .horizontal
-        socialMediaHStack.distribution = .fill
-        socialMediaHStack.alignment = .fill
-        socialMediaHStack.spacing = 10
-        return socialMediaHStack
-    }()
-
-    let blankView: UIView = {
-        let bv = UIView()
-        bv.translatesAutoresizingMaskIntoConstraints = false
-        return bv
     }()
 
     let articleDetailVStack: UIStackView = {
@@ -134,42 +89,98 @@ class ArticleDetailViewController: UIViewController {
         return authorHStack
     }()
 
-    let authorVStack: UIStackView = {
-        let authorVStack = UIStackView()
-        authorVStack.translatesAutoresizingMaskIntoConstraints = false
-        authorVStack.axis = .vertical
-        authorVStack.distribution = .fill
-        authorVStack.alignment = .fill
-        return authorVStack
+    let authorHStack: UIStackView = {
+        let authorHStack = UIStackView()
+        authorHStack.translatesAutoresizingMaskIntoConstraints = false
+        authorHStack.axis = .horizontal
+        authorHStack.distribution = .fill
+        authorHStack.alignment = .fill
+        return authorHStack
     }()
-
+    
+    let topButtons: UIStackView = {
+        let topButton = UIStackView()
+        topButton.translatesAutoresizingMaskIntoConstraints = false
+        topButton.axis = .horizontal
+        topButton.distribution = .fill
+        topButton.alignment = .fill
+        topButton.spacing = 10
+        return topButton
+    }()
+    
+    let line: UIView = {
+        let line = UIView()
+        line.translatesAutoresizingMaskIntoConstraints = false
+        line.backgroundColor = .systemGray
+        line.layer.cornerRadius = 2
+        return line
+    }()
+    
+    let shareButton: CustomButton = {
+        let shareButton = CustomButton(style: .socialMedia)
+        shareButton.setImage(UIImage(systemName: "square.and.arrow.up")?.scaled(to: 25)?.withTintColor(.label, renderingMode: .alwaysOriginal), for: .normal)
+        shareButton.addTarget(self, action: #selector(shareButtonTapped), for: .touchUpInside)
+        return shareButton
+    }()
+    
+    let backButton: CustomButton = {
+        let backButton = CustomButton(style: .backButton)
+        backButton.setImage(UIImage(systemName: "arrow.left")?.scaled(to: 25)?.withTintColor(.label, renderingMode: .alwaysOriginal), for: .normal)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        return backButton
+    }()
+    
+    let bookmarkButton: CustomButton = {
+        let bookButton = CustomButton(style: .bookmarkButton)
+        bookButton.setImage(UIImage(systemName: "bookmark")?.scaled(to: 25)?.withTintColor(.label, renderingMode: .alwaysOriginal), for: .normal)
+        bookButton.addTarget(self, action: #selector(bookmarkArticleTapped), for: .touchUpInside)
+        return bookButton
+    }()
+    
+    let readMoreButton: UIButton = {
+        let readMoreButton = UIButton()
+        readMoreButton.translatesAutoresizingMaskIntoConstraints = false
+        readMoreButton.backgroundColor = .systemBlue
+        readMoreButton.layer.cornerRadius = 10
+        readMoreButton.setTitle("Read More", for: .normal)
+        readMoreButton.addTarget(self, action: #selector(readMoreButtonTapped), for: .touchUpInside)
+        return readMoreButton
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "Background")
         setupSubviews()
         setupConstraints()
     }
     
     override func viewWillLayoutSubviews() {
         super .viewWillLayoutSubviews()
-        addGradientDetail()
+//        addGradientDetail()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return .default
     }
     
     @objc func backButtonTapped() {
+        print("BACK BUTTON PRESSED")
         dismiss(animated: true, completion: nil)
     }
     
     @objc func bookmarkArticleTapped() {
+        print("BOOKMARKED ARTICLE PRESSED")
         dismiss(animated: true, completion: nil)
     }
     
     @objc func shareButtonTapped() {
+        print("SHARED ARTICLE BUTTON PRESSED")
         activityViewController = UIActivityViewController(activityItems: [], applicationActivities: nil)
         present(activityViewController!, animated: true, completion: nil)
+    }
+    
+    @objc func readMoreButtonTapped() {
+        print("READ MORE BUTTON TAPPED")
     }
     
     private func addGradientDetail() {
@@ -192,36 +203,32 @@ private extension UIImage {
 
 extension ArticleDetailViewController {
     func setupSubviews() {
-        articleDetailVStack.addArrangedSubview(articleDate)
         articleDetailVStack.addArrangedSubview(articleTitle)
-        articleDetailVStack.addArrangedSubview(authorDetailHStack)
+        articleDetailVStack.addArrangedSubview(articleDate)
+        articleDetailVStack.addArrangedSubview(authorHStack)
+        articleDetailVStack.addArrangedSubview(line)
+        articleDetailVStack.addArrangedSubview(articleDetail)
 
-        authorVStack.addArrangedSubview(articleAuthorName)
-        authorVStack.addArrangedSubview(articleAuthorPaper)
-
+//        authorHStack.addArrangedSubview(articleAuthorName)
+        authorHStack.addArrangedSubview(articleAuthorPaper)
+        
+        topView.addSubview(topViewBackgroundImage)
+        
         topButtons.addArrangedSubview(backButton)
         topButtons.addArrangedSubview(bookmarkButton)
-        
-        authorDetailHStack.addArrangedSubview(authorVStack)
-        topView.addSubview(topViewBackgroundImage)
-        topView.addSubview(topButtons)
-        topView.addSubview(articleDetailVStack)
+        topButtons.addArrangedSubview(shareButton)
 
-        socialMediaHStack.addArrangedSubview(shareButton)
-        socialMediaHStack.addArrangedSubview(blankView)
-
-        formContentStack.addArrangedSubview(socialMediaHStack)
-        formContentStack.addArrangedSubview(articleDetail)
-
+        contentStack.addArrangedSubview(topButtons)
         contentStack.addArrangedSubview(topView)
-        contentStack.addArrangedSubview(formContentStack)
+        contentStack.addArrangedSubview(articleDetailVStack)
+        scrollView.addSubview(readMoreButton)
         scrollView.addSubview(contentStack)
         view.addSubview(scrollView)
     }
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -231,42 +238,39 @@ extension ArticleDetailViewController {
             contentStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentStack.widthAnchor.constraint(equalTo: view.widthAnchor),
+            
+            topButtons.topAnchor.constraint(equalTo: contentStack.safeAreaLayoutGuide.topAnchor, constant: 20),
+            topButtons.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 20),
+//            topButtons.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor, constant: -20),
+            topButtons.trailingAnchor.constraint(greaterThanOrEqualTo: contentStack.trailingAnchor),
+            topButtons.heightAnchor.constraint(equalToConstant: 60),
 
-            topView.topAnchor.constraint(equalTo: contentStack.topAnchor),
-            topView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            topView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            topView.heightAnchor.constraint(equalToConstant: 400),
+            topView.topAnchor.constraint(equalTo: topButtons.bottomAnchor),
+            topView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            topView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            topView.heightAnchor.constraint(equalToConstant: 250),
             
             topViewBackgroundImage.topAnchor.constraint(equalTo: topView.topAnchor),
             topViewBackgroundImage.leadingAnchor.constraint(equalTo: topView.leadingAnchor),
             topViewBackgroundImage.bottomAnchor.constraint(equalTo: topView.bottomAnchor),
             topViewBackgroundImage.trailingAnchor.constraint(equalTo: topView.trailingAnchor),
+
+            articleDetailVStack.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20),
+            articleDetailVStack.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 20),
+            articleDetailVStack.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor, constant: -20),
+            articleDetailVStack.bottomAnchor.constraint(equalTo: readMoreButton.topAnchor),
             
-            topButtons.topAnchor.constraint(equalTo: topView.topAnchor, constant: 60),
-            topButtons.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 20),
-            topButtons.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -20),
-
-            articleDetailVStack.topAnchor.constraint(greaterThanOrEqualTo: topView.topAnchor),
-            articleDetailVStack.leadingAnchor.constraint(equalTo: topView.leadingAnchor, constant: 20),
-            articleDetailVStack.trailingAnchor.constraint(equalTo: topView.trailingAnchor, constant: -20),
-            articleDetailVStack.bottomAnchor.constraint(equalTo: topView.bottomAnchor, constant: -20),
-
-            formContentStack.topAnchor.constraint(equalTo: topView.bottomAnchor),
-            formContentStack.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 20),
-            formContentStack.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor, constant: -20),
-            formContentStack.bottomAnchor.constraint(equalTo: contentStack.bottomAnchor),
-
-            socialMediaHStack.topAnchor.constraint(equalTo: formContentStack.topAnchor, constant: 16),
-            socialMediaHStack.leadingAnchor.constraint(equalTo: formContentStack.leadingAnchor),
-            socialMediaHStack.widthAnchor.constraint(equalToConstant: 100),
-
-            shareButton.widthAnchor.constraint(equalToConstant: socialMediaButtons),
-            shareButton.heightAnchor.constraint(equalTo: shareButton.widthAnchor),
-
-            articleDetail.topAnchor.constraint(equalTo: socialMediaHStack.bottomAnchor, constant: 20),
-            articleDetail.leadingAnchor.constraint(equalTo: formContentStack.leadingAnchor),
-            articleDetail.trailingAnchor.constraint(equalTo: formContentStack.trailingAnchor),
-            articleDetail.bottomAnchor.constraint(equalTo: formContentStack.bottomAnchor),
+            line.topAnchor.constraint(equalTo: authorHStack.bottomAnchor, constant: 20),
+            line.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 20),
+            line.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor, constant: view.bounds.width * -0.75),
+            line.heightAnchor.constraint(equalToConstant: 3),
+            
+            readMoreButton.topAnchor.constraint(equalTo: contentStack.bottomAnchor),
+            readMoreButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+            readMoreButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
+            readMoreButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -8),
+            readMoreButton.heightAnchor.constraint(equalToConstant: 60),
+            
         ])
     }
 }

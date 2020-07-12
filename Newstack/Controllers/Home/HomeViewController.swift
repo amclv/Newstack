@@ -147,8 +147,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         vc.articleTitle.text = selectedArticle.title
         vc.articleDate.text = selectedArticle.formattedDate
         vc.articleDetail.text = selectedArticle.content ?? "No Content"
-        vc.articleAuthorName.text = selectedArticle.author ?? "No Author"
-        vc.articleAuthorPaper.text = selectedArticle.source.name ?? "No Source"
+//        vc.articleAuthorName.text = "By \(selectedArticle.author ?? "No Author")"
+        vc.articleAuthorPaper.text = "@\(selectedArticle.source.name ?? "No Source")"
         vc.topViewBackgroundImage.image = UIImage(data: data!)
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)

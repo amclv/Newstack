@@ -23,7 +23,7 @@ enum SortOptions: String {
 class NetworkingManager {
     
     var myFeed: [NewsSource.Article] = []
-    let url = URL(string: "https://newsapi.org/v2/top-headlines?q=a&apiKey=569bbdc4ab8c42af93e505b90149e026")
+    let url = URL(string: "https://newsapi.org/v2/everything?q=apple&from=2020-07-11&to=2020-07-11&sortBy=popularity&apiKey=569bbdc4ab8c42af93e505b90149e026")
     
     func fetchNews(completionHandler: @escaping () -> Void) {
         let request = URLRequest(url: url!)
