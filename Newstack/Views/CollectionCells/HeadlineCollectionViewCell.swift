@@ -11,7 +11,7 @@ class HeadlineCollectionViewCell: UICollectionViewCell {
     
     static var identifier: String = "headlineCell"
     
-    var article: NewsSource.Article? {
+    var headlineArticle: NewsSource.Article? {
         didSet {
             updateViews()
         }
@@ -43,7 +43,6 @@ class HeadlineCollectionViewCell: UICollectionViewCell {
         super.init(frame: .zero)
         setupCellSubviews()
         setupCellConstraints()
-//        addGradient()
     }
     
     override func layoutSubviews() {
@@ -62,8 +61,8 @@ class HeadlineCollectionViewCell: UICollectionViewCell {
     }
     
     func updateViews() {
-        self.headlineTitle.text = article?.title
-        self.headlineAuthor.text = article?.author
+        self.headlineTitle.text = headlineArticle?.title
+        self.headlineAuthor.text = headlineArticle?.author
     }
 }
 

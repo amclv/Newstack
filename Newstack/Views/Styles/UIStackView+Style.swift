@@ -23,9 +23,11 @@ class CustomStackView: UIStackView {
     
     let style: Style
     
-    init(style: Style, distribution: Distribution, alignment: Alignment) {
+    init(style: Style, distribution: UIStackView.Distribution, alignment: UIStackView.Alignment) {
         self.style = style
         super.init(frame: .zero)
+        self.distribution = distribution
+        self.alignment = alignment
         setupStyling()
     }
     

@@ -17,8 +17,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window = UIWindow(windowScene: windowScene)
             let home = UINavigationController(rootViewController: HomeViewController())
             home.tabBarItem.image = UIImage(systemName: "house")
-            let article = ArticleDetailViewController()
-            article.tabBarItem.image = UIImage(systemName: "house")
             let settings = SettingsViewController()
             settings.tabBarItem.image = UIImage(systemName: "gear")
             let bookmark = BookmarkViewController()
@@ -27,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             search.tabBarItem.image = UIImage(systemName: "magnifyingglass")
             let tabBar = UITabBarController()
             window?.rootViewController = tabBar
-            tabBar.viewControllers = [home, article, search, bookmark, settings]
+            tabBar.viewControllers = [home, search, bookmark, settings]
             tabBar.selectedIndex = 0
             tabBar.tabBar.barTintColor = .black
             window?.makeKeyAndVisible()

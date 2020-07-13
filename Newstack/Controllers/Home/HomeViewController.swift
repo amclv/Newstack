@@ -48,8 +48,8 @@ class HomeViewController: UIViewController {
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(EverythingCollectionViewCell.self, forCellWithReuseIdentifier: "everythingCell")
-        cv.backgroundColor = .brown
+        cv.register(EverythingCollectionViewCell.self, forCellWithReuseIdentifier: EverythingCollectionViewCell.identifier)
+        cv.backgroundColor = .systemBackground
         cv.showsVerticalScrollIndicator = false
         return cv
     }()
@@ -62,6 +62,10 @@ class HomeViewController: UIViewController {
         everythingCollectionView.delegate = self
         everythingCollectionView.dataSource = self
         networkManager.fetchNews {
+            self.updateViews()
+        }
+        
+        networkManager.fetchEverything {
             self.updateViews()
         }
         setupNavigationController()
@@ -121,7 +125,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadlineCollectionViewCell.identifier, for: indexPath) as? HeadlineCollectionViewCell else { return UICollectionViewCell() }
             
             let newArticle = networkManager.headlineFeed[indexPath.item]
-            cell.article = newArticle
+            cell.headlineArticle = newArticle
             
             guard let url = newArticle.urlToImage else { return UICollectionViewCell() }
             networkManager.fetchImage(imageURL: url) { (data) in
@@ -132,7 +136,15 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EverythingCollectionViewCell.identifier, for: indexPath) as? EverythingCollectionViewCell else { return UICollectionViewCell() }
-            cell.backgroundColor = .blue
+            
+            let everyArticle = networkManager.everythingFeed[indexPath.item]
+            cell.everythingArticle = everyArticle
+            
+            guard let url = everyArticle.urlToImage else { return UICollectionViewCell() }
+            networkManager.fetchImage(imageURL: url) { (data) in
+                guard let newImage = UIImage(data: data) else { return }
+                cell.articleImage.image = newImage
+            }
             return cell
         }
     }
@@ -146,7 +158,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         vc.articleTitle.text = selectedArticle.title
         vc.articleDate.text = selectedArticle.formattedDate
         vc.articleDetail.text = selectedArticle.content ?? "No Content"
-//        vc.articleAuthorName.text = "By \(selectedArticle.author ?? "No Author")"
         vc.articleAuthorPaper.text = "@\(selectedArticle.source.name ?? "No Source")"
         vc.topViewBackgroundImage.image = UIImage(data: data!)
         vc.modalPresentationStyle = .fullScreen
