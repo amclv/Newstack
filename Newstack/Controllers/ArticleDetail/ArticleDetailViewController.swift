@@ -13,6 +13,12 @@ class ArticleDetailViewController: UIViewController {
     var gradientView = CAGradientLayer()
     var activityViewController: UIActivityViewController?
     
+    var article: NewsSource.Article? {
+        didSet {
+            updateViews()
+        }
+    }
+    
     let articleDate = CustomLabel(style: .detailDate, text: "")
     let articleTitle = CustomLabel(style: .detailTitle, text: "")
     let articleDetail = CustomLabel(style: .detailContent, text: "")
@@ -181,18 +187,31 @@ class ArticleDetailViewController: UIViewController {
     
     @objc func shareButtonTapped() {
         print("SHARED ARTICLE BUTTON PRESSED")
-        activityViewController = UIActivityViewController(activityItems: [], applicationActivities: nil)
+        activityViewController = UIActivityViewController(activityItems: [article!.url!], applicationActivities: nil)
         present(activityViewController!, animated: true, completion: nil)
     }
     
     @objc func readMoreButtonTapped() {
         print("READ MORE BUTTON TAPPED")
+        guard let url = article?.url else { return }
+        UIApplication.shared.open(url)
     }
     
     private func addGradientDetail() {
         gradientView.frame = topViewBackgroundImage.bounds
         gradientView.colors = [UIColor.clear.cgColor, UIColor.black.cgColor]
         topViewBackgroundImage.layer.insertSublayer(gradientView, at: 0)
+    }
+
+    private func updateViews() {
+        guard let article = article,
+              let url = article.urlToImage else { return }
+        let data = try? Data(contentsOf: url)
+        articleTitle.text = article.title
+        articleDate.text = article.formattedDate
+        articleDetail.text = article.content ?? "No Content"
+        articleAuthorPaper.text = "@\(article.source.name ?? "No Source")"
+        topViewBackgroundImage.image = UIImage(data: data!)
     }
 }
 
@@ -218,12 +237,12 @@ extension ArticleDetailViewController {
         authorHStack.addArrangedSubview(articleAuthorPaper)
         
         topView.addSubview(topViewBackgroundImage)
+        topRightButtons.addArrangedSubview(bookmarkButton)
+        topRightButtons.addArrangedSubview(shareButton)
         
         topButtons.addArrangedSubview(backButton)
         topButtons.addArrangedSubview(topRightButtons)
-        
-        topRightButtons.addArrangedSubview(bookmarkButton)
-        topRightButtons.addArrangedSubview(shareButton)
+        topButtons.alignment = .center
 
         contentStack.addArrangedSubview(topButtons)
         contentStack.addArrangedSubview(topView)
@@ -246,10 +265,9 @@ extension ArticleDetailViewController {
             contentStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentStack.widthAnchor.constraint(equalTo: view.widthAnchor),
             
-            topButtons.topAnchor.constraint(equalTo: contentStack.topAnchor),
-            topButtons.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 20),
-            topButtons.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor, constant: -20),
-            topButtons.heightAnchor.constraint(equalToConstant: 40),
+            topButtons.topAnchor.constraint(equalTo: contentStack.topAnchor, constant: 20),
+            topButtons.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
+            topButtons.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
 
             topView.topAnchor.constraint(equalTo: topRightButtons.bottomAnchor),
             topView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),

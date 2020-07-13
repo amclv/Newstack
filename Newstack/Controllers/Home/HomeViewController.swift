@@ -11,7 +11,6 @@ class HomeViewController: UIViewController {
     
     private let networkManager = NetworkingManager()
     private let articleDetailVC = ArticleDetailViewController()
-    var images = [UIImage]()
     
     //=======================
     // MARK: - Stored Properties
@@ -131,7 +130,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             networkManager.fetchImage(imageURL: url) { (data) in
                 guard let newImage = UIImage(data: data) else { return }
                 cell.headlineImage.image = newImage
-                self.images.append(newImage)
             }
             return cell
         } else {
@@ -151,15 +149,10 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc: ArticleDetailViewController = ArticleDetailViewController()
-        let selectedArticle = networkManager.headlineFeed[indexPath.item]
         
-        guard let url = selectedArticle.urlToImage else { return }
-        let data = try? Data(contentsOf: url)
-        vc.articleTitle.text = selectedArticle.title
-        vc.articleDate.text = selectedArticle.formattedDate
-        vc.articleDetail.text = selectedArticle.content ?? "No Content"
-        vc.articleAuthorPaper.text = "@\(selectedArticle.source.name ?? "No Source")"
-        vc.topViewBackgroundImage.image = UIImage(data: data!)
+        // TODO: ADD IF STATEMENT FOR EACH FEED
+        let selectedArticle = networkManager.headlineFeed[indexPath.item]
+        vc.article = selectedArticle
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
