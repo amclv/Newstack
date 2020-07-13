@@ -13,7 +13,6 @@ class HomeViewController: UIViewController {
     private let articleDetailVC = ArticleDetailViewController()
     var images = [UIImage]()
     
-    
     //=======================
     // MARK: - Stored Properties
     let mainNewsTitle = CustomLabel(style: .header, text: "Headlines")
@@ -112,16 +111,16 @@ extension HomeViewController {
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if headlineCollectionView == headlineCollectionView {
-            return networkManager.myFeed.count
+            return networkManager.headlineFeed.count
         }
-        return 5
+        return networkManager.everythingFeed.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == headlineCollectionView {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadlineCollectionViewCell.identifier, for: indexPath) as? HeadlineCollectionViewCell else { return UICollectionViewCell() }
             
-            let newArticle = networkManager.myFeed[indexPath.item]
+            let newArticle = networkManager.headlineFeed[indexPath.item]
             cell.article = newArticle
             
             guard let url = newArticle.urlToImage else { return UICollectionViewCell() }
@@ -140,7 +139,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc: ArticleDetailViewController = ArticleDetailViewController()
-        let selectedArticle = networkManager.myFeed[indexPath.item]
+        let selectedArticle = networkManager.headlineFeed[indexPath.item]
         
         guard let url = selectedArticle.urlToImage else { return }
         let data = try? Data(contentsOf: url)

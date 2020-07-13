@@ -18,8 +18,6 @@ class ArticleDetailViewController: UIViewController {
     let articleDetail = CustomLabel(style: .detailContent, text: "")
     let articleAuthorName = CustomLabel(style: .detailAuthor, text: "")
     let articleAuthorPaper = CustomLabel(style: .detailPaper, text: "")
-    var articleURL: [URL] = []
-    
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -83,9 +81,9 @@ class ArticleDetailViewController: UIViewController {
         let authorHStack = UIStackView()
         authorHStack.translatesAutoresizingMaskIntoConstraints = false
         authorHStack.axis = .horizontal
-        authorHStack.distribution = .fill
+        authorHStack.distribution = .equalSpacing
         authorHStack.alignment = .leading
-        authorHStack.spacing = 10
+        authorHStack.spacing = 0
         return authorHStack
     }()
 
@@ -93,19 +91,27 @@ class ArticleDetailViewController: UIViewController {
         let authorHStack = UIStackView()
         authorHStack.translatesAutoresizingMaskIntoConstraints = false
         authorHStack.axis = .horizontal
-        authorHStack.distribution = .fill
-        authorHStack.alignment = .fill
         return authorHStack
     }()
     
     let topButtons: UIStackView = {
-        let topButton = UIStackView()
-        topButton.translatesAutoresizingMaskIntoConstraints = false
-        topButton.axis = .horizontal
-        topButton.distribution = .fill
-        topButton.alignment = .fill
-        topButton.spacing = 10
-        return topButton
+        let topButtons = UIStackView()
+        topButtons.translatesAutoresizingMaskIntoConstraints = false
+        topButtons.axis = .horizontal
+        topButtons.distribution = .equalSpacing
+        topButtons.alignment = .fill
+        topButtons.spacing = 0
+        return topButtons
+    }()
+    
+    let topRightButtons: UIStackView = {
+        let topRight = UIStackView()
+        topRight.translatesAutoresizingMaskIntoConstraints = false
+        topRight.axis = .horizontal
+        topRight.distribution = .equalSpacing
+        topRight.alignment = .fill
+        topRight.spacing = 10
+        return topRight
     }()
     
     let line: UIView = {
@@ -208,15 +214,16 @@ extension ArticleDetailViewController {
         articleDetailVStack.addArrangedSubview(authorHStack)
         articleDetailVStack.addArrangedSubview(line)
         articleDetailVStack.addArrangedSubview(articleDetail)
-
-//        authorHStack.addArrangedSubview(articleAuthorName)
+        
         authorHStack.addArrangedSubview(articleAuthorPaper)
         
         topView.addSubview(topViewBackgroundImage)
         
         topButtons.addArrangedSubview(backButton)
-        topButtons.addArrangedSubview(bookmarkButton)
-        topButtons.addArrangedSubview(shareButton)
+        topButtons.addArrangedSubview(topRightButtons)
+        
+        topRightButtons.addArrangedSubview(bookmarkButton)
+        topRightButtons.addArrangedSubview(shareButton)
 
         contentStack.addArrangedSubview(topButtons)
         contentStack.addArrangedSubview(topView)
@@ -239,13 +246,12 @@ extension ArticleDetailViewController {
             contentStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentStack.widthAnchor.constraint(equalTo: view.widthAnchor),
             
-            topButtons.topAnchor.constraint(equalTo: contentStack.safeAreaLayoutGuide.topAnchor, constant: 20),
+            topButtons.topAnchor.constraint(equalTo: contentStack.topAnchor),
             topButtons.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 20),
-//            topButtons.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor, constant: -20),
-            topButtons.trailingAnchor.constraint(greaterThanOrEqualTo: contentStack.trailingAnchor),
-            topButtons.heightAnchor.constraint(equalToConstant: 60),
+            topButtons.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor, constant: -20),
+            topButtons.heightAnchor.constraint(equalToConstant: 40),
 
-            topView.topAnchor.constraint(equalTo: topButtons.bottomAnchor),
+            topView.topAnchor.constraint(equalTo: topRightButtons.bottomAnchor),
             topView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             topView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             topView.heightAnchor.constraint(equalToConstant: 250),
@@ -258,19 +264,17 @@ extension ArticleDetailViewController {
             articleDetailVStack.topAnchor.constraint(equalTo: topView.bottomAnchor, constant: 20),
             articleDetailVStack.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 20),
             articleDetailVStack.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor, constant: -20),
-            articleDetailVStack.bottomAnchor.constraint(equalTo: readMoreButton.topAnchor),
             
             line.topAnchor.constraint(equalTo: authorHStack.bottomAnchor, constant: 20),
             line.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 20),
             line.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor, constant: view.bounds.width * -0.75),
-            line.heightAnchor.constraint(equalToConstant: 3),
+            line.heightAnchor.constraint(equalToConstant: 4),
             
-            readMoreButton.topAnchor.constraint(equalTo: contentStack.bottomAnchor),
+            readMoreButton.topAnchor.constraint(greaterThanOrEqualTo: contentStack.bottomAnchor),
             readMoreButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
             readMoreButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
-            readMoreButton.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -8),
+            readMoreButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             readMoreButton.heightAnchor.constraint(equalToConstant: 60),
-            
         ])
     }
 }

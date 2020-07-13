@@ -22,8 +22,12 @@ enum SortOptions: String {
 
 class NetworkingManager {
     
-    var myFeed: [NewsSource.Article] = []
+    var headlineFeed: [NewsSource.Article] = []
+    var everythingFeed: [NewsSource.Article] = []
+    
     let url = URL(string: "https://newsapi.org/v2/everything?q=apple&from=2020-07-11&to=2020-07-11&sortBy=popularity&apiKey=569bbdc4ab8c42af93e505b90149e026")
+    
+    let everythingURL = URL(string: "https://newsapi.org/v2/everything?q=bitcoin&apiKey=569bbdc4ab8c42af93e505b90149e026")
     
     func fetchNews(completionHandler: @escaping () -> Void) {
         let request = URLRequest(url: url!)
@@ -33,12 +37,30 @@ class NetworkingManager {
             do {
                 let source = try decoder.decode(NewsSource.self, from: data!)
                 let articles = source.articles
-                self.myFeed = articles
+                self.headlineFeed = articles
                 DispatchQueue.main.async {
                     completionHandler()
                 }
             } catch {
                 print("Error decoding: \(error)")
+            }
+        }.resume()
+    }
+    
+    func fetchEverything(completionHandler: @escaping () -> Void) {
+        let request = URLRequest(url: everythingURL!)
+        
+        URLSession.shared.dataTask(with: request) { (data, _, _) in
+            let decoder = JSONDecoder()
+            do {
+                let source = try decoder.decode(NewsSource.self, from: data!)
+                let articles = source.articles
+                self.everythingFeed = articles
+                DispatchQueue.main.async {
+                    completionHandler()
+                }
+            } catch {
+                print("Error decoding everything url: \(error)")
             }
         }.resume()
     }
