@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let home = UINavigationController(rootViewController: HomeViewController())
             home.tabBarItem.image = UIImage(systemName: "house")
             let settings = SettingsViewController()
-            settings.tabBarItem.image = UIImage(systemName: "gear")
+            settings.tabBarItem.image = UIImage(systemName: "person.circle")
             let bookmark = BookmarkViewController()
             bookmark.tabBarItem.image = UIImage(systemName: "bookmark")
             let search = SearchViewController()

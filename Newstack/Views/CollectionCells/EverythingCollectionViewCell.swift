@@ -74,13 +74,13 @@ class EverythingCollectionViewCell: UICollectionViewCell {
             articleImage.topAnchor.constraint(equalTo: cellBackground.topAnchor, constant: 8),
             articleImage.leadingAnchor.constraint(equalTo: cellBackground.leadingAnchor, constant: 8),
             articleImage.bottomAnchor.constraint(equalTo: cellBackground.bottomAnchor, constant: -8),
-            articleImage.trailingAnchor.constraint(equalTo: articleVStack.leadingAnchor, constant: -8),
-            articleImage.widthAnchor.constraint(equalToConstant: 200),
-            articleImage.heightAnchor.constraint(equalTo: articleImage.widthAnchor),
+            articleImage.widthAnchor.constraint(equalToConstant: 125),
             
-            articleVStack.topAnchor.constraint(equalTo: cellBackground.topAnchor, constant: 8),
-            articleVStack.leadingAnchor.constraint(equalTo: cellBackground.leadingAnchor, constant: 8),
-            articleVStack.bottomAnchor.constraint(equalTo: cellBackground.bottomAnchor, constant: -8),
+//            articleVStack.topAnchor.constraint(equalTo: cellBackground.topAnchor, constant: 8),
+            articleVStack.leadingAnchor.constraint(equalTo: articleImage.trailingAnchor, constant: 8),
+            articleVStack.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+//            articleVStack.bottomAnchor.constraint(equalTo: cellBackground.bottomAnchor, constant: -8),
+            articleVStack.trailingAnchor.constraint(equalTo: cellBackground.trailingAnchor, constant: -8),
         ])
     }
 }

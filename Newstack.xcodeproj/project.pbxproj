@@ -24,7 +24,6 @@
 		1A5AC9D824A507190030A43A /* UIButton+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D724A507190030A43A /* UIButton+Style.swift */; };
 		1A865F6C24B379AC004B547C /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A865F6B24B379AC004B547C /* Article.swift */; };
 		1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */; };
-		1AB4DEF924A99D710047D688 /* TestUIStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AB4DEF824A99D710047D688 /* TestUIStyle.swift */; };
 		1ADC857124BAC52B008251C2 /* UIStackView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */; };
 /* End PBXBuildFile section */
 
@@ -69,7 +68,6 @@
 		1A5AC9D724A507190030A43A /* UIButton+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Style.swift"; sourceTree = "<group>"; };
 		1A865F6B24B379AC004B547C /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
-		1AB4DEF824A99D710047D688 /* TestUIStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUIStyle.swift; sourceTree = "<group>"; };
 		1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Style.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -235,7 +233,6 @@
 			children = (
 				1A5AC9D224A506A50030A43A /* UILabel+Style.swift */,
 				1A5AC9D724A507190030A43A /* UIButton+Style.swift */,
-				1AB4DEF824A99D710047D688 /* TestUIStyle.swift */,
 				1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */,
 			);
 			path = Styles;
@@ -402,7 +399,6 @@
 				1A3708F924BAB7A60047419B /* SearchViewController.swift in Sources */,
 				1A244A6124A4F8C00091518D /* SettingsViewController.swift in Sources */,
 				1A5AC9CB24A505E30030A43A /* HeadlineCollectionViewCell.swift in Sources */,
-				1AB4DEF924A99D710047D688 /* TestUIStyle.swift in Sources */,
 				1A244A5A24A4F8800091518D /* HomeViewController.swift in Sources */,
 				1A5AC9D624A506EA0030A43A /* ArticleDetailViewController.swift in Sources */,
 			);

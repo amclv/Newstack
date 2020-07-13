@@ -35,7 +35,7 @@ class HomeViewController: UIViewController {
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.register(HeadlineCollectionViewCell.self, forCellWithReuseIdentifier: HeadlineCollectionViewCell.identifier)
         cv.contentInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
-        cv.backgroundColor = .systemBackground
+        cv.backgroundColor = .clear
         cv.showsHorizontalScrollIndicator = false
         return cv
     }()
@@ -49,7 +49,7 @@ class HomeViewController: UIViewController {
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.register(EverythingCollectionViewCell.self, forCellWithReuseIdentifier: EverythingCollectionViewCell.identifier)
-        cv.backgroundColor = .systemBackground
+        cv.backgroundColor = .clear
         cv.showsVerticalScrollIndicator = false
         return cv
     }()
@@ -114,7 +114,7 @@ extension HomeViewController {
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if headlineCollectionView == headlineCollectionView {
+        if collectionView == headlineCollectionView {
             return networkManager.headlineFeed.count
         }
         return networkManager.everythingFeed.count
@@ -139,7 +139,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             
             let everyArticle = networkManager.everythingFeed[indexPath.item]
             cell.everythingArticle = everyArticle
-            
+
             guard let url = everyArticle.urlToImage else { return UICollectionViewCell() }
             networkManager.fetchImage(imageURL: url) { (data) in
                 guard let newImage = UIImage(data: data) else { return }
