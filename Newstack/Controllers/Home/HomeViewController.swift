@@ -151,8 +151,13 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let vc: ArticleDetailViewController = ArticleDetailViewController()
         
         // TODO: ADD IF STATEMENT FOR EACH FEED
-        let selectedArticle = networkManager.headlineFeed[indexPath.item]
-        vc.article = selectedArticle
+        if collectionView == headlineCollectionView {
+            let selectedArticle = networkManager.headlineFeed[indexPath.item]
+            vc.article = selectedArticle
+        } else {
+            let selectedArticle = networkManager.everythingFeed[indexPath.item]
+            vc.article = selectedArticle
+        }
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }

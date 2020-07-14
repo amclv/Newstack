@@ -35,24 +35,17 @@ class ArticleDetailViewController: UIViewController {
         return scrollView
     }()
     
-    // ContentStack that controls everything on UI.
-    let contentStack: UIStackView = {
-        let contentStack = UIStackView()
-        contentStack.translatesAutoresizingMaskIntoConstraints = false
-        contentStack.axis = .vertical
-        contentStack.spacing = 20
-        return contentStack
-    }()
-
-    // FormContentStack that controls everything besides the image at the top.
-    let formContentStack: UIStackView = {
-        let formContentStack = UIStackView()
-        formContentStack.translatesAutoresizingMaskIntoConstraints = false
-        formContentStack.axis = .vertical
-        formContentStack.spacing = 20
-        formContentStack.isLayoutMarginsRelativeArrangement = true
-        return formContentStack
-    }()
+    let contentStack = CustomStackView(style: .contentStack, distribution: .fill, alignment: .fill)
+    
+    let articleDetailVStack = CustomStackView(style: .articleDetailVStack, distribution: .fill, alignment: .fill)
+    
+    let authorDetailHStack = CustomStackView(style: .authorDetailHStack, distribution: .equalCentering, alignment: .leading)
+    
+    let authorHStack = CustomStackView(style: .authorHStack, distribution: .fill, alignment: .fill)
+    
+    let topButtons = CustomStackView(style: .topButtons, distribution: .equalSpacing, alignment: .fill)
+    
+    let topRightButtons = CustomStackView(style: .topRightButtons, distribution: .equalSpacing, alignment: .fill)
 
     let topView: UIView = {
         var topView = UIView()
@@ -71,53 +64,6 @@ class ArticleDetailViewController: UIViewController {
         topImage.image = UIImage(named: "")
         topImage.backgroundColor = .blue
         return topImage
-    }()
-
-    let articleDetailVStack: UIStackView = {
-        let articleDetailVStack = UIStackView()
-        articleDetailVStack.translatesAutoresizingMaskIntoConstraints = false
-        articleDetailVStack.axis = .vertical
-        articleDetailVStack.distribution = .fill
-        articleDetailVStack.alignment = .fill
-        articleDetailVStack.spacing = 10
-        return articleDetailVStack
-    }()
-
-    let authorDetailHStack: UIStackView = {
-        let authorHStack = UIStackView()
-        authorHStack.translatesAutoresizingMaskIntoConstraints = false
-        authorHStack.axis = .horizontal
-        authorHStack.distribution = .equalSpacing
-        authorHStack.alignment = .leading
-        authorHStack.spacing = 0
-        return authorHStack
-    }()
-
-    let authorHStack: UIStackView = {
-        let authorHStack = UIStackView()
-        authorHStack.translatesAutoresizingMaskIntoConstraints = false
-        authorHStack.axis = .horizontal
-        return authorHStack
-    }()
-    
-    let topButtons: UIStackView = {
-        let topButtons = UIStackView()
-        topButtons.translatesAutoresizingMaskIntoConstraints = false
-        topButtons.axis = .horizontal
-        topButtons.distribution = .equalSpacing
-        topButtons.alignment = .fill
-        topButtons.spacing = 0
-        return topButtons
-    }()
-    
-    let topRightButtons: UIStackView = {
-        let topRight = UIStackView()
-        topRight.translatesAutoresizingMaskIntoConstraints = false
-        topRight.axis = .horizontal
-        topRight.distribution = .equalSpacing
-        topRight.alignment = .fill
-        topRight.spacing = 10
-        return topRight
     }()
     
     let line: UIView = {

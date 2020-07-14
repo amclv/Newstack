@@ -25,7 +25,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             search.tabBarItem.image = UIImage(systemName: "magnifyingglass")
             let tabBar = UITabBarController()
             window?.rootViewController = tabBar
-            tabBar.viewControllers = [home, search, bookmark, settings]
+            tabBar.viewControllers = [home, search]
             tabBar.selectedIndex = 0
             tabBar.tabBar.barTintColor = .black
             window?.makeKeyAndVisible()

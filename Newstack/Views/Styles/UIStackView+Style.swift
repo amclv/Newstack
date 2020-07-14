@@ -11,14 +11,16 @@ import UIKit
 class CustomStackView: UIStackView {
     enum Style {
         case horizontal, vertical
+        //ArticleDetailViewController
+        case contentStack, articleDetailVStack, authorDetailHStack, authorHStack, topButtons, topRightButtons
     }
     
     enum Distribution {
-        case fill, equalSpacing, equalCentering, fillEqually, fillProportionally
+        case fill, equalSpacing, equalCentering, fillEqually, fillProportionally, `nil`
     }
     
     enum Alignment {
-        case top, bottom, trailing, leading, lastBaseline, firstBaseline, fill, center
+        case top, bottom, trailing, leading, lastBaseline, firstBaseline, fill, center, `nil`
     }
     
     let style: Style
@@ -43,6 +45,25 @@ class CustomStackView: UIStackView {
             axis = .horizontal
         case .vertical:
             axis = .vertical
+        
+        //ArticleDetailViewController
+        case .contentStack:
+            axis = .vertical
+            spacing = 20
+        case .articleDetailVStack:
+            axis = .vertical
+            spacing = 10
+        case .authorDetailHStack:
+            axis = .horizontal
+            spacing = 0
+        case .authorHStack:
+            axis = .horizontal
+        case .topButtons:
+            axis = .horizontal
+            spacing = 0
+        case .topRightButtons:
+            axis = .horizontal
+            spacing = 10
         default:
             break
         }
