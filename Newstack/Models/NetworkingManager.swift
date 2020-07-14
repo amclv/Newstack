@@ -25,7 +25,7 @@ class NetworkingManager {
     var headlineFeed: [NewsSource.Article] = []
     var everythingFeed: [NewsSource.Article] = []
     
-    let headlineURL = URL(string: "https://newsapi.org/v2/everything?q=apple&from=2020-07-11&to=2020-07-11&sortBy=popularity&apiKey=569bbdc4ab8c42af93e505b90149e026")
+    let headlineURL = URL(string: "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=569bbdc4ab8c42af93e505b90149e026")
     
     let everythingURL = URL(string: "https://newsapi.org/v2/everything?q=art&apiKey=569bbdc4ab8c42af93e505b90149e026")
     

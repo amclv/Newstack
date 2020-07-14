@@ -44,19 +44,19 @@ class CustomLabel: UILabel {
         case .description:
             font = .systemFont(ofSize: 16, weight: .light)
         case .dates:
-            font = .systemFont(ofSize: 12, weight: .medium)
+            font = .systemFont(ofSize: 12, weight: .light)
         case .author:
             font = .systemFont(ofSize: 16, weight: .regular)
             
             // article detail
         case .detailTitle:
-            font = .systemFont(ofSize: 26, weight: .semibold)
+            font = .systemFont(ofSize: 26, weight: .bold)
         case .detailDate:
-            font = .systemFont(ofSize: 12, weight: .medium)
+            font = .systemFont(ofSize: 12, weight: .light)
         case .detailAuthor:
             font = .systemFont(ofSize: 16, weight: .regular)
         case .detailPaper:
-            font = .systemFont(ofSize: 12, weight: .light)
+            font = .systemFont(ofSize: 12, weight: .semibold)
         case .detailContent:
             font = .systemFont(ofSize: 16, weight: .light)
             

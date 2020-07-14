@@ -37,7 +37,7 @@ class EverythingCollectionViewCell: UICollectionViewCell {
         return articleImage
     }()
     
-    let articleVStack = CustomStackView(style: .vertical, distribution: .fill, alignment: .fill)
+    let articleVStack = CustomStackView(style: .articleVStack, distribution: .equalSpacing, alignment: .fill)
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -69,17 +69,15 @@ class EverythingCollectionViewCell: UICollectionViewCell {
             cellBackground.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             cellBackground.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             cellBackground.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            cellBackground.heightAnchor.constraint(equalToConstant: 100),
+            cellBackground.heightAnchor.constraint(equalToConstant: 110),
             
             articleImage.topAnchor.constraint(equalTo: cellBackground.topAnchor, constant: 8),
             articleImage.leadingAnchor.constraint(equalTo: cellBackground.leadingAnchor, constant: 8),
             articleImage.bottomAnchor.constraint(equalTo: cellBackground.bottomAnchor, constant: -8),
             articleImage.widthAnchor.constraint(equalToConstant: 125),
             
-//            articleVStack.topAnchor.constraint(equalTo: cellBackground.topAnchor, constant: 8),
             articleVStack.leadingAnchor.constraint(equalTo: articleImage.trailingAnchor, constant: 8),
             articleVStack.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-//            articleVStack.bottomAnchor.constraint(equalTo: cellBackground.bottomAnchor, constant: -8),
             articleVStack.trailingAnchor.constraint(equalTo: cellBackground.trailingAnchor, constant: -8),
         ])
     }

@@ -17,6 +17,18 @@ class HomeViewController: UIViewController {
     let mainNewsTitle = CustomLabel(style: .header, text: "Headlines")
     let secondaryNewsLabel = CustomLabel(style: .header, text: "Everything")
     
+    let contentStack = CustomStackView(style: .contentStack, distribution: .fill, alignment: .fill)
+    
+    let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.alwaysBounceVertical = true
+        scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.delaysContentTouches = false
+        scrollView.bounces = false
+        return scrollView
+    }()
+    
     let secondaryHStack: UIStackView = {
         let secondHStack = UIStackView()
         secondHStack.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +39,7 @@ class HomeViewController: UIViewController {
     let headlineCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 300, height: 275)
+        layout.itemSize = CGSize(width: 300, height: 250)
         layout.minimumLineSpacing = 20
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -39,11 +51,10 @@ class HomeViewController: UIViewController {
         return cv
     }()
     
-    //TODO: - Change this collectionview to tableview.
     let everythingCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 375, height: 100)
+        layout.itemSize = CGSize(width: 375, height: 110)
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
@@ -63,7 +74,6 @@ class HomeViewController: UIViewController {
         networkManager.fetchNews {
             self.updateViews()
         }
-        
         networkManager.fetchEverything {
             self.updateViews()
         }
@@ -87,13 +97,19 @@ extension HomeViewController {
     func setupSubviews() {
         secondaryHStack.addArrangedSubview(secondaryNewsLabel)
         
-        view.addSubview(headlineCollectionView)
-        view.addSubview(secondaryHStack)
-        view.addSubview(everythingCollectionView)
+        scrollView.addSubview(headlineCollectionView)
+        scrollView.addSubview(secondaryHStack)
+        scrollView.addSubview(everythingCollectionView)
+        view.addSubview(scrollView)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            
             headlineCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             headlineCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headlineCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),

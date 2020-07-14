@@ -36,15 +36,10 @@ class ArticleDetailViewController: UIViewController {
     }()
     
     let contentStack = CustomStackView(style: .contentStack, distribution: .fill, alignment: .fill)
-    
     let articleDetailVStack = CustomStackView(style: .articleDetailVStack, distribution: .fill, alignment: .fill)
-    
     let authorDetailHStack = CustomStackView(style: .authorDetailHStack, distribution: .equalCentering, alignment: .leading)
-    
     let authorHStack = CustomStackView(style: .authorHStack, distribution: .fill, alignment: .fill)
-    
     let topButtons = CustomStackView(style: .topButtons, distribution: .equalSpacing, alignment: .fill)
-    
     let topRightButtons = CustomStackView(style: .topRightButtons, distribution: .equalSpacing, alignment: .fill)
 
     let topView: UIView = {
@@ -53,7 +48,6 @@ class ArticleDetailViewController: UIViewController {
         topView.contentMode = .scaleAspectFill
         topView.clipsToBounds = true
         topView.layer.cornerRadius = 10
-//        topView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         return topView
     }()
     
@@ -175,8 +169,8 @@ private extension UIImage {
 extension ArticleDetailViewController {
     func setupSubviews() {
         articleDetailVStack.addArrangedSubview(articleTitle)
-        articleDetailVStack.addArrangedSubview(articleDate)
         articleDetailVStack.addArrangedSubview(authorHStack)
+        articleDetailVStack.addArrangedSubview(articleDate)
         articleDetailVStack.addArrangedSubview(line)
         articleDetailVStack.addArrangedSubview(articleDetail)
         
@@ -229,7 +223,7 @@ extension ArticleDetailViewController {
             articleDetailVStack.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 20),
             articleDetailVStack.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor, constant: -20),
             
-            line.topAnchor.constraint(equalTo: authorHStack.bottomAnchor, constant: 20),
+            line.topAnchor.constraint(equalTo: articleDate.bottomAnchor, constant: 20),
             line.leadingAnchor.constraint(equalTo: contentStack.leadingAnchor, constant: 20),
             line.trailingAnchor.constraint(equalTo: contentStack.trailingAnchor, constant: view.bounds.width * -0.75),
             line.heightAnchor.constraint(equalToConstant: 4),

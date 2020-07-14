@@ -13,6 +13,9 @@ class CustomStackView: UIStackView {
         case horizontal, vertical
         //ArticleDetailViewController
         case contentStack, articleDetailVStack, authorDetailHStack, authorHStack, topButtons, topRightButtons
+        
+        //EverythingCollectionViewCell
+        case articleVStack
     }
     
     enum Distribution {
@@ -64,6 +67,11 @@ class CustomStackView: UIStackView {
         case .topRightButtons:
             axis = .horizontal
             spacing = 10
+            
+        //EverythingCollectionViewCell
+        case .articleVStack:
+            axis = .vertical
+            spacing = 8
         default:
             break
         }

@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window?.rootViewController = tabBar
             tabBar.viewControllers = [home, search]
             tabBar.selectedIndex = 0
-            tabBar.tabBar.barTintColor = .black
+            tabBar.tabBar.barTintColor = .systemBackground
             window?.makeKeyAndVisible()
         }
     }
