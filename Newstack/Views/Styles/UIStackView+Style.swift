@@ -16,6 +16,9 @@ class CustomStackView: UIStackView {
         
         //EverythingCollectionViewCell
         case articleVStack
+        
+        //SearchViewController
+        case searchHStack
     }
     
     enum Distribution {
@@ -72,6 +75,9 @@ class CustomStackView: UIStackView {
         case .articleVStack:
             axis = .vertical
             spacing = 8
+            
+        case .searchHStack:
+            axis = .horizontal
         default:
             break
         }

@@ -115,11 +115,11 @@ extension HomeViewController {
             headlineCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             headlineCollectionView.heightAnchor.constraint(equalToConstant: 300),
             
-            secondaryHStack.topAnchor.constraint(equalTo: headlineCollectionView.bottomAnchor, constant: 20),
+            secondaryHStack.topAnchor.constraint(equalTo: headlineCollectionView.bottomAnchor, constant: 10),
             secondaryHStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             secondaryHStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
-            everythingCollectionView.topAnchor.constraint(equalTo: secondaryHStack.bottomAnchor, constant: 20),
+            everythingCollectionView.topAnchor.constraint(equalTo: secondaryHStack.bottomAnchor, constant: 10),
             everythingCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             everythingCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             everythingCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
