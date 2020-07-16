@@ -10,6 +10,15 @@ import UIKit
 class SearchResultTableViewCell: UITableViewCell {
     
     let articleTitle = CustomLabel(style: .title, text: "")
+    
+    let articleImage: UIImageView = {
+        let articleImage = UIImageView()
+        articleImage.translatesAutoresizingMaskIntoConstraints = false
+        articleImage.contentMode = .scaleAspectFill
+        articleImage.layer.cornerRadius = 25
+        articleImage.clipsToBounds = true
+        return articleImage
+    }()
 
     var results: NewsSource.Article? {
         didSet {
@@ -33,14 +42,22 @@ class SearchResultTableViewCell: UITableViewCell {
     }
     
     private func setupSubviews() {
+        contentView.addSubview(articleImage)
         contentView.addSubview(articleTitle)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            articleTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            articleImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            articleImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            articleImage.widthAnchor.constraint(equalToConstant: 20),
+            articleImage.heightAnchor.constraint(equalTo: articleImage.widthAnchor),
+            
+            articleTitle.leadingAnchor.constraint(equalTo: articleImage.trailingAnchor, constant: 8),
             articleTitle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             articleTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            contentView.heightAnchor.constraint(equalToConstant: 75),
         ])
     }
 }

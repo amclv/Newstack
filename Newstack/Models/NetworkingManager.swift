@@ -31,7 +31,6 @@ class NetworkingManager {
     let sourcesURL = URL(string: "https://newsapi.org/v2/sources?")
     let secretAPI = URLQueryItem(name: "apiKey", value: "569bbdc4ab8c42af93e505b90149e026")
     
-    let search = URLQueryItem(name: "q", value: "bitcoin")
     let sortBy = URLQueryItem(name: "sortBy", value: SortOptions.publishedAt.rawValue)
     let sourcesName = URLQueryItem(name: "sources", value: "bbc-news")
     let country = URLQueryItem(name: "country", value: "us")
@@ -40,6 +39,8 @@ class NetworkingManager {
     let category = URLQueryItem(name: "category", value: "general")
     
     func performSearch(searchTerm: String, completionHandler: @escaping (_ error: Error?) -> Void) {
+        let search = URLQueryItem(name: "q", value: searchTerm)
+        
         var urlComponents = URLComponents(url: everythingURL, resolvingAgainstBaseURL: true)
         urlComponents?.queryItems?.append(search)
         urlComponents?.queryItems?.append(secretAPI)
@@ -69,7 +70,9 @@ class NetworkingManager {
             do {
                 let searchResult = try jsonDecoder.decode(NewsSource.self, from: data)
                 self.searchResult.append(contentsOf: searchResult.articles)
-                print(request.url)
+                DispatchQueue.main.async {
+                    completionHandler(nil)
+                }
             } catch {
                 print("Unable to decode data into objects of type [NewsSource.Article]: \(error)")
             }
@@ -108,8 +111,7 @@ class NetworkingManager {
     
     func fetchEverything(completionHandler: @escaping () -> Void) {
         var urlComponents = URLComponents(url: everythingURL, resolvingAgainstBaseURL: true)
-        urlComponents?.queryItems?.append(language)
-        urlComponents?.queryItems?.append(search)
+        urlComponents?.queryItems?.append(sourcesName)
         urlComponents?.queryItems?.append(secretAPI)
         
         guard let requestURL = urlComponents?.url else {
