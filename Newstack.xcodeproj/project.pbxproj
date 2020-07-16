@@ -16,6 +16,7 @@
 		1A244A5A24A4F8800091518D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A5924A4F8800091518D /* HomeViewController.swift */; };
 		1A244A5E24A4F8AA0091518D /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A5D24A4F8AA0091518D /* BookmarkViewController.swift */; };
 		1A244A6124A4F8C00091518D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A6024A4F8C00091518D /* SettingsViewController.swift */; };
+		1A2E0D6B24C00F0300212BF1 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2E0D6A24C00F0300212BF1 /* SearchResultTableViewCell.swift */; };
 		1A3708F624BAB6BD0047419B /* EverythingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3708F524BAB6BD0047419B /* EverythingCollectionViewCell.swift */; };
 		1A3708F924BAB7A60047419B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3708F824BAB7A60047419B /* SearchViewController.swift */; };
 		1A5AC9CB24A505E30030A43A /* HeadlineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9CA24A505E30030A43A /* HeadlineCollectionViewCell.swift */; };
@@ -60,6 +61,7 @@
 		1A244A5924A4F8800091518D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1A244A5D24A4F8AA0091518D /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		1A244A6024A4F8C00091518D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		1A2E0D6A24C00F0300212BF1 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		1A3708F524BAB6BD0047419B /* EverythingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EverythingCollectionViewCell.swift; sourceTree = "<group>"; };
 		1A3708F824BAB7A60047419B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		1A5AC9CA24A505E30030A43A /* HeadlineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				1A3708F824BAB7A60047419B /* SearchViewController.swift */,
+				1A2E0D6A24C00F0300212BF1 /* SearchResultTableViewCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				1A244A2824A4F7960091518D /* SceneDelegate.swift in Sources */,
 				1A3708F924BAB7A60047419B /* SearchViewController.swift in Sources */,
 				1A244A6124A4F8C00091518D /* SettingsViewController.swift in Sources */,
+				1A2E0D6B24C00F0300212BF1 /* SearchResultTableViewCell.swift in Sources */,
 				1A5AC9CB24A505E30030A43A /* HeadlineCollectionViewCell.swift in Sources */,
 				1A244A5A24A4F8800091518D /* HomeViewController.swift in Sources */,
 				1A5AC9D624A506EA0030A43A /* ArticleDetailViewController.swift in Sources */,
@@ -568,6 +572,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7G4A2JWWKQ;
 				INFOPLIST_FILE = "$(SRCROOT)/Newstack/Resources/Info.plist";
@@ -576,8 +581,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.AaronClevleand.Newstack;
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AaronCleveland.Newstack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -588,6 +595,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7G4A2JWWKQ;
 				INFOPLIST_FILE = "$(SRCROOT)/Newstack/Resources/Info.plist";
@@ -596,8 +604,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.AaronClevleand.Newstack;
+				MARKETING_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = com.AaronCleveland.Newstack;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
