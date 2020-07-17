@@ -104,6 +104,11 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         
         let result = networkManager.searchResult[indexPath.row]
         cell.results = result
+        guard let urlImage = result.urlToImage else { return UITableViewCell() }
+        networkManager.fetchImage(imageURL: urlImage) { (data) in
+            guard let newImage = UIImage(data: data) else { return }
+            cell.articleImage.image = newImage
+        }
         return cell
     }
     
