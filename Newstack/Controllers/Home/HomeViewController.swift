@@ -71,7 +71,7 @@ class HomeViewController: UIViewController {
         headlineCollectionView.dataSource = self
         everythingCollectionView.delegate = self
         everythingCollectionView.dataSource = self
-        networkManager.fetchNews {
+        networkManager.fetchHeadlines {
             self.updateViews()
         }
         networkManager.fetchEverything {
@@ -85,11 +85,19 @@ class HomeViewController: UIViewController {
     func setupNavigationController() {
         self.navigationItem.title = "Newstack"
         navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.vertical.3"), style: .plain, target: self, action: #selector(menuButtonTapped))
+        
     }
     
     func updateViews() {
         headlineCollectionView.reloadData()
         everythingCollectionView.reloadData()
+    }
+    
+    @objc func menuButtonTapped() {
+        let menuVC: MenuViewController = MenuViewController()
+        menuVC.modalPresentationStyle = .popover
+        self.present(menuVC, animated: true, completion: nil)
     }
 }
 

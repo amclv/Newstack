@@ -4,6 +4,16 @@
 //
 //  Created by Aaron Cleveland on 7/5/20.
 //
+/*
+ Endpoints
+ News API has 2 main endpoints:
+
+ Top headlines /v2/top-headlines - returns breaking news headlines for a country and category, or currently running on a single or multiple sources. This is perfect for use with news tickers or anywhere you want to display live up-to-date news headlines and images.
+ Everything /v2/everything - we index every recent news and blog article published by over 50,000 different sources large and small, and you can search through them with this endpoint. This endpoint is better suited for news analysis and article discovery, but can be used to retrieve articles for display too.
+ We also have a minor endpoint that can be used to retrieve a small subset of the publishers we index from:
+
+ Sources /v2/sources - returns information (including name, description, and category) about the most notable sources we index. This list could be piped directly through to your users when showing them some of the options available.
+ */
 
 import Foundation
 
@@ -28,15 +38,18 @@ class NetworkingManager {
     
     let headlineURL = URL(string: "https://newsapi.org/v2/top-headlines?")!
     let everythingURL = URL(string: "https://newsapi.org/v2/everything?")!
-    let sourcesURL = URL(string: "https://newsapi.org/v2/sources?")
+    let sourcesURL = URL(string: "https://newsapi.org/v2/sources?")!
     let secretAPI = URLQueryItem(name: "apiKey", value: "569bbdc4ab8c42af93e505b90149e026")
     
     let sortBy = URLQueryItem(name: "sortBy", value: SortOptions.publishedAt.rawValue)
-    let sourcesName = URLQueryItem(name: "sources", value: "bbc-news")
-    let country = URLQueryItem(name: "country", value: "us")
+    let search = URLQueryItem(name: "q", value: "trump")
+    let fromDate = URLQueryItem(name: "from", value: "2018-01-01")
+    let toDate = URLQueryItem(name: "to", value: "2019-01-01")
     let language = URLQueryItem(name: "language", value: "en")
-    
+    let country = URLQueryItem(name: "country", value: "us")
+    let sourcesName = URLQueryItem(name: "sources", value: "techcrunch")
     let category = URLQueryItem(name: "category", value: "general")
+    let domains = URLQueryItem(name: "domains", value: "techcrunch.com")
     
     func performSearch(searchTerm: String, completionHandler: @escaping (_ error: Error?) -> Void) {
         let search = URLQueryItem(name: "q", value: searchTerm)
@@ -81,10 +94,9 @@ class NetworkingManager {
         .resume()
     }
     
-    func fetchNews(completionHandler: @escaping () -> Void) {
+    func fetchHeadlines(completionHandler: @escaping () -> Void) {
         var urlComponents = URLComponents(url: headlineURL, resolvingAgainstBaseURL: true)
-        urlComponents?.queryItems?.append(category)
-//        urlComponents?.queryItems?.append(country)
+        urlComponents?.queryItems?.append(sourcesName)
         urlComponents?.queryItems?.append(secretAPI)
         
         guard let requestURL = urlComponents?.url else {
@@ -111,7 +123,7 @@ class NetworkingManager {
     
     func fetchEverything(completionHandler: @escaping () -> Void) {
         var urlComponents = URLComponents(url: everythingURL, resolvingAgainstBaseURL: true)
-        urlComponents?.queryItems?.append(sourcesName)
+        urlComponents?.queryItems?.append(domains)
         urlComponents?.queryItems?.append(secretAPI)
         
         guard let requestURL = urlComponents?.url else {

@@ -84,7 +84,7 @@ class ArticleDetailViewController: UIViewController {
     
     let bookmarkButton: CustomButton = {
         let bookButton = CustomButton(style: .bookmarkButton)
-        bookButton.setImage(UIImage(systemName: "bookmark")?.scaled(to: 25)?.withTintColor(.label, renderingMode: .alwaysOriginal), for: .normal)
+        bookButton.setImage(UIImage(systemName: "bookmark")?.scaled(to: 25)?.withTintColor(.clear, renderingMode: .alwaysOriginal), for: .normal)
         bookButton.addTarget(self, action: #selector(bookmarkArticleTapped), for: .touchUpInside)
         return bookButton
     }()

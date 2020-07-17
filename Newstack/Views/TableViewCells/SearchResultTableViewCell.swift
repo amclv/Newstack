@@ -9,6 +9,8 @@ import UIKit
 
 class SearchResultTableViewCell: UITableViewCell {
     
+    static var identifier: String = "searchResultCell"
+    
     let articleTitle = CustomLabel(style: .title, text: "")
     
     let articleImage: UIImageView = {
@@ -50,14 +52,14 @@ class SearchResultTableViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             articleImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             articleImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            articleImage.widthAnchor.constraint(equalToConstant: 20),
+            articleImage.widthAnchor.constraint(equalToConstant: 100),
             articleImage.heightAnchor.constraint(equalTo: articleImage.widthAnchor),
             
             articleTitle.leadingAnchor.constraint(equalTo: articleImage.trailingAnchor, constant: 8),
             articleTitle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             articleTitle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             
-            contentView.heightAnchor.constraint(equalToConstant: 75),
+            contentView.heightAnchor.constraint(equalToConstant: 125),
         ])
     }
 }

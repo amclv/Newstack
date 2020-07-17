@@ -25,6 +25,7 @@
 		1A5AC9D824A507190030A43A /* UIButton+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D724A507190030A43A /* UIButton+Style.swift */; };
 		1A865F6C24B379AC004B547C /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A865F6B24B379AC004B547C /* Article.swift */; };
 		1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */; };
+		1AA0424F24C15E7F00AB9A09 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA0424E24C15E7F00AB9A09 /* MenuViewController.swift */; };
 		1ADC857124BAC52B008251C2 /* UIStackView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +71,7 @@
 		1A5AC9D724A507190030A43A /* UIButton+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Style.swift"; sourceTree = "<group>"; };
 		1A865F6B24B379AC004B547C /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
+		1AA0424E24C15E7F00AB9A09 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Style.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -181,6 +183,7 @@
 		1A244A5824A4F85A0091518D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1AA0424E24C15E7F00AB9A09 /* MenuViewController.swift */,
 				1A3708F724BAB7930047419B /* Search */,
 				1A5AC9D424A506D70030A43A /* ArticleDetail */,
 				1A244A5F24A4F8B40091518D /* Settings */,
@@ -405,6 +408,7 @@
 				1A5AC9D824A507190030A43A /* UIButton+Style.swift in Sources */,
 				1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */,
 				1A3708F624BAB6BD0047419B /* EverythingCollectionViewCell.swift in Sources */,
+				1AA0424F24C15E7F00AB9A09 /* MenuViewController.swift in Sources */,
 				1ADC857124BAC52B008251C2 /* UIStackView+Style.swift in Sources */,
 				1A244A2824A4F7960091518D /* SceneDelegate.swift in Sources */,
 				1A3708F924BAB7A60047419B /* SearchViewController.swift in Sources */,

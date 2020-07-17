@@ -20,18 +20,10 @@ class SearchViewController: UIViewController {
         return sb
     }()
     
-    let sortButton: UIButton = {
-        let sort = UIButton()
-        sort.translatesAutoresizingMaskIntoConstraints = false
-        sort.setImage(UIImage(systemName: "arrow.up.arrow.down"), for: .normal)
-        sort.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
-        return sort
-    }()
-    
     let tableView: UITableView = {
         let tb = UITableView()
         tb.translatesAutoresizingMaskIntoConstraints = false
-        tb.register(SearchResultTableViewCell.self, forCellReuseIdentifier: "cell")
+        tb.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.identifier)
         return tb
     }()
 
@@ -53,7 +45,6 @@ class SearchViewController: UIViewController {
 extension SearchViewController {
     private func setupSubviews() {
         searchHStack.addArrangedSubview(searchBar)
-        searchHStack.addArrangedSubview(sortButton)
         
         view.addSubview(tableView)
         view.addSubview(searchHStack)
@@ -64,8 +55,6 @@ extension SearchViewController {
             searchHStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             searchHStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             searchHStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            
-            searchBar.trailingAnchor.constraint(greaterThanOrEqualTo: sortButton.leadingAnchor),
             
             tableView.topAnchor.constraint(equalTo: searchHStack.bottomAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -98,7 +87,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? SearchResultTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchResultTableViewCell.identifier, for: indexPath) as? SearchResultTableViewCell else {
             return UITableViewCell()
         }
         

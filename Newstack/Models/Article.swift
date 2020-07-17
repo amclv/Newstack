@@ -9,6 +9,7 @@ import Foundation
 
 struct NewsSource: Codable {
     let status: String?
+    let totalResults: Int?
     let articles: [Article]
     
     struct Article: Codable {
@@ -39,4 +40,10 @@ struct NewsSource: Codable {
             let name: String?
         }
     }
+    
+    private enum CodingKeys: String, CodingKey {
+            case status
+            case totalResults
+            case articles
+        }
 }
