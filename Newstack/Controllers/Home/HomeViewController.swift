@@ -19,6 +19,10 @@ class HomeViewController: UIViewController {
     
     let contentStack = CustomStackView(style: .contentStack, distribution: .fill, alignment: .fill)
     
+    var picker = UIPickerView()
+    var toolBar = UIToolbar()
+    let dataArray = ["BBC-News", "Wall Street Journal", "ABC-News", "The Washington Post"]
+    
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -85,7 +89,7 @@ class HomeViewController: UIViewController {
     func setupNavigationController() {
         self.navigationItem.title = "Newstack"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.vertical.3"), style: .plain, target: self, action: #selector(menuButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "newspaper"), style: .plain, target: self, action: #selector(menuButtonTapped))
         
     }
     
@@ -95,9 +99,27 @@ class HomeViewController: UIViewController {
     }
     
     @objc func menuButtonTapped() {
-        let menuVC: MenuViewController = MenuViewController()
-        menuVC.modalPresentationStyle = .popover
-        self.present(menuVC, animated: true, completion: nil)
+        //        let menuVC: MenuViewController = MenuViewController()
+        //        menuVC.modalPresentationStyle = .popover
+        //        self.present(menuVC, animated: true, completion: nil)
+        picker = UIPickerView.init()
+        picker.delegate = self
+        picker.backgroundColor = UIColor(named: "Background")
+        picker.setValue(UIColor.label, forKey: "textColor")
+        picker.autoresizingMask = .flexibleWidth
+        picker.contentMode = .center
+        picker.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 350, width: UIScreen.main.bounds.size.width, height: 300)
+        self.view.addSubview(picker)
+        
+        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 350, width: UIScreen.main.bounds.size.width, height: 50))
+        toolBar.barStyle = .default
+        toolBar.items = [UIBarButtonItem.init(title: "Done", style: .done, target: self, action: #selector(onDoneButtonTapped))]
+        self.view.addSubview(toolBar)
+    }
+    
+    @objc func onDoneButtonTapped() {
+        toolBar.removeFromSuperview()
+        picker.removeFromSuperview()
     }
 }
 
@@ -161,7 +183,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             
             let everyArticle = networkManager.everythingFeed[indexPath.item]
             cell.everythingArticle = everyArticle
-
+            
             guard let url = everyArticle.urlToImage else { return UICollectionViewCell() }
             networkManager.fetchImage(imageURL: url) { (data) in
                 guard let newImage = UIImage(data: data) else { return }
@@ -184,5 +206,24 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
+    }
+}
+
+extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return dataArray.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let row = dataArray[row]
+        return row
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print(dataArray[row])
     }
 }

@@ -123,7 +123,7 @@ class NetworkingManager {
     
     func fetchEverything(completionHandler: @escaping () -> Void) {
         var urlComponents = URLComponents(url: everythingURL, resolvingAgainstBaseURL: true)
-        urlComponents?.queryItems?.append(domains)
+        urlComponents?.queryItems?.append(sourcesName)
         urlComponents?.queryItems?.append(secretAPI)
         
         guard let requestURL = urlComponents?.url else {
