@@ -16,6 +16,7 @@ class SearchViewController: UIViewController {
     lazy var searchBar: UISearchBar = {
         let sb = UISearchBar()
         sb.translatesAutoresizingMaskIntoConstraints = false
+        sb.backgroundImage = UIImage()
         sb.barStyle = .default
         return sb
     }()
@@ -24,12 +25,13 @@ class SearchViewController: UIViewController {
         let tb = UITableView()
         tb.translatesAutoresizingMaskIntoConstraints = false
         tb.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.identifier)
+        tb.backgroundColor = UIColor(named: "Background")
         return tb
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "Background")
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
@@ -80,6 +82,13 @@ extension SearchViewController: UISearchBarDelegate {
         }
     }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            networkManager.searchResult.removeAll()
+            tableView.reloadData()
+        }
+    }
+    
 }
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
@@ -94,6 +103,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         
         let result = networkManager.searchResult[indexPath.row]
         cell.results = result
+        cell.backgroundColor = UIColor(named: "Background")
         guard let urlImage = result.urlToImage else { return UITableViewCell() }
         networkManager.fetchImage(imageURL: urlImage) { (data) in
             guard let newImage = UIImage(data: data) else { return }
