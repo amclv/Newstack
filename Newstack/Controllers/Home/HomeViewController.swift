@@ -21,7 +21,6 @@ class HomeViewController: UIViewController {
     
     var picker = UIPickerView()
     var toolBar = UIToolbar()
-    let dataArray = ["BBC-News", "Wall Street Journal", "ABC-News", "The Washington Post"]
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -81,10 +80,15 @@ class HomeViewController: UIViewController {
         networkManager.fetchEverything {
             self.updateViews()
         }
+        networkManager.fetchSources {
+            print("TEST THIS BITCH::::::::::\(self.networkManager.sourcesFeed.count)")
+            self.updateViews()
+        }
         setupNavigationController()
         setupSubviews()
         setupConstraints()
     }
+    let sArray: [String:String] = [:]
     
     func setupNavigationController() {
         self.navigationItem.title = "Newstack"
@@ -96,12 +100,10 @@ class HomeViewController: UIViewController {
     func updateViews() {
         headlineCollectionView.reloadData()
         everythingCollectionView.reloadData()
+        picker.reloadAllComponents()
     }
     
     @objc func menuButtonTapped() {
-        //        let menuVC: MenuViewController = MenuViewController()
-        //        menuVC.modalPresentationStyle = .popover
-        //        self.present(menuVC, animated: true, completion: nil)
         picker = UIPickerView.init()
         picker.delegate = self
         picker.backgroundColor = UIColor(named: "Background")
@@ -215,15 +217,14 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return dataArray.count
+        return networkManager.sourcesFeed.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let row = dataArray[row]
-        return row
+        return networkManager.sourcesFeed[row].name
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(dataArray[row])
+        print(networkManager.sourcesFeed[row])
     }
 }

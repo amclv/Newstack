@@ -35,6 +35,7 @@ class NetworkingManager {
     var headlineFeed: [NewsSource.Article] = []
     var everythingFeed: [NewsSource.Article] = []
     var searchResult: [NewsSource.Article] = []
+    var sourcesFeed: [PaperSource.Sources] = []
     
     let headlineURL = URL(string: "https://newsapi.org/v2/top-headlines?")!
     let everythingURL = URL(string: "https://newsapi.org/v2/everything?")!
@@ -47,7 +48,7 @@ class NetworkingManager {
     let toDate = URLQueryItem(name: "to", value: "2019-01-01")
     let language = URLQueryItem(name: "language", value: "en")
     let country = URLQueryItem(name: "country", value: "us")
-    let sourcesName = URLQueryItem(name: "sources", value: "techcrunch")
+    let sourcesName = URLQueryItem(name: "sources", value: "abc-news")
     let category = URLQueryItem(name: "category", value: "general")
     let domains = URLQueryItem(name: "domains", value: "techcrunch.com")
     
@@ -161,6 +162,38 @@ class NetworkingManager {
             guard let data = data else { return }
             DispatchQueue.main.async {
                 completionHandler(data)                
+            }
+        }.resume()
+    }
+    
+    func fetchSources(completionHandler: @escaping () -> Void) {
+        var urlComponents = URLComponents(url: sourcesURL, resolvingAgainstBaseURL: true)
+        urlComponents?.queryItems?.append(secretAPI)
+        
+        guard let requestURL = urlComponents?.url else {
+            print("request url is nil in fetchSources")
+            completionHandler()
+            return
+        }
+        print("fetchSources is functionings")
+        
+        URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
+            if let error = error {
+                print("Error: \(error)")
+                completionHandler()
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            do {
+                let source = try decoder.decode(PaperSource.self, from: data!)
+                let newSource = source.sources
+                self.sourcesFeed = newSource
+                DispatchQueue.main.async {
+                    completionHandler()
+                }
+            } catch {
+                print("Error decoding sources url: \(error)")
             }
         }.resume()
     }

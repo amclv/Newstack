@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A1CD04224C417AB0012D13F /* Sources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1CD04124C417AB0012D13F /* Sources.swift */; };
 		1A244A2624A4F7960091518D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A2524A4F7960091518D /* AppDelegate.swift */; };
 		1A244A2824A4F7960091518D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A2724A4F7960091518D /* SceneDelegate.swift */; };
 		1A244A2F24A4F7970091518D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A244A2E24A4F7970091518D /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A1CD04124C417AB0012D13F /* Sources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources.swift; sourceTree = "<group>"; };
 		1A244A2224A4F7960091518D /* Newstack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Newstack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A244A2524A4F7960091518D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1A244A2724A4F7960091518D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 			children = (
 				1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */,
 				1A865F6B24B379AC004B547C /* Article.swift */,
+				1A1CD04124C417AB0012D13F /* Sources.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 				1A244A2824A4F7960091518D /* SceneDelegate.swift in Sources */,
 				1A3708F924BAB7A60047419B /* SearchViewController.swift in Sources */,
 				1A244A6124A4F8C00091518D /* SettingsViewController.swift in Sources */,
+				1A1CD04224C417AB0012D13F /* Sources.swift in Sources */,
 				1A2E0D6B24C00F0300212BF1 /* SearchResultTableViewCell.swift in Sources */,
 				1A5AC9CB24A505E30030A43A /* HeadlineCollectionViewCell.swift in Sources */,
 				1A244A5A24A4F8800091518D /* HomeViewController.swift in Sources */,
