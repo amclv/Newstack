@@ -48,7 +48,7 @@ class NetworkingManager {
     let toDate = URLQueryItem(name: "to", value: "2019-01-01")
     let language = URLQueryItem(name: "language", value: "en")
     let country = URLQueryItem(name: "country", value: "us")
-    let sourcesName = URLQueryItem(name: "sources", value: "abc-news")
+    let sourcesName = URLQueryItem(name: "sources", value: "bleacher-report")
     let category = URLQueryItem(name: "category", value: "general")
     let domains = URLQueryItem(name: "domains", value: "techcrunch.com")
     

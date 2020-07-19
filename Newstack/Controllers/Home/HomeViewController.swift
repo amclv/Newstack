@@ -221,10 +221,12 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        #warning("Base off categories of sources")
         return networkManager.sourcesFeed[row].name
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        #warning("Grab user input and refresh homeviewcontroller with selected source.")
         print(networkManager.sourcesFeed[row])
     }
 }
