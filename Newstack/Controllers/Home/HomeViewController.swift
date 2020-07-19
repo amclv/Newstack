@@ -74,7 +74,10 @@ class HomeViewController: UIViewController {
         headlineCollectionView.dataSource = self
         everythingCollectionView.delegate = self
         everythingCollectionView.dataSource = self
-        networkManager.fetchHeadlines {
+//        networkManager.fetchHeadlines {
+//            self.updateViews()
+//        }
+        networkManager.fetchHeadlines(sources: "") {
             self.updateViews()
         }
         networkManager.fetchEverything {
@@ -226,7 +229,12 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        #warning("Grab user input and refresh homeviewcontroller with selected source.")
         print(networkManager.sourcesFeed[row])
+        guard let id = networkManager.sourcesFeed[row].id else { return }
+        DispatchQueue.main.async {
+            self.networkManager.fetchHeadlines(sources: id) {
+                self.updateViews()
+            }
+        }
     }
 }

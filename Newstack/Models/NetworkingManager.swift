@@ -48,7 +48,7 @@ class NetworkingManager {
     let toDate = URLQueryItem(name: "to", value: "2019-01-01")
     let language = URLQueryItem(name: "language", value: "en")
     let country = URLQueryItem(name: "country", value: "us")
-    let sourcesName = URLQueryItem(name: "sources", value: "bleacher-report")
+    
     let category = URLQueryItem(name: "category", value: "general")
     let domains = URLQueryItem(name: "domains", value: "techcrunch.com")
     
@@ -95,7 +95,8 @@ class NetworkingManager {
         .resume()
     }
     
-    func fetchHeadlines(completionHandler: @escaping () -> Void) {
+    func fetchHeadlines(sources: String, completionHandler: @escaping () -> Void) {
+        let sourcesName = URLQueryItem(name: "sources", value: "bbc-news")
         var urlComponents = URLComponents(url: headlineURL, resolvingAgainstBaseURL: true)
         urlComponents?.queryItems?.append(sourcesName)
         urlComponents?.queryItems?.append(secretAPI)
@@ -123,6 +124,7 @@ class NetworkingManager {
     }
     
     func fetchEverything(completionHandler: @escaping () -> Void) {
+        let sourcesName = URLQueryItem(name: "sources", value: "bbc-news")
         var urlComponents = URLComponents(url: everythingURL, resolvingAgainstBaseURL: true)
         urlComponents?.queryItems?.append(sourcesName)
         urlComponents?.queryItems?.append(secretAPI)
