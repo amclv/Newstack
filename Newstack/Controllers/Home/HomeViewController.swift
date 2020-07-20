@@ -232,7 +232,6 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        #warning("Base off categories of sources")
         return networkManager.sourcesFeed[row].name
     }
     

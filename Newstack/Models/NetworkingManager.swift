@@ -170,6 +170,7 @@ class NetworkingManager {
     
     func fetchSources(completionHandler: @escaping () -> Void) {
         var urlComponents = URLComponents(url: sourcesURL, resolvingAgainstBaseURL: true)
+        urlComponents?.queryItems?.append(language)
         urlComponents?.queryItems?.append(secretAPI)
         
         guard let requestURL = urlComponents?.url else {
