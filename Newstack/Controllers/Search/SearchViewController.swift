@@ -76,6 +76,7 @@ extension SearchViewController: UISearchBarDelegate {
             } else {
                 print(self.networkManager.searchResult)
                 DispatchQueue.main.async {
+                    self.tableView.keyboardDismissMode = .onDrag
                     self.tableView.reloadData()
                 }
             }
@@ -88,7 +89,6 @@ extension SearchViewController: UISearchBarDelegate {
             tableView.reloadData()
         }
     }
-    
 }
 
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {

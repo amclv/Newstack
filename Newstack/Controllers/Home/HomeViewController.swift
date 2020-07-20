@@ -14,7 +14,7 @@ class HomeViewController: UIViewController {
     
     //=======================
     // MARK: - Stored Properties
-    let mainNewsTitle = CustomLabel(style: .header, text: "Headlines")
+    let mainNewsTitle = CustomLabel(style: .header, text: "Headlines ")
     let secondaryNewsLabel = CustomLabel(style: .header, text: "Everything")
     
     let contentStack = CustomStackView(style: .contentStack, distribution: .fill, alignment: .fill)
@@ -31,6 +31,8 @@ class HomeViewController: UIViewController {
         scrollView.bounces = false
         return scrollView
     }()
+    
+    let firstHStack = CustomStackView(style: .horizontal, distribution: .fill, alignment: .fill)
     
     let secondaryHStack: UIStackView = {
         let secondHStack = UIStackView()
@@ -77,10 +79,10 @@ class HomeViewController: UIViewController {
 //        networkManager.fetchHeadlines {
 //            self.updateViews()
 //        }
-        networkManager.fetchHeadlines(sources: "") {
+        networkManager.fetchHeadlines(sources: "bbc-news") {
             self.updateViews()
         }
-        networkManager.fetchEverything {
+        networkManager.fetchEverything(sources: "bbc-news") {
             self.updateViews()
         }
         networkManager.fetchSources {
@@ -96,8 +98,8 @@ class HomeViewController: UIViewController {
     func setupNavigationController() {
         self.navigationItem.title = "Newstack"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "newspaper"), style: .plain, target: self, action: #selector(menuButtonTapped))
-        
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "newspaper"), style: .plain, target: self, action: #selector(menuButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(menuButtonTapped))
     }
     
     func updateViews() {
@@ -130,8 +132,10 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController {
     func setupSubviews() {
+        firstHStack.addArrangedSubview(mainNewsTitle)
         secondaryHStack.addArrangedSubview(secondaryNewsLabel)
         
+        scrollView.addSubview(firstHStack)
         scrollView.addSubview(headlineCollectionView)
         scrollView.addSubview(secondaryHStack)
         scrollView.addSubview(everythingCollectionView)
@@ -145,7 +149,11 @@ extension HomeViewController {
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             
-            headlineCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            firstHStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            firstHStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            firstHStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            
+            headlineCollectionView.topAnchor.constraint(equalTo: firstHStack.bottomAnchor),
             headlineCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headlineCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             headlineCollectionView.heightAnchor.constraint(equalToConstant: 300),
@@ -235,6 +243,10 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             self.networkManager.fetchHeadlines(sources: id) {
                 self.updateViews()
             }
+            self.networkManager.fetchEverything(sources: id) {
+                self.updateViews()
+            }
         }
+        self.mainNewsTitle.text = "Headlines on \(self.networkManager.sourcesFeed[row].name ?? "BBC-News")"
     }
 }

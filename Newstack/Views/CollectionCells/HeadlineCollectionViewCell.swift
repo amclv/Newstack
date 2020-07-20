@@ -62,7 +62,7 @@ class HeadlineCollectionViewCell: UICollectionViewCell {
     
     func updateViews() {
         self.headlineTitle.text = headlineArticle?.title
-        self.headlineAuthor.text = headlineArticle?.author
+        self.headlineAuthor.text = headlineArticle?.source.name
     }
 }
 

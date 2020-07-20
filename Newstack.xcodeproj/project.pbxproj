@@ -24,9 +24,9 @@
 		1A5AC9D324A506A50030A43A /* UILabel+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D224A506A50030A43A /* UILabel+Style.swift */; };
 		1A5AC9D624A506EA0030A43A /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D524A506EA0030A43A /* ArticleDetailViewController.swift */; };
 		1A5AC9D824A507190030A43A /* UIButton+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D724A507190030A43A /* UIButton+Style.swift */; };
+		1A64E6D324C5430900DF2B97 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A64E6D224C5430900DF2B97 /* Extensions.swift */; };
 		1A865F6C24B379AC004B547C /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A865F6B24B379AC004B547C /* Article.swift */; };
 		1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */; };
-		1AA0424F24C15E7F00AB9A09 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA0424E24C15E7F00AB9A09 /* MenuViewController.swift */; };
 		1ADC857124BAC52B008251C2 /* UIStackView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,9 +71,9 @@
 		1A5AC9D224A506A50030A43A /* UILabel+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Style.swift"; sourceTree = "<group>"; };
 		1A5AC9D524A506EA0030A43A /* ArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewController.swift; sourceTree = "<group>"; };
 		1A5AC9D724A507190030A43A /* UIButton+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Style.swift"; sourceTree = "<group>"; };
+		1A64E6D224C5430900DF2B97 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1A865F6B24B379AC004B547C /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
-		1AA0424E24C15E7F00AB9A09 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Style.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,6 +125,7 @@
 		1A244A2424A4F7960091518D /* Newstack */ = {
 			isa = PBXGroup;
 			children = (
+				1A64E6D124C542FD00DF2B97 /* Globals */,
 				1A244A5724A4F8550091518D /* Models */,
 				1A244A5624A4F84D0091518D /* Views */,
 				1A244A5824A4F85A0091518D /* Controllers */,
@@ -186,7 +187,6 @@
 		1A244A5824A4F85A0091518D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1AA0424E24C15E7F00AB9A09 /* MenuViewController.swift */,
 				1A3708F724BAB7930047419B /* Search */,
 				1A5AC9D424A506D70030A43A /* ArticleDetail */,
 				1A244A5F24A4F8B40091518D /* Settings */,
@@ -269,6 +269,14 @@
 				1A244A3024A4F7970091518D /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		1A64E6D124C542FD00DF2B97 /* Globals */ = {
+			isa = PBXGroup;
+			children = (
+				1A64E6D224C5430900DF2B97 /* Extensions.swift */,
+			);
+			path = Globals;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -405,13 +413,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A865F6C24B379AC004B547C /* Article.swift in Sources */,
+				1A64E6D324C5430900DF2B97 /* Extensions.swift in Sources */,
 				1A5AC9D324A506A50030A43A /* UILabel+Style.swift in Sources */,
 				1A244A5E24A4F8AA0091518D /* BookmarkViewController.swift in Sources */,
 				1A244A2624A4F7960091518D /* AppDelegate.swift in Sources */,
 				1A5AC9D824A507190030A43A /* UIButton+Style.swift in Sources */,
 				1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */,
 				1A3708F624BAB6BD0047419B /* EverythingCollectionViewCell.swift in Sources */,
-				1AA0424F24C15E7F00AB9A09 /* MenuViewController.swift in Sources */,
 				1ADC857124BAC52B008251C2 /* UIStackView+Style.swift in Sources */,
 				1A244A2824A4F7960091518D /* SceneDelegate.swift in Sources */,
 				1A3708F924BAB7A60047419B /* SearchViewController.swift in Sources */,
@@ -597,7 +605,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AaronCleveland.StackNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -620,7 +628,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AaronCleveland.StackNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
