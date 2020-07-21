@@ -11,8 +11,8 @@ class OnboardingViewController: UIViewController {
     
     let contentVStack = CustomStackView(style: .vertical, distribution: .fillEqually, alignment: .fill)
     
-    let helloLabel = CustomLabel(style: .title, text: "Hello!")
-    let subLabel = CustomLabel(style: .title, text: "lorem aiwionad aidowni wiandoin ainwadno awidnoaiwnd aoiw ainwd awidn")
+    let helloLabel = CustomLabel(style: .helloLabel, text: "Hello!")
+    let subLabel = CustomLabel(style: .subLabel, text: "Daily UI is a series of daily design challenges design inspiration.")
     
     let socialHStack = CustomStackView(style: .horizontal, distribution: .fillEqually, alignment: .fill)
     
@@ -46,12 +46,8 @@ class OnboardingViewController: UIViewController {
     
     let fullNameVStack = CustomStackView(style: .vertical, distribution: .fill, alignment: .fill)
     
-    let fullNameLabel: UILabel = {
-        let fnLabel = UILabel()
-        fnLabel.translatesAutoresizingMaskIntoConstraints = false
-        fnLabel.text = "Full Name"
-        return fnLabel
-    }()
+    let fullNameLabel = CustomLabel(style: .fullNameLabel, text: "Full Name")
+    
     let fullNameTextField: UITextField = {
         let fnTextField = UITextField()
         fnTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -60,12 +56,8 @@ class OnboardingViewController: UIViewController {
     
     let emailVStack = CustomStackView(style: .vertical, distribution: .fill, alignment: .fill)
     
-    let emailLabel: UILabel = {
-        let emailLabel = UILabel()
-        emailLabel.translatesAutoresizingMaskIntoConstraints = false
-        emailLabel.text = "Full Name"
-        return emailLabel
-    }()
+    let emailLabel = CustomLabel(style: .emailLabel, text: "Email Address")
+    
     let emailTextField: UITextField = {
         let emailTextField = UITextField()
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
@@ -115,7 +107,7 @@ extension OnboardingViewController {
     
     private func constraints() {
         NSLayoutConstraint.activate([
-            contentVStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            contentVStack.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor),
             contentVStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             contentVStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             contentVStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
