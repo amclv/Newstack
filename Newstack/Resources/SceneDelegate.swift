@@ -17,15 +17,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window = UIWindow(windowScene: windowScene)
             let home = UINavigationController(rootViewController: HomeViewController())
             home.tabBarItem.image = UIImage(systemName: "house")
-//            let settings = SettingsViewController()
-//            settings.tabBarItem.image = UIImage(systemName: "person.circle")
+            let settings = OnboardingViewController()
+            settings.tabBarItem.image = UIImage(systemName: "person.circle")
 //            let bookmark = BookmarkViewController()
 //            bookmark.tabBarItem.image = UIImage(systemName: "bookmark")
             let search = SearchViewController()
             search.tabBarItem.image = UIImage(systemName: "magnifyingglass")
             let tabBar = UITabBarController()
             window?.rootViewController = tabBar
-            tabBar.viewControllers = [home, search]
+            tabBar.viewControllers = [settings, home, search]
             tabBar.selectedIndex = 0
             tabBar.tabBar.barTintColor = .systemBackground
             window?.makeKeyAndVisible()
