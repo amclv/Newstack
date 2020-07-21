@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>307519294603-8u6n2v0n4lf49ubao3hh851qf3ekbe7e.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.307519294603-8u6n2v0n4lf49ubao3hh851qf3ekbe7e</string>
+	<key>API_KEY</key>
+	<string>AIzaSyByjmI1lzVYVHGRbKzKxrRHKpa0iPwUcmQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>307519294603</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.AaronCleveland.StackNews</string>
+	<key>PROJECT_ID</key>
+	<string>newstack-bcd5d</string>
+	<key>STORAGE_BUCKET</key>
+	<string>newstack-bcd5d.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:307519294603:ios:5755c9f8c42b3deae3588e</string>
+	<key>DATABASE_URL</key>
+	<string>https://newstack-bcd5d.firebaseio.com</string>
+</dict>
+</plist>

@@ -246,6 +246,6 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
                 self.updateViews()
             }
         }
-        self.mainNewsTitle.text = "Headlines on \(self.networkManager.sourcesFeed[row].name ?? "BBC-News")"
+        self.mainNewsTitle.text = "Headlines on \(self.networkManager.sourcesFeed[row].name ?? "")"
     }
 }

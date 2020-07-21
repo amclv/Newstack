@@ -61,8 +61,8 @@ class HeadlineCollectionViewCell: UICollectionViewCell {
     }
     
     func updateViews() {
-        self.headlineTitle.text = headlineArticle?.title
-        self.headlineAuthor.text = headlineArticle?.source.name
+        self.headlineTitle.text = headlineArticle?.title ?? "No Title"
+        self.headlineAuthor.text = headlineArticle?.source.name ?? "No Source Name"
     }
 }
 
