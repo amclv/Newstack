@@ -15,21 +15,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         if let windowScene = scene as? UIWindowScene {
             window = UIWindow(windowScene: windowScene)
-            let home = UINavigationController(rootViewController: HomeViewController())
-            home.tabBarItem.image = UIImage(systemName: "house")
-            let settings = OnboardingViewController()
-            settings.tabBarItem.image = UIImage(systemName: "person.circle")
-//            let bookmark = BookmarkViewController()
-//            bookmark.tabBarItem.image = UIImage(systemName: "bookmark")
-            let search = SearchViewController()
-            search.tabBarItem.image = UIImage(systemName: "magnifyingglass")
-            let tabBar = UITabBarController()
-            window?.rootViewController = tabBar
-            tabBar.viewControllers = [settings, home, search]
-            tabBar.selectedIndex = 0
-            tabBar.tabBar.barTintColor = .systemBackground
+            let viewController = OnboardingViewController()
+            window?.rootViewController = viewController
             window?.makeKeyAndVisible()
         }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OnboardingViewController: UIViewController {
+class OnboardingViewController: ShiftableViewController {
     
     let backgroundImage: UIImageView = {
         let bg = UIImageView()
@@ -22,12 +22,20 @@ class OnboardingViewController: UIViewController {
     let helloLabel = CustomLabel(style: .helloLabel, text: "Hello!")
     let subLabel = CustomLabel(style: .subLabel, text: "Daily UI is a series of daily design challenges design inspiration.")
     
-    let socialHStack = CustomStackView(style: .horizontal, distribution: .fill, alignment: .fill)
+//    let socialHStack = CustomStackView(style: .onboardSocialHStack, distribution: .fill, alignment: .fill)
+    
+    let socialHStack: UIStackView = {
+        let sHStack = UIStackView()
+        sHStack.translatesAutoresizingMaskIntoConstraints = false
+        sHStack.axis = .horizontal
+        sHStack.distribution = .fill
+        sHStack.alignment = .fill
+        return sHStack
+    }()
     
     let facebookButton: UIButton = {
         let fb = UIButton()
         let fbImage = UIImage(named: "facebook")?.scaled(to: 50)
-        fb.translatesAutoresizingMaskIntoConstraints = false
         fb.setImage(fbImage, for: .normal)
         return fb
     }()
@@ -35,7 +43,6 @@ class OnboardingViewController: UIViewController {
     let twitterButton: UIButton = {
         let tb = UIButton()
         let tbImage = UIImage(named: "twitter")?.scaled(to: 50)
-        tb.translatesAutoresizingMaskIntoConstraints = false
         tb.setImage(tbImage, for: .normal)
         return tb
     }()
@@ -43,7 +50,6 @@ class OnboardingViewController: UIViewController {
     let googleButton: UIButton = {
         let gb = UIButton()
         let gbImage = UIImage(named: "google")?.scaled(to: 50)
-        gb.translatesAutoresizingMaskIntoConstraints = false
         gb.setImage(gbImage, for: .normal)
         return gb
     }()
@@ -74,6 +80,7 @@ class OnboardingViewController: UIViewController {
         suButton.setTitle("Sign Up", for: .normal)
         suButton.backgroundColor = UIColor.systemOrange
         suButton.layer.cornerRadius = 15
+        suButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         return suButton
     }()
     
@@ -86,8 +93,12 @@ class OnboardingViewController: UIViewController {
         constraints()
         emailTextField.delegate = self
         fullNameTextField.delegate = self
-        emailTextField.underlined()
-        fullNameTextField.underlined()
+    }
+    
+    @objc func signUpButtonTapped() {
+        let vc: TabbarViewController = TabbarViewController()
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true, completion: nil)
     }
 }
 
@@ -129,8 +140,4 @@ extension OnboardingViewController {
             
         ])
     }
-}
-
-extension OnboardingViewController: UITextFieldDelegate {
-    
 }

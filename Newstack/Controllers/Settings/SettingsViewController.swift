@@ -9,6 +9,15 @@ import UIKit
 
 class SettingsViewController: UIViewController {
     
+    let signOutButton: UIButton = {
+        let signOut = UIButton()
+        signOut.translatesAutoresizingMaskIntoConstraints = false
+        signOut.setTitle("Sign Out", for: .normal)
+        signOut.tintColor = .black
+        signOut.addTarget(self, action: #selector(signOutTapped), for: .touchUpInside)
+        return signOut
+    }()
+    
     let blueView: CurvedView = {
         let bView = CurvedView()
         bView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,9 +45,20 @@ class SettingsViewController: UIViewController {
         setupConstraints()
     }
     
+    @objc func signOutTapped() {
+        let vc: OnboardingViewController = OnboardingViewController()
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true, completion: nil)
+    }
+    
+    
+}
+
+extension SettingsViewController {
     func setupSubviews() {
         blueView.addSubview(circleImageView)
         view.addSubview(blueView)
+        view.addSubview(signOutButton)
     }
     
     func setupConstraints() {
@@ -47,6 +67,10 @@ class SettingsViewController: UIViewController {
             blueView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             blueView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             blueView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            signOutButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
+            signOutButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            signOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         circleImageView.center.x = view.center.x

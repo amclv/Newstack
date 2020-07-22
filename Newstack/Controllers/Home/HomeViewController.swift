@@ -60,6 +60,7 @@ class HomeViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.itemSize = CGSize(width: 375, height: 110)
+        layout.minimumLineSpacing = 20
         
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.translatesAutoresizingMaskIntoConstraints = false
@@ -72,28 +73,32 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "Background")
+        
         headlineCollectionView.delegate = self
         headlineCollectionView.dataSource = self
+        
         everythingCollectionView.delegate = self
         everythingCollectionView.dataSource = self
-//        networkManager.fetchHeadlines {
-//            self.updateViews()
-//        }
+        
         networkManager.fetchHeadlines(sources: "bbc-news") {
             self.updateViews()
         }
         networkManager.fetchEverything(sources: "bbc-news") {
             self.updateViews()
         }
-        networkManager.fetchSources {
-            print("TEST THIS BITCH::::::::::\(self.networkManager.sourcesFeed.count)")
-            self.updateViews()
-        }
+        
         setupNavigationController()
         setupSubviews()
         setupConstraints()
     }
-    let sArray: [String:String] = [:]
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        networkManager.fetchSources {
+            print("TEST THIS BITCH::::::::::\(self.networkManager.sourcesFeed.count)")
+            self.updateViews()
+        }
+    }
     
     func setupNavigationController() {
         self.navigationItem.title = "Newstack"
@@ -192,7 +197,10 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             }
             return cell
         } else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EverythingCollectionViewCell.identifier, for: indexPath) as? EverythingCollectionViewCell else { return UICollectionViewCell() }
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EverythingCollectionViewCell.identifier, for: indexPath) as? EverythingCollectionViewCell else {
+                print("KENNY LOVES ME WITH ALL HIS HEART")
+                return UICollectionViewCell()
+            }
             
             let everyArticle = networkManager.everythingFeed[indexPath.item]
             cell.everythingArticle = everyArticle
@@ -209,7 +217,6 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc: ArticleDetailViewController = ArticleDetailViewController()
         
-        // TODO: ADD IF STATEMENT FOR EACH FEED
         if collectionView == headlineCollectionView {
             let selectedArticle = networkManager.headlineFeed[indexPath.item]
             vc.article = selectedArticle
@@ -238,11 +245,13 @@ extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         print(networkManager.sourcesFeed[row])
         guard let id = networkManager.sourcesFeed[row].id else { return }
-        DispatchQueue.main.async {
-            self.networkManager.fetchHeadlines(sources: id) {
+        self.networkManager.fetchHeadlines(sources: id) {
+            DispatchQueue.main.async {
                 self.updateViews()
             }
-            self.networkManager.fetchEverything(sources: id) {
+        }
+        self.networkManager.fetchEverything(sources: id) {
+            DispatchQueue.main.async {
                 self.updateViews()
             }
         }
