@@ -17,12 +17,12 @@ class OnboardingViewController: UIViewController {
         return bg
     }()
     
-    let contentVStack = CustomStackView(style: .onboardContentVStack, distribution: .fillEqually, alignment: .fill)
+    let contentVStack = CustomStackView(style: .onboardContentVStack, distribution: .fill, alignment: .fill)
     
     let helloLabel = CustomLabel(style: .helloLabel, text: "Hello!")
     let subLabel = CustomLabel(style: .subLabel, text: "Daily UI is a series of daily design challenges design inspiration.")
     
-    let socialHStack = CustomStackView(style: .horizontal, distribution: .fill, alignment: .leading)
+    let socialHStack = CustomStackView(style: .horizontal, distribution: .fill, alignment: .fill)
     
     let facebookButton: UIButton = {
         let fb = UIButton()
@@ -66,7 +66,7 @@ class OnboardingViewController: UIViewController {
         return emailTextField
     }()
     
-    let signUpHStack = CustomStackView(style: .horizontal, distribution: .fill, alignment: .fill)
+    let signUpHStack = CustomStackView(style: .onboardSignUpHStack, distribution: .fill, alignment: .fill)
     
     let signUpButton: UIButton = {
         let suButton = UIButton()
@@ -86,6 +86,8 @@ class OnboardingViewController: UIViewController {
         constraints()
         emailTextField.delegate = self
         fullNameTextField.delegate = self
+        emailTextField.underlined()
+        fullNameTextField.underlined()
     }
 }
 
@@ -124,6 +126,7 @@ extension OnboardingViewController {
             contentVStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             contentVStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             contentVStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            
         ])
     }
 }

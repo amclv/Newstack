@@ -21,12 +21,14 @@ extension UIViewController {
 }
 
 extension UITextField {
-    func addBottomBorder() {
-        let bottomLine = CALayer()
-        bottomLine.frame = CGRect(x: 0, y: self.frame.size.height - 1, width: self.frame.size.width, height: 1)
-        bottomLine.backgroundColor = UIColor.white.cgColor
-        borderStyle = .none
-        layer.addSublayer(bottomLine)
+    func underlined(){
+        let border = CALayer()
+        let width = CGFloat(1.0)
+        border.borderColor = UIColor.lightGray.cgColor
+        border.bounds = CGRect(x: 0, y: 0, width:  self.frame.size.width, height: self.frame.size.height)
+        border.borderWidth = width
+        self.layer.addSublayer(border)
+        self.layer.masksToBounds = true
     }
 }
 
