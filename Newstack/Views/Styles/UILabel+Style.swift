@@ -85,6 +85,11 @@ class CustomLabel: UILabel {
         case .emailLabel:
             font = .systemFont(ofSize: 12, weight: .light)
             textColor = .lightGray
+            
+            // onboardingViewcontroller
+        case .termsPrivacyLabel:
+            font = .systemFont(ofSize: 10, weight: .light)
+            textColor = .lightGray
         default:
             break
         }

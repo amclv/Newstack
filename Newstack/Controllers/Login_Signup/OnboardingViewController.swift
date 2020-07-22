@@ -9,42 +9,46 @@ import UIKit
 
 class OnboardingViewController: UIViewController {
     
-    let contentVStack = CustomStackView(style: .vertical, distribution: .fillEqually, alignment: .fill)
+    let backgroundImage: UIImageView = {
+        let bg = UIImageView()
+        bg.translatesAutoresizingMaskIntoConstraints = false
+        bg.image = UIImage(named: "oliver3")
+        bg.contentMode = .scaleAspectFill
+        return bg
+    }()
+    
+    let contentVStack = CustomStackView(style: .onboardContentVStack, distribution: .fillEqually, alignment: .fill)
     
     let helloLabel = CustomLabel(style: .helloLabel, text: "Hello!")
     let subLabel = CustomLabel(style: .subLabel, text: "Daily UI is a series of daily design challenges design inspiration.")
     
-    let socialHStack = CustomStackView(style: .horizontal, distribution: .fillEqually, alignment: .fill)
+    let socialHStack = CustomStackView(style: .horizontal, distribution: .fill, alignment: .leading)
     
     let facebookButton: UIButton = {
         let fb = UIButton()
+        let fbImage = UIImage(named: "facebook")?.scaled(to: 50)
         fb.translatesAutoresizingMaskIntoConstraints = false
-        fb.setTitle("F", for: .normal)
-        fb.backgroundColor = .systemBlue
-        fb.layer.cornerRadius = 50
+        fb.setImage(fbImage, for: .normal)
         return fb
     }()
     
     let twitterButton: UIButton = {
         let tb = UIButton()
+        let tbImage = UIImage(named: "twitter")?.scaled(to: 50)
         tb.translatesAutoresizingMaskIntoConstraints = false
-        tb.setTitle("T", for: .normal)
-        tb.backgroundColor = .systemBlue
-        tb.layer.cornerRadius = 50
-
+        tb.setImage(tbImage, for: .normal)
         return tb
     }()
     
-    let appleButton: UIButton = {
-        let ab = UIButton()
-        ab.translatesAutoresizingMaskIntoConstraints = false
-        ab.setTitle("A", for: .normal)
-        ab.backgroundColor = .systemBlue
-        ab.layer.cornerRadius = 50
-        return ab
+    let googleButton: UIButton = {
+        let gb = UIButton()
+        let gbImage = UIImage(named: "google")?.scaled(to: 50)
+        gb.translatesAutoresizingMaskIntoConstraints = false
+        gb.setImage(gbImage, for: .normal)
+        return gb
     }()
     
-    let fullNameVStack = CustomStackView(style: .vertical, distribution: .fill, alignment: .fill)
+    let infoVStack = CustomStackView(style: .onboardInfoVStack, distribution: .fill, alignment: .fill)
     
     let fullNameLabel = CustomLabel(style: .fullNameLabel, text: "Full Name")
     
@@ -54,8 +58,6 @@ class OnboardingViewController: UIViewController {
         return fnTextField
     }()
     
-    let emailVStack = CustomStackView(style: .vertical, distribution: .fill, alignment: .fill)
-    
     let emailLabel = CustomLabel(style: .emailLabel, text: "Email Address")
     
     let emailTextField: UITextField = {
@@ -63,6 +65,8 @@ class OnboardingViewController: UIViewController {
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         return emailTextField
     }()
+    
+    let signUpHStack = CustomStackView(style: .horizontal, distribution: .fill, alignment: .fill)
     
     let signUpButton: UIButton = {
         let suButton = UIButton()
@@ -73,13 +77,16 @@ class OnboardingViewController: UIViewController {
         return suButton
     }()
     
+    let termsPrivacyLabel = CustomLabel(style: .termsPrivacyLabel, text: "By clicking Sign Up, you agree to our Terms and Privacy")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemYellow
         subviews()
         constraints()
+        emailTextField.delegate = self
+        fullNameTextField.delegate = self
     }
-    
 }
 
 extension OnboardingViewController {
@@ -90,27 +97,37 @@ extension OnboardingViewController {
         contentVStack.addArrangedSubview(socialHStack)
         socialHStack.addArrangedSubview(facebookButton)
         socialHStack.addArrangedSubview(twitterButton)
-        socialHStack.addArrangedSubview(appleButton)
+        socialHStack.addArrangedSubview(googleButton)
         
-        contentVStack.addArrangedSubview(fullNameVStack)
-        fullNameVStack.addArrangedSubview(fullNameLabel)
-        fullNameVStack.addArrangedSubview(fullNameTextField)
+        contentVStack.addArrangedSubview(infoVStack)
+        infoVStack.addArrangedSubview(fullNameLabel)
+        infoVStack.addArrangedSubview(fullNameTextField)
+        infoVStack.addArrangedSubview(emailLabel)
+        infoVStack.addArrangedSubview(emailTextField)
         
-        contentVStack.addArrangedSubview(emailVStack)
-        emailVStack.addArrangedSubview(emailLabel)
-        emailVStack.addArrangedSubview(emailTextField)
+        contentVStack.addArrangedSubview(signUpHStack)
+        signUpHStack.addArrangedSubview(signUpButton)
+        signUpHStack.addArrangedSubview(termsPrivacyLabel)
         
-        contentVStack.addArrangedSubview(signUpButton)
-
+        view.addSubview(backgroundImage)
         view.addSubview(contentVStack)
     }
     
     private func constraints() {
         NSLayoutConstraint.activate([
+            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
             contentVStack.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor),
             contentVStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             contentVStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            contentVStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
+            contentVStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
         ])
     }
+}
+
+extension OnboardingViewController: UITextFieldDelegate {
+    
 }

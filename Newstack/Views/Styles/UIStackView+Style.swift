@@ -19,6 +19,9 @@ class CustomStackView: UIStackView {
         
         //SearchViewController
         case searchHStack
+        
+        //OnboardingViewController
+        case onboardContentVStack, onboardInfoVStack
     }
     
     enum Distribution {
@@ -78,6 +81,15 @@ class CustomStackView: UIStackView {
             
         case .searchHStack:
             axis = .horizontal
+            
+        //OnboardingViewController
+        case .onboardContentVStack:
+            axis = .vertical
+            spacing = 8
+            
+        case .onboardInfoVStack:
+            axis = .vertical
+            spacing = 8
         default:
             break
         }

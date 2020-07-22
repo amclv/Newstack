@@ -12,6 +12,9 @@ class CustomButton: UIButton {
     enum Style {
         case socialMedia, primaryButton, backButton, bookmarkButton
         case navButtons
+        
+        // OnboardingViewController
+        case facebookButton, twitterButton, googleButton, signUpButton, appleButton
     }
 
     let style: Style
