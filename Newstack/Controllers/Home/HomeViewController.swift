@@ -103,7 +103,7 @@ class HomeViewController: UIViewController {
     func setupNavigationController() {
         self.navigationItem.title = "Newstack"
         navigationController?.navigationBar.prefersLargeTitles = true
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "newspaper"), style: .plain, target: self, action: #selector(menuButtonTapped))
+        //        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "newspaper"), style: .plain, target: self, action: #selector(menuButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(menuButtonTapped))
     }
     
@@ -185,30 +185,29 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == headlineCollectionView {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadlineCollectionViewCell.identifier, for: indexPath) as? HeadlineCollectionViewCell else { return UICollectionViewCell() }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadlineCollectionViewCell.identifier, for: indexPath) as! HeadlineCollectionViewCell
             
             let newArticle = networkManager.headlineFeed[indexPath.item]
             cell.headlineArticle = newArticle
             
-            guard let url = newArticle.urlToImage else { return UICollectionViewCell() }
-            networkManager.fetchImage(imageURL: url) { (data) in
-                guard let newImage = UIImage(data: data) else { return }
-                cell.headlineImage.image = newImage
+            if let url = newArticle.urlToImage {
+                networkManager.fetchImage(imageURL: url) { (data) in
+                    guard let newImage = UIImage(data: data) else { return }
+                    cell.headlineImage.image = newImage
+                }
             }
             return cell
         } else {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EverythingCollectionViewCell.identifier, for: indexPath) as? EverythingCollectionViewCell else {
-                print("KENNY LOVES ME WITH ALL HIS HEART")
-                return UICollectionViewCell()
-            }
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EverythingCollectionViewCell.identifier, for: indexPath) as! EverythingCollectionViewCell
             
             let everyArticle = networkManager.everythingFeed[indexPath.item]
             cell.everythingArticle = everyArticle
             
-            guard let url = everyArticle.urlToImage else { return UICollectionViewCell() }
-            networkManager.fetchImage(imageURL: url) { (data) in
-                guard let newImage = UIImage(data: data) else { return }
-                cell.articleImage.image = newImage
+            if let url = everyArticle.urlToImage {
+                networkManager.fetchImage(imageURL: url) { (data) in
+                    guard let newImage = UIImage(data: data) else { return }
+                    cell.articleImage.image = newImage
+                }
             }
             return cell
         }
