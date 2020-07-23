@@ -8,6 +8,7 @@
 import UIKit
 import AuthenticationServices
 import Firebase
+import CryptoKit
 
 class OnboardingViewController: ShiftableViewController {
     
@@ -34,27 +35,6 @@ class OnboardingViewController: ShiftableViewController {
         sHStack.alignment = .fill
         return sHStack
     }()
-    
-    //    let facebookButton: UIButton = {
-    //        let fb = UIButton()
-    //        let fbImage = UIImage(named: "facebook")?.scaled(to: 50)
-    //        fb.setImage(fbImage, for: .normal)
-    //        return fb
-    //    }()
-    //
-    //    let twitterButton: UIButton = {
-    //        let tb = UIButton()
-    //        let tbImage = UIImage(named: "twitter")?.scaled(to: 50)
-    //        tb.setImage(tbImage, for: .normal)
-    //        return tb
-    //    }()
-    //
-    //    let googleButton: UIButton = {
-    //        let gb = UIButton()
-    //        let gbImage = UIImage(named: "google")?.scaled(to: 50)
-    //        gb.setImage(gbImage, for: .normal)
-    //        return gb
-    //    }()
     
     let infoVStack = CustomStackView(style: .onboardInfoVStack, distribution: .fill, alignment: .fill)
     
@@ -155,6 +135,38 @@ class OnboardingViewController: ShiftableViewController {
         let vc: TabbarViewController = TabbarViewController()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true, completion: nil)
+    }
+    
+    private func randomNonceString(length: Int = 32) -> String {
+      precondition(length > 0)
+      let charset: Array<Character> =
+          Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+      var result = ""
+      var remainingLength = length
+
+      while remainingLength > 0 {
+        let randoms: [UInt8] = (0 ..< 16).map { _ in
+          var random: UInt8 = 0
+          let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
+          if errorCode != errSecSuccess {
+            fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
+          }
+          return random
+        }
+
+        randoms.forEach { random in
+          if remainingLength == 0 {
+            return
+          }
+
+          if random < charset.count {
+            result.append(charset[Int(random)])
+            remainingLength -= 1
+          }
+        }
+      }
+
+      return result
     }
 }
 
