@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AuthenticationServices
 import Firebase
 
 class OnboardingViewController: ShiftableViewController {
@@ -21,7 +22,9 @@ class OnboardingViewController: ShiftableViewController {
     let contentVStack = CustomStackView(style: .onboardContentVStack, distribution: .fill, alignment: .fill)
     
     let helloLabel = CustomLabel(style: .helloLabel, text: "Hello!")
-    let subLabel = CustomLabel(style: .subLabel, text: "Daily UI is a series of daily design challenges design inspiration.")
+    let subLabel = CustomLabel(style: .subLabel, text: "Even on a boat you can catch all your news from any source.")
+    
+    // Catch all news from any source from anywhere in the world.
     
     let socialHStack: UIStackView = {
         let sHStack = UIStackView()
@@ -32,36 +35,30 @@ class OnboardingViewController: ShiftableViewController {
         return sHStack
     }()
     
-    let appleButtonLogin: UIButton = {
-        let appleButton = UIButton()
-        
-        return appleButton
-    }()
-    
-    let facebookButton: UIButton = {
-        let fb = UIButton()
-        let fbImage = UIImage(named: "facebook")?.scaled(to: 50)
-        fb.setImage(fbImage, for: .normal)
-        return fb
-    }()
-    
-    let twitterButton: UIButton = {
-        let tb = UIButton()
-        let tbImage = UIImage(named: "twitter")?.scaled(to: 50)
-        tb.setImage(tbImage, for: .normal)
-        return tb
-    }()
-    
-    let googleButton: UIButton = {
-        let gb = UIButton()
-        let gbImage = UIImage(named: "google")?.scaled(to: 50)
-        gb.setImage(gbImage, for: .normal)
-        return gb
-    }()
+    //    let facebookButton: UIButton = {
+    //        let fb = UIButton()
+    //        let fbImage = UIImage(named: "facebook")?.scaled(to: 50)
+    //        fb.setImage(fbImage, for: .normal)
+    //        return fb
+    //    }()
+    //
+    //    let twitterButton: UIButton = {
+    //        let tb = UIButton()
+    //        let tbImage = UIImage(named: "twitter")?.scaled(to: 50)
+    //        tb.setImage(tbImage, for: .normal)
+    //        return tb
+    //    }()
+    //
+    //    let googleButton: UIButton = {
+    //        let gb = UIButton()
+    //        let gbImage = UIImage(named: "google")?.scaled(to: 50)
+    //        gb.setImage(gbImage, for: .normal)
+    //        return gb
+    //    }()
     
     let infoVStack = CustomStackView(style: .onboardInfoVStack, distribution: .fill, alignment: .fill)
     
-    let fullNameLabel = CustomLabel(style: .fullNameLabel, text: "Full Name")
+    let fullNameLabel = CustomLabel(style: .infoLabel, text: "Full Name")
     
     let fullNameTextField: UITextField = {
         let fnTextField = UITextField()
@@ -69,7 +66,7 @@ class OnboardingViewController: ShiftableViewController {
         return fnTextField
     }()
     
-    let emailLabel = CustomLabel(style: .emailLabel, text: "Email Address")
+    let emailLabel = CustomLabel(style: .infoLabel, text: "Email Address")
     
     let emailTextField: UITextField = {
         let emailTextField = UITextField()
@@ -77,7 +74,7 @@ class OnboardingViewController: ShiftableViewController {
         return emailTextField
     }()
     
-    let passwordLabel = CustomLabel(style: .emailLabel, text: "Password")
+    let passwordLabel = CustomLabel(style: .infoLabel, text: "Password")
     
     let passwordTextField: UITextField = {
         let passwordTextField = UITextField()
@@ -86,6 +83,12 @@ class OnboardingViewController: ShiftableViewController {
     }()
     
     let signUpHStack = CustomStackView(style: .onboardSignUpHStack, distribution: .fill, alignment: .fill)
+    
+    let appleButtonLogin: ASAuthorizationAppleIDButton = {
+        let appleButton = ASAuthorizationAppleIDButton()
+        appleButton.addTarget(self, action: #selector(appleButtonTapped), for: .touchUpInside)
+        return appleButton
+    }()
     
     let signUpButton: UIButton = {
         let suButton = UIButton()
@@ -96,8 +99,6 @@ class OnboardingViewController: ShiftableViewController {
         suButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         return suButton
     }()
-    
-    let termsPrivacyLabel = CustomLabel(style: .termsPrivacyLabel, text: "By clicking Sign Up, you agree to our Terms and Privacy")
     
     let loginButton: UIButton = {
         let loginButton = UIButton()
@@ -139,6 +140,17 @@ class OnboardingViewController: ShiftableViewController {
         Alert.showBasic(title: "Oops!", message: "You didn't fill out a required field", vc: self)
     }
     
+    @objc func appleButtonTapped() {
+        let provider = ASAuthorizationAppleIDProvider()
+        let request = provider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        controller.delegate = self
+        controller.presentationContextProvider = self
+        controller.performRequests()
+    }
+    
     @objc func loginButtonTapped() {
         let vc: TabbarViewController = TabbarViewController()
         vc.modalPresentationStyle = .fullScreen
@@ -163,8 +175,8 @@ extension OnboardingViewController {
         infoVStack.addArrangedSubview(passwordTextField)
         
         contentVStack.addArrangedSubview(signUpHStack)
-        signUpHStack.addArrangedSubview(signUpButton)
         
+        contentVStack.addArrangedSubview(signUpButton)
         contentVStack.addArrangedSubview(loginButton)
         
         view.addSubview(backgroundImage)
@@ -183,5 +195,33 @@ extension OnboardingViewController {
             contentVStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             contentVStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
         ])
+    }
+}
+
+extension OnboardingViewController: ASAuthorizationControllerDelegate {
+    // ASAuthorizationControllerDelegate function for authorization failed
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print("Error appleid \(error.localizedDescription)")
+    }
+    
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        
+        switch authorization.credential {
+        case let credentials as ASAuthorizationAppleIDCredential:
+            let user = User(credentials: credentials)
+            let vc: TabbarViewController = TabbarViewController()
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true, completion: nil)
+        default:
+            break
+        }
+    }
+}
+
+extension OnboardingViewController: ASAuthorizationControllerPresentationContextProviding {
+     // for present window
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return view.window!
     }
 }

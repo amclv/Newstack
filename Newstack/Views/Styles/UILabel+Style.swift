@@ -18,9 +18,7 @@ class CustomLabel: UILabel {
         case collectionTitle, collectionAuthor
         
         // onboarding screen
-        case helloLabel, subLabel
-        case fullNameLabel, emailLabel
-        case termsPrivacyLabel
+        case helloLabel, subLabel, infoLabel
     }
 
     let style: Style
@@ -73,22 +71,16 @@ class CustomLabel: UILabel {
             font = .systemFont(ofSize: 12, weight: .light)
             textColor = .white
             
+            // onboardingviewcontroller
         case .helloLabel:
-            font = .systemFont(ofSize: 48, weight: .bold)
+            font = .systemFont(ofSize: 52, weight: .bold)
             textColor = .white
         case .subLabel:
-            font = .systemFont(ofSize: 14, weight: .regular)
+            font = .systemFont(ofSize: 18, weight: .regular)
             textColor = .white
-        case .fullNameLabel:
-            font = .systemFont(ofSize: 12, weight: .light)
+        case .infoLabel:
+            font = .systemFont(ofSize: 14, weight: .light)
             textColor = .lightGray
-        case .emailLabel:
-            font = .systemFont(ofSize: 12, weight: .light)
-            textColor = .lightGray
-            
-            // onboardingViewcontroller
-        case .helloLabel:
-            font = .systemFont(ofSize: 48, weight: .bold)
         default:
             break
         }

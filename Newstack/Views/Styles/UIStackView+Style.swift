@@ -85,7 +85,7 @@ class CustomStackView: UIStackView {
         //OnboardingViewController
         case .onboardContentVStack:
             axis = .vertical
-            spacing = 16
+            spacing = 18
             
         case .onboardInfoVStack:
             axis = .vertical

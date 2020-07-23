@@ -21,6 +21,7 @@
 		1A3708F624BAB6BD0047419B /* EverythingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3708F524BAB6BD0047419B /* EverythingCollectionViewCell.swift */; };
 		1A3708F924BAB7A60047419B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3708F824BAB7A60047419B /* SearchViewController.swift */; };
 		1A5337BE24C8BE7200EEF1A5 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5337BD24C8BE7200EEF1A5 /* Alert.swift */; };
+		1A5337C124C9523000EEF1A5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5337C024C9523000EEF1A5 /* User.swift */; };
 		1A5AC9CB24A505E30030A43A /* HeadlineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9CA24A505E30030A43A /* HeadlineCollectionViewCell.swift */; };
 		1A5AC9D324A506A50030A43A /* UILabel+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D224A506A50030A43A /* UILabel+Style.swift */; };
 		1A5AC9D624A506EA0030A43A /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D524A506EA0030A43A /* ArticleDetailViewController.swift */; };
@@ -78,6 +79,8 @@
 		1A3708F524BAB6BD0047419B /* EverythingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EverythingCollectionViewCell.swift; sourceTree = "<group>"; };
 		1A3708F824BAB7A60047419B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		1A5337BD24C8BE7200EEF1A5 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
+		1A5337BF24C93D3E00EEF1A5 /* Newstack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Newstack.entitlements; sourceTree = "<group>"; };
+		1A5337C024C9523000EEF1A5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1A5AC9CA24A505E30030A43A /* HeadlineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineCollectionViewCell.swift; sourceTree = "<group>"; };
 		1A5AC9D224A506A50030A43A /* UILabel+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Style.swift"; sourceTree = "<group>"; };
 		1A5AC9D524A506EA0030A43A /* ArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +155,7 @@
 		1A244A2424A4F7960091518D /* Newstack */ = {
 			isa = PBXGroup;
 			children = (
+				1A5337BF24C93D3E00EEF1A5 /* Newstack.entitlements */,
 				1AED395624C6B401004859A9 /* GoogleService-Info.plist */,
 				1A64E6D124C542FD00DF2B97 /* Globals */,
 				1A244A5724A4F8550091518D /* Models */,
@@ -209,6 +213,7 @@
 				1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */,
 				1A865F6B24B379AC004B547C /* Article.swift */,
 				1A1CD04124C417AB0012D13F /* Sources.swift */,
+				1A5337C024C9523000EEF1A5 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -598,6 +603,7 @@
 				1A5AC9D824A507190030A43A /* UIButton+Style.swift in Sources */,
 				1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */,
 				1A9AC9CF24C80C12005583FB /* TabbarViewController.swift in Sources */,
+				1A5337C124C9523000EEF1A5 /* User.swift in Sources */,
 				1AED395A24C6B6B6004859A9 /* OnboardingViewController.swift in Sources */,
 				1A3708F624BAB6BD0047419B /* EverythingCollectionViewCell.swift in Sources */,
 				1ADC857124BAC52B008251C2 /* UIStackView+Style.swift in Sources */,
@@ -777,6 +783,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Newstack/Newstack.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7G4A2JWWKQ;
@@ -801,6 +808,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Newstack/Newstack.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7G4A2JWWKQ;
