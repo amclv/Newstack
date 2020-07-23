@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SettingsViewController: UIViewController {
     
@@ -47,8 +48,15 @@ class SettingsViewController: UIViewController {
     
     @objc func signOutTapped() {
         let vc: OnboardingViewController = OnboardingViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true, completion: nil)
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true, completion: nil)
+            print("Signed out of apple id")
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
     }
     
     

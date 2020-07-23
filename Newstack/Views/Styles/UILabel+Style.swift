@@ -79,7 +79,7 @@ class CustomLabel: UILabel {
             font = .systemFont(ofSize: 18, weight: .regular)
             textColor = .white
         case .infoLabel:
-            font = .systemFont(ofSize: 14, weight: .light)
+            font = .systemFont(ofSize: 14, weight: .regular)
             textColor = .lightGray
         default:
             break

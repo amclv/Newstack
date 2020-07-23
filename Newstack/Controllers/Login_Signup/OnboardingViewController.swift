@@ -12,61 +12,47 @@ import CryptoKit
 
 class OnboardingViewController: ShiftableViewController {
     
-    let backgroundImage: UIImageView = {
-        let bg = UIImageView()
-        bg.translatesAutoresizingMaskIntoConstraints = false
-        bg.image = UIImage(named: "oliver3")
-        bg.contentMode = .scaleAspectFill
-        return bg
-    }()
-    
-    let contentVStack = CustomStackView(style: .onboardContentVStack, distribution: .fill, alignment: .fill)
+    fileprivate var currentNonce: String?
     
     let helloLabel = CustomLabel(style: .helloLabel, text: "Hello!")
     let subLabel = CustomLabel(style: .subLabel, text: "Even on a boat you can catch all your news from any source.")
-    
-    // Catch all news from any source from anywhere in the world.
-    
-    let socialHStack: UIStackView = {
-        let sHStack = UIStackView()
-        sHStack.translatesAutoresizingMaskIntoConstraints = false
-        sHStack.axis = .horizontal
-        sHStack.distribution = .fill
-        sHStack.alignment = .fill
-        return sHStack
-    }()
-    
-    let infoVStack = CustomStackView(style: .onboardInfoVStack, distribution: .fill, alignment: .fill)
-    
     let fullNameLabel = CustomLabel(style: .infoLabel, text: "Full Name")
+    let emailLabel = CustomLabel(style: .infoLabel, text: "Email Address")
+    let passwordLabel = CustomLabel(style: .infoLabel, text: "Password")
     
+    // MARK: - StackViews -
+    let contentVStack = CustomStackView(style: .onboardContentVStack, distribution: .fill, alignment: .fill)
+    let infoVStack = CustomStackView(style: .onboardInfoVStack, distribution: .fill, alignment: .fill)
+    let signUpHStack = CustomStackView(style: .onboardSignUpHStack, distribution: .fill, alignment: .fill)
+    
+    // MARK: - TextField -
     let fullNameTextField: UITextField = {
         let fnTextField = UITextField()
         fnTextField.textColor = UIColor.white
+        fnTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        fnTextField.translatesAutoresizingMaskIntoConstraints = false
         return fnTextField
     }()
-    
-    let emailLabel = CustomLabel(style: .infoLabel, text: "Email Address")
     
     let emailTextField: UITextField = {
         let emailTextField = UITextField()
         emailTextField.textColor = UIColor.white
+        emailTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
         return emailTextField
     }()
-    
-    let passwordLabel = CustomLabel(style: .infoLabel, text: "Password")
     
     let passwordTextField: UITextField = {
         let passwordTextField = UITextField()
         passwordTextField.textColor = UIColor.white
+        passwordTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
         return passwordTextField
     }()
     
-    let signUpHStack = CustomStackView(style: .onboardSignUpHStack, distribution: .fill, alignment: .fill)
-    
+    // MARK: - Buttons -
     let appleButtonLogin: ASAuthorizationAppleIDButton = {
         let appleButton = ASAuthorizationAppleIDButton()
         appleButton.addTarget(self, action: #selector(appleButtonTapped), for: .touchUpInside)
+        appleButton.heightAnchor.constraint(equalToConstant: 46).isActive = true
         return appleButton
     }()
     
@@ -74,9 +60,10 @@ class OnboardingViewController: ShiftableViewController {
         let suButton = UIButton()
         suButton.translatesAutoresizingMaskIntoConstraints = false
         suButton.setTitle("Sign Up", for: .normal)
-        suButton.backgroundColor = UIColor.systemOrange
+        suButton.backgroundColor = UIColor.systemIndigo
         suButton.layer.cornerRadius = 15
         suButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        suButton.heightAnchor.constraint(equalToConstant: 46).isActive = true
         return suButton
     }()
     
@@ -85,7 +72,16 @@ class OnboardingViewController: ShiftableViewController {
         loginButton.translatesAutoresizingMaskIntoConstraints = false
         loginButton.setTitle("Login", for: .normal)
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        loginButton.heightAnchor.constraint(equalToConstant: 46).isActive = true
         return loginButton
+    }()
+    
+    let backgroundImage: UIImageView = {
+        let bg = UIImageView()
+        bg.translatesAutoresizingMaskIntoConstraints = false
+        bg.image = UIImage(named: "oliver3")
+        bg.contentMode = .scaleAspectFill
+        return bg
     }()
     
     override func viewDidLoad() {
@@ -96,6 +92,16 @@ class OnboardingViewController: ShiftableViewController {
         emailTextField.delegate = self
         fullNameTextField.delegate = self
         passwordTextField.delegate = self
+    }
+    
+    override func viewWillLayoutSubviews() {
+        fullNameTextField.setBottomBorder(withColor: .lightGray)
+        emailTextField.setBottomBorder(withColor: .lightGray)
+        passwordTextField.setBottomBorder(withColor: .lightGray)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
     }
     
     @objc func signUpButtonTapped() {
@@ -120,15 +126,30 @@ class OnboardingViewController: ShiftableViewController {
         Alert.showBasic(title: "Oops!", message: "You didn't fill out a required field", vc: self)
     }
     
+    @available(iOS 13, *)
     @objc func appleButtonTapped() {
+        let nonce = randomNonceString()
+        currentNonce = nonce
+        
         let provider = ASAuthorizationAppleIDProvider()
         let request = provider.createRequest()
         request.requestedScopes = [.fullName, .email]
+        request.nonce = sha256(nonce)
         
         let controller = ASAuthorizationController(authorizationRequests: [request])
         controller.delegate = self
         controller.presentationContextProvider = self
         controller.performRequests()
+    }
+    
+    @available(iOS 13, *)
+    private func sha256(_ input: String) -> String {
+        let inputData = Data(input.utf8)
+        let hashedData = SHA256.hash(data: inputData)
+        let hashString = hashedData.compactMap {
+            return String(format: "%02x", $0)
+        }.joined()
+        return hashString
     }
     
     @objc func loginButtonTapped() {
@@ -138,35 +159,35 @@ class OnboardingViewController: ShiftableViewController {
     }
     
     private func randomNonceString(length: Int = 32) -> String {
-      precondition(length > 0)
-      let charset: Array<Character> =
-          Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-      var result = ""
-      var remainingLength = length
-
-      while remainingLength > 0 {
-        let randoms: [UInt8] = (0 ..< 16).map { _ in
-          var random: UInt8 = 0
-          let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
-          if errorCode != errSecSuccess {
-            fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
-          }
-          return random
+        precondition(length > 0)
+        let charset: Array<Character> =
+            Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+        var result = ""
+        var remainingLength = length
+        
+        while remainingLength > 0 {
+            let randoms: [UInt8] = (0 ..< 16).map { _ in
+                var random: UInt8 = 0
+                let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
+                if errorCode != errSecSuccess {
+                    fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
+                }
+                return random
+            }
+            
+            randoms.forEach { random in
+                if remainingLength == 0 {
+                    return
+                }
+                
+                if random < charset.count {
+                    result.append(charset[Int(random)])
+                    remainingLength -= 1
+                }
+            }
         }
-
-        randoms.forEach { random in
-          if remainingLength == 0 {
-            return
-          }
-
-          if random < charset.count {
-            result.append(charset[Int(random)])
-            remainingLength -= 1
-          }
-        }
-      }
-
-      return result
+        
+        return result
     }
 }
 
@@ -175,8 +196,7 @@ extension OnboardingViewController {
         contentVStack.addArrangedSubview(helloLabel)
         contentVStack.addArrangedSubview(subLabel)
         
-        contentVStack.addArrangedSubview(socialHStack)
-        socialHStack.addArrangedSubview(appleButtonLogin)
+        contentVStack.addArrangedSubview(appleButtonLogin)
         
         contentVStack.addArrangedSubview(infoVStack)
         infoVStack.addArrangedSubview(fullNameLabel)
@@ -187,7 +207,6 @@ extension OnboardingViewController {
         infoVStack.addArrangedSubview(passwordTextField)
         
         contentVStack.addArrangedSubview(signUpHStack)
-        
         contentVStack.addArrangedSubview(signUpButton)
         contentVStack.addArrangedSubview(loginButton)
         
@@ -218,21 +237,42 @@ extension OnboardingViewController: ASAuthorizationControllerDelegate {
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        
-        switch authorization.credential {
-        case let credentials as ASAuthorizationAppleIDCredential:
-            let user = User(credentials: credentials)
-            let vc: TabbarViewController = TabbarViewController()
-            vc.modalPresentationStyle = .fullScreen
-            present(vc, animated: true, completion: nil)
-        default:
-            break
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            guard let nonce = currentNonce else {
+                fatalError("Invalid State: A login callback was received, but no longer request was sent.")
+            }
+            
+            guard let appleIDToken = appleIDCredential.identityToken else {
+                print("Unable to fetch identity token")
+                return
+            }
+            
+            guard let idTokenString = String(data: appleIDToken, encoding: .utf8) else {
+                print("Unable to serialize token string from data: \(appleIDToken.debugDescription)")
+                return
+            }
+            
+            //init a firebase credential
+            let credential = OAuthProvider.credential(withProviderID: "apple.com",
+                                                      idToken: idTokenString,
+                                                      rawNonce: nonce)
+            
+            // sign in with firebase
+            Auth.auth().signIn(with: credential) { (authResult, error) in
+                if error != nil {
+                    print("Error signing in with apple id: \(error!.localizedDescription)")
+                    return
+                }
+                let vc: TabbarViewController = TabbarViewController()
+                vc.modalPresentationStyle = .fullScreen
+                self.present(vc, animated: true, completion: nil)
+            }
         }
     }
 }
 
 extension OnboardingViewController: ASAuthorizationControllerPresentationContextProviding {
-     // for present window
+    // for present window
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return view.window!
     }
