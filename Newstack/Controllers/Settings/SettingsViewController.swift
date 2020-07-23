@@ -58,8 +58,6 @@ class SettingsViewController: UIViewController {
             print("Error signing out: %@", signOutError)
         }
     }
-    
-    
 }
 
 extension SettingsViewController {
