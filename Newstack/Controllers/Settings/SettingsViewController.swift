@@ -38,6 +38,12 @@ class SettingsViewController: UIViewController {
         imageView.clipsToBounds = true
         return imageView
     }()
+    
+    let fullNameLabel: UILabel = {
+        let fnLabel = UILabel()
+        fnLabel.translatesAutoresizingMaskIntoConstraints = false
+        return fnLabel
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,7 +102,7 @@ class CurvedView: UIView {
         myBezier.close()
         let context = UIGraphicsGetCurrentContext()!
         context.setLineWidth(4.0)
-        UIColor.systemBlue.setFill()
+        UIColor.systemIndigo.setFill()
         myBezier.fill()
     }
 }
