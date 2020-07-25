@@ -29,6 +29,6 @@ class TabbarViewController: UITabBarController {
         let settings = SettingsViewController()
         settings.tabBarItem.image = UIImage(systemName: "person.circle")
         
-        viewControllers = [home, search, settings]
+        viewControllers = [search, home, settings]
     }
 }

@@ -60,7 +60,7 @@ class OnboardingViewController: ShiftableViewController {
         let suButton = UIButton()
         suButton.translatesAutoresizingMaskIntoConstraints = false
         suButton.setTitle("Sign Up", for: .normal)
-        suButton.backgroundColor = UIColor.systemIndigo
+        suButton.backgroundColor = .init(red: 51/255, green: 153/255, blue: 255/255, alpha: 1.0)
         suButton.layer.cornerRadius = 15
         suButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         suButton.heightAnchor.constraint(equalToConstant: 46).isActive = true
@@ -153,7 +153,7 @@ class OnboardingViewController: ShiftableViewController {
     }
     
     @objc func loginButtonTapped() {
-        let vc: TabbarViewController = TabbarViewController()
+        let vc: LoginViewController = LoginViewController()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true, completion: nil)
     }
