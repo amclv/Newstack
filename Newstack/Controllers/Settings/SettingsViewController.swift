@@ -11,6 +11,7 @@ import Firebase
 class SettingsViewController: UIViewController {
     
     var user: User?
+    var isUserLoggedIn = false
     
     let signOutButton: UIButton = {
         let signOut = UIButton()
@@ -49,6 +50,13 @@ class SettingsViewController: UIViewController {
         fnLabel.textColor = .black
         return fnLabel
     }()
+    
+    let bookmarkTableView: UITableView = {
+        let bmTV = UITableView()
+        bmTV.translatesAutoresizingMaskIntoConstraints = false
+        
+        return bmTV
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,18 +67,12 @@ class SettingsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        getUserProfile()
-    }
-    
-    func getUserProfile() {
-        if let user = Auth.auth().currentUser {
-            // getting users properties:
-            let uid = user.uid
-            let email = user.email
-            
-            // getting custom properties created if you need them:
-            print("user", uid, email!)
+        Auth.auth().addStateDidChangeListener { (auth, user) in
+            self.isUserLoggedIn = true
+            print(self.isUserLoggedIn)
         }
+        
+        fullNameLabel.text = "TEST USER FULL NAME"
     }
     
     @objc func signOutTapped() {
@@ -80,7 +82,7 @@ class SettingsViewController: UIViewController {
             try firebaseAuth.signOut()
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true, completion: nil)
-            print("Signed out of apple id")
+            print(self.isUserLoggedIn)
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
