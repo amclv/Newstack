@@ -66,8 +66,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         let vc: TabbarViewController = TabbarViewController()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
-        guard let email = emailTextField.text, let password = passwordTextField.text else { return }
         
+//        guard let email = emailTextField.text, let password = passwordTextField.text else { return }
 //        Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
 //
 //            if let error = error {

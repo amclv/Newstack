@@ -8,7 +8,7 @@ target 'Newstack' do
   # Pods for Newstack
 pod 'Firebase/Analytics'
 pod 'Firebase/Auth'
-
+pod 'Firebase/Database'
   target 'NewstackTests' do
     inherit! :search_paths
     # Pods for testing
