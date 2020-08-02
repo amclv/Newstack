@@ -38,10 +38,6 @@ class SearchViewController: UIViewController {
         setupSubviews()
         setupConstraints()
     }
-    
-    @objc func sortButtonTapped() {
-        print("SORT BUTTON TAPPED!")
-    }
 }
 
 extension SearchViewController {
@@ -68,16 +64,21 @@ extension SearchViewController {
 
 extension SearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchBar = searchBar.text, searchBar != "" else { return }
+        guard let searchBar = searchBar.text?.lowercased(), searchBar != "" else { return }
         
         networkManager.performSearch(searchTerm: searchBar) { (error) in
             if let error = error {
                 print("Error: \(error)")
             } else {
-                print(self.networkManager.searchResult)
-                DispatchQueue.main.async {
-                    self.tableView.keyboardDismissMode = .onDrag
-                    self.tableView.reloadData()
+                if searchBar == "Covid".lowercased() || searchBar == "Covid-19".lowercased() || searchBar == "Coronavirus".lowercased() || searchBar == "Covid19".lowercased() {
+                    DispatchQueue.main.async {
+                        Alert.showBasic(title: "Oops!", message: "Can't display Covid related information", vc: self)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.tableView.keyboardDismissMode = .onDrag
+                        self.tableView.reloadData()
+                    }
                 }
             }
         }
