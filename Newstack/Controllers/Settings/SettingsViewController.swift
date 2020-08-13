@@ -41,18 +41,23 @@ class SettingsViewController: UIViewController {
         return imageView
     }()
     
-    let bookmarkTableView: UITableView = {
-        let bmTV = UITableView()
-        bmTV.translatesAutoresizingMaskIntoConstraints = false
+    let bookmarkCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.itemSize = CGSize(width: 250, height: 100)
+        layout.minimumLineSpacing = 20
         
-        return bmTV
+        let bmCV = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        bmCV.translatesAutoresizingMaskIntoConstraints = false
+        bmCV.register(BookmarkCollectionViewCell.self, forCellWithReuseIdentifier: BookmarkCollectionViewCell.identifier)
+        return bmCV
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        bookmarkTableView.delegate = self
-        bookmarkTableView.dataSource = self
+        bookmarkCollectionView.delegate = self
+        bookmarkCollectionView.dataSource = self
         setupSubviews()
         setupConstraints()
     }
@@ -93,6 +98,7 @@ extension SettingsViewController {
         userInfoHStack.addArrangedSubview(circleImageView)
         userInfoHStack.addArrangedSubview(fullNameLabel)
         
+        view.addSubview(bookmarkCollectionView)
         view.addSubview(userInfoHStack)
         view.addSubview(signOutButton)
     }
@@ -106,17 +112,23 @@ extension SettingsViewController {
             signOutButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             signOutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             signOutButton.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 20),
+            
+            bookmarkCollectionView.topAnchor.constraint(equalTo: userInfoHStack.bottomAnchor, constant: 8),
+            bookmarkCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            bookmarkCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            bookmarkCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
         ])
     }
 }
 
-extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+extension SettingsViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = bookmarkTableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as! UITableViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookmarkCollectionViewCell.identifier, for: indexPath)
+        cell.backgroundColor = .blue
         return cell
     }
 }

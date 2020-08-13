@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A020E0A24E5CAA30091AE2D /* BookmarkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A020E0924E5CAA30091AE2D /* BookmarkCollectionViewCell.swift */; };
 		1A1CD04224C417AB0012D13F /* Sources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1CD04124C417AB0012D13F /* Sources.swift */; };
 		1A244A2624A4F7960091518D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A2524A4F7960091518D /* AppDelegate.swift */; };
 		1A244A2824A4F7960091518D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A2724A4F7960091518D /* SceneDelegate.swift */; };
@@ -60,6 +61,7 @@
 /* Begin PBXFileReference section */
 		011D0094905E39175E525016 /* Pods-Newstack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Newstack.release.xcconfig"; path = "Target Support Files/Pods-Newstack/Pods-Newstack.release.xcconfig"; sourceTree = "<group>"; };
 		04D2BCC3D11055254B530B0C /* Pods-NewstackTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NewstackTests.release.xcconfig"; path = "Target Support Files/Pods-NewstackTests/Pods-NewstackTests.release.xcconfig"; sourceTree = "<group>"; };
+		1A020E0924E5CAA30091AE2D /* BookmarkCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCollectionViewCell.swift; sourceTree = "<group>"; };
 		1A1CD04124C417AB0012D13F /* Sources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources.swift; sourceTree = "<group>"; };
 		1A244A2224A4F7960091518D /* Newstack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Newstack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A244A2524A4F7960091518D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 			children = (
 				1A5AC9CA24A505E30030A43A /* HeadlineCollectionViewCell.swift */,
 				1A3708F524BAB6BD0047419B /* EverythingCollectionViewCell.swift */,
+				1A020E0924E5CAA30091AE2D /* BookmarkCollectionViewCell.swift */,
 			);
 			path = CollectionCells;
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				1A6EE32624C7F64A006E01AB /* Shiftable.swift in Sources */,
 				1A244A2624A4F7960091518D /* AppDelegate.swift in Sources */,
 				1A5337BE24C8BE7200EEF1A5 /* Alert.swift in Sources */,
+				1A020E0A24E5CAA30091AE2D /* BookmarkCollectionViewCell.swift in Sources */,
 				1A5AC9D824A507190030A43A /* UIButton+Style.swift in Sources */,
 				1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */,
 				1A9AC9CF24C80C12005583FB /* TabbarViewController.swift in Sources */,
