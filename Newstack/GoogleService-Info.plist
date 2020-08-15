@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>307519294603-8u6n2v0n4lf49ubao3hh851qf3ekbe7e.apps.googleusercontent.com</string>
+	<string>988167409513-27r38gfalf6pi176kchf18djcc8s9naq.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.307519294603-8u6n2v0n4lf49ubao3hh851qf3ekbe7e</string>
+	<string>com.googleusercontent.apps.988167409513-27r38gfalf6pi176kchf18djcc8s9naq</string>
 	<key>API_KEY</key>
-	<string>AIzaSyByjmI1lzVYVHGRbKzKxrRHKpa0iPwUcmQ</string>
+	<string>AIzaSyA4wVNpEA7R-J2la2_UUfqYBE4eBuPxMUY</string>
 	<key>GCM_SENDER_ID</key>
-	<string>307519294603</string>
+	<string>988167409513</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.AaronCleveland.StackNews</string>
 	<key>PROJECT_ID</key>
-	<string>newstack-bcd5d</string>
+	<string>newstack-755d9</string>
 	<key>STORAGE_BUCKET</key>
-	<string>newstack-bcd5d.appspot.com</string>
+	<string>newstack-755d9.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,8 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:307519294603:ios:5755c9f8c42b3deae3588e</string>
+	<string>1:988167409513:ios:616f873039ea03d15877f8</string>
 	<key>DATABASE_URL</key>
-	<string>https://newstack-bcd5d.firebaseio.com</string>
+	<string>https://newstack-755d9.firebaseio.com</string>
 </dict>
 </plist>

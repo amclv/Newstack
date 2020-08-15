@@ -18,6 +18,8 @@
 		1A244A5A24A4F8800091518D /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A5924A4F8800091518D /* HomeViewController.swift */; };
 		1A244A5E24A4F8AA0091518D /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A5D24A4F8AA0091518D /* BookmarkViewController.swift */; };
 		1A244A6124A4F8C00091518D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A6024A4F8C00091518D /* SettingsViewController.swift */; };
+		1A29EBD324E890B1002D3CB3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A29EBD224E890B1002D3CB3 /* GoogleService-Info.plist */; };
+		1A29EBD524E890ED002D3CB3 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A29EBD424E890ED002D3CB3 /* SignUpViewController.swift */; };
 		1A2E0D6B24C00F0300212BF1 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A2E0D6A24C00F0300212BF1 /* SearchResultTableViewCell.swift */; };
 		1A3708F624BAB6BD0047419B /* EverythingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3708F524BAB6BD0047419B /* EverythingCollectionViewCell.swift */; };
 		1A3708F924BAB7A60047419B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3708F824BAB7A60047419B /* SearchViewController.swift */; };
@@ -33,7 +35,6 @@
 		1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */; };
 		1A9AC9CF24C80C12005583FB /* TabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9AC9CE24C80C12005583FB /* TabbarViewController.swift */; };
 		1ADC857124BAC52B008251C2 /* UIStackView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */; };
-		1AED395724C6B401004859A9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AED395624C6B401004859A9 /* GoogleService-Info.plist */; };
 		1AED395A24C6B6B6004859A9 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED395924C6B6B6004859A9 /* OnboardingViewController.swift */; };
 		4ECEE99707FC6C6249966ECB /* Pods_Newstack_NewstackUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 238A570AE335A9A6CE378F20 /* Pods_Newstack_NewstackUITests.framework */; };
 		502ACD54490390737E311E9A /* Pods_NewstackTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C3A8897D4FF4BB99E125AD2 /* Pods_NewstackTests.framework */; };
@@ -78,6 +79,8 @@
 		1A244A5924A4F8800091518D /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		1A244A5D24A4F8AA0091518D /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		1A244A6024A4F8C00091518D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		1A29EBD224E890B1002D3CB3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1A29EBD424E890ED002D3CB3 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		1A2E0D6A24C00F0300212BF1 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		1A3708F524BAB6BD0047419B /* EverythingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EverythingCollectionViewCell.swift; sourceTree = "<group>"; };
 		1A3708F824BAB7A60047419B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -94,7 +97,6 @@
 		1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		1A9AC9CE24C80C12005583FB /* TabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewController.swift; sourceTree = "<group>"; };
 		1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Style.swift"; sourceTree = "<group>"; };
-		1AED395624C6B401004859A9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1AED395924C6B6B6004859A9 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		238A570AE335A9A6CE378F20 /* Pods_Newstack_NewstackUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Newstack_NewstackUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C3A8897D4FF4BB99E125AD2 /* Pods_NewstackTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NewstackTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,8 +161,8 @@
 		1A244A2424A4F7960091518D /* Newstack */ = {
 			isa = PBXGroup;
 			children = (
+				1A29EBD224E890B1002D3CB3 /* GoogleService-Info.plist */,
 				1A5337BF24C93D3E00EEF1A5 /* Newstack.entitlements */,
-				1AED395624C6B401004859A9 /* GoogleService-Info.plist */,
 				1A64E6D124C542FD00DF2B97 /* Globals */,
 				1A244A5724A4F8550091518D /* Models */,
 				1A244A5624A4F84D0091518D /* Views */,
@@ -334,6 +336,7 @@
 			children = (
 				1AED395924C6B6B6004859A9 /* OnboardingViewController.swift */,
 				5DD729CF24CCBF800012FBDA /* LoginViewController.swift */,
+				1A29EBD424E890ED002D3CB3 /* SignUpViewController.swift */,
 			);
 			path = Login_Signup;
 			sourceTree = "<group>";
@@ -470,8 +473,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A244A3224A4F7970091518D /* LaunchScreen.storyboard in Resources */,
-				1AED395724C6B401004859A9 /* GoogleService-Info.plist in Resources */,
 				1A244A2F24A4F7970091518D /* Assets.xcassets in Resources */,
+				1A29EBD324E890B1002D3CB3 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,6 +606,7 @@
 				1A64E6D324C5430900DF2B97 /* Extensions.swift in Sources */,
 				1A5AC9D324A506A50030A43A /* UILabel+Style.swift in Sources */,
 				5DD729D024CCBF800012FBDA /* LoginViewController.swift in Sources */,
+				1A29EBD524E890ED002D3CB3 /* SignUpViewController.swift in Sources */,
 				1A244A5E24A4F8AA0091518D /* BookmarkViewController.swift in Sources */,
 				1A6EE32624C7F64A006E01AB /* Shiftable.swift in Sources */,
 				1A244A2624A4F7960091518D /* AppDelegate.swift in Sources */,

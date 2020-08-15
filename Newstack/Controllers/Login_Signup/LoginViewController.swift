@@ -8,7 +8,7 @@
 import UIKit
 import Firebase
 
-class LoginViewController: UIViewController, UITextFieldDelegate {
+class LoginViewController: ShiftableViewController {
     
     let loginInfoVStack = CustomStackView(style: .vertical, distribution: .fill, alignment: .fill)
     let emailLabel = CustomLabel(style: .infoLabel, text: "Email Address")

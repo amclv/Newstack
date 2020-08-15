@@ -17,37 +17,11 @@ class OnboardingViewController: ShiftableViewController {
     
     let helloLabel = CustomLabel(style: .helloLabel, text: "Hello!")
     let subLabel = CustomLabel(style: .subLabel, text: "Even on a boat you can catch all your news from any source.")
-    let fullNameLabel = CustomLabel(style: .infoLabel, text: "Full Name")
-    let emailLabel = CustomLabel(style: .infoLabel, text: "Email Address")
-    let passwordLabel = CustomLabel(style: .infoLabel, text: "Password")
     
     // MARK: - StackViews -
     let contentVStack = CustomStackView(style: .onboardContentVStack, distribution: .fill, alignment: .fill)
     let infoVStack = CustomStackView(style: .onboardInfoVStack, distribution: .fill, alignment: .fill)
     let signUpHStack = CustomStackView(style: .onboardSignUpHStack, distribution: .fill, alignment: .fill)
-    
-    // MARK: - TextField -
-    let fullNameTextField: UITextField = {
-        let fnTextField = UITextField()
-        fnTextField.textColor = UIColor.white
-        fnTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        fnTextField.translatesAutoresizingMaskIntoConstraints = false
-        return fnTextField
-    }()
-    
-    let emailTextField: UITextField = {
-        let emailTextField = UITextField()
-        emailTextField.textColor = UIColor.white
-        emailTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        return emailTextField
-    }()
-    
-    let passwordTextField: UITextField = {
-        let passwordTextField = UITextField()
-        passwordTextField.textColor = UIColor.white
-        passwordTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        return passwordTextField
-    }()
     
     // MARK: - Buttons -
     let appleButtonLogin: ASAuthorizationAppleIDButton = {
@@ -92,50 +66,22 @@ class OnboardingViewController: ShiftableViewController {
         ref = Database.database().reference()
         subviews()
         constraints()
-        emailTextField.delegate = self
-        fullNameTextField.delegate = self
-        passwordTextField.delegate = self
-    }
-    
-    override func viewWillLayoutSubviews() {
-        fullNameTextField.setBottomBorder(withColor: .lightGray)
-        emailTextField.setBottomBorder(withColor: .lightGray)
-        passwordTextField.setBottomBorder(withColor: .lightGray)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .darkContent
     }
     
-    func presentTabbarPage() {
-        let vc: TabbarViewController = TabbarViewController()
+    @objc func signUpButtonTapped() {
+        let vc: SignUpViewController = SignUpViewController()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }
     
-    @objc func signUpButtonTapped() {
-        if let name = fullNameTextField.text,
-            !name.isEmpty,
-            let email = emailTextField.text,
-            !email.isEmpty,
-            let password = passwordTextField.text,
-            !password.isEmpty {
-            Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-                if let error = error {
-                    Alert.showBasic(title: "Error", message: error.localizedDescription, vc: self)
-                } else {
-                    let userData = [
-                        "fullName": self.fullNameTextField.text! as String,
-                        "email": self.emailTextField.text! as String
-                    ]
-                    self.ref.child("users").child(user!.user.uid).setValue(userData)
-                    print("Sign Up Successful!")
-                    self.presentTabbarPage()
-                }
-            }
-            self.presentTabbarPage()
-        }
-        Alert.showBasic(title: "Oops!", message: "You didn't fill out a required field", vc: self)
+    @objc func loginButtonTapped() {
+        let vc: LoginViewController = LoginViewController()
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true, completion: nil)
     }
     
     @available(iOS 13, *)
@@ -162,12 +108,6 @@ class OnboardingViewController: ShiftableViewController {
             return String(format: "%02x", $0)
         }.joined()
         return hashString
-    }
-    
-    @objc func loginButtonTapped() {
-        let vc: LoginViewController = LoginViewController()
-        vc.modalPresentationStyle = .fullScreen
-        present(vc, animated: true, completion: nil)
     }
     
     private func randomNonceString(length: Int = 32) -> String {
@@ -198,24 +138,14 @@ class OnboardingViewController: ShiftableViewController {
                 }
             }
         }
-        
         return result
     }
 }
 
 extension OnboardingViewController {
     private func subviews() {
-        contentVStack.addArrangedSubview(helloLabel)
-        contentVStack.addArrangedSubview(subLabel)
-        
-        
-        contentVStack.addArrangedSubview(infoVStack)
-        infoVStack.addArrangedSubview(fullNameLabel)
-        infoVStack.addArrangedSubview(fullNameTextField)
-        infoVStack.addArrangedSubview(emailLabel)
-        infoVStack.addArrangedSubview(emailTextField)
-        infoVStack.addArrangedSubview(passwordLabel)
-        infoVStack.addArrangedSubview(passwordTextField)
+        infoVStack.addArrangedSubview(helloLabel)
+        infoVStack.addArrangedSubview(subLabel)
         
         contentVStack.addArrangedSubview(signUpHStack)
         contentVStack.addArrangedSubview(signUpButton)
@@ -223,6 +153,7 @@ extension OnboardingViewController {
         contentVStack.addArrangedSubview(loginButton)
         
         view.addSubview(backgroundImage)
+        view.addSubview(infoVStack)
         view.addSubview(contentVStack)
     }
     
@@ -233,7 +164,12 @@ extension OnboardingViewController {
             backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            contentVStack.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor),
+            infoVStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            infoVStack.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            infoVStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            infoVStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
+            contentVStack.topAnchor.constraint(greaterThanOrEqualTo: infoVStack.bottomAnchor),
             contentVStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             contentVStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             contentVStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
