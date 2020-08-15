@@ -13,6 +13,7 @@ import CryptoKit
 class OnboardingViewController: ShiftableViewController {
     
     fileprivate var currentNonce: String?
+    var ref: DatabaseReference!
     
     let helloLabel = CustomLabel(style: .helloLabel, text: "Hello!")
     let subLabel = CustomLabel(style: .subLabel, text: "Even on a boat you can catch all your news from any source.")
@@ -52,7 +53,8 @@ class OnboardingViewController: ShiftableViewController {
     let appleButtonLogin: ASAuthorizationAppleIDButton = {
         let appleButton = ASAuthorizationAppleIDButton()
         appleButton.addTarget(self, action: #selector(appleButtonTapped), for: .touchUpInside)
-        appleButton.heightAnchor.constraint(equalToConstant: 46).isActive = true
+        appleButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        appleButton.cornerRadius = 20
         return appleButton
     }()
     
@@ -61,7 +63,7 @@ class OnboardingViewController: ShiftableViewController {
         suButton.translatesAutoresizingMaskIntoConstraints = false
         suButton.setTitle("Sign Up", for: .normal)
         suButton.backgroundColor = .init(red: 51/255, green: 153/255, blue: 255/255, alpha: 1.0)
-        suButton.layer.cornerRadius = 15
+        suButton.layer.cornerRadius = 22
         suButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         suButton.heightAnchor.constraint(equalToConstant: 46).isActive = true
         return suButton
@@ -87,6 +89,7 @@ class OnboardingViewController: ShiftableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemYellow
+        ref = Database.database().reference()
         subviews()
         constraints()
         emailTextField.delegate = self
@@ -104,6 +107,12 @@ class OnboardingViewController: ShiftableViewController {
         return .darkContent
     }
     
+    func presentTabbarPage() {
+        let vc: TabbarViewController = TabbarViewController()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
     @objc func signUpButtonTapped() {
         if let name = fullNameTextField.text,
             !name.isEmpty,
@@ -112,16 +121,19 @@ class OnboardingViewController: ShiftableViewController {
             let password = passwordTextField.text,
             !password.isEmpty {
             Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-                let vc: OnboardingViewController = OnboardingViewController()
-                if error == nil {
-                    self.present(vc, animated: true, completion: nil)
+                if let error = error {
+                    Alert.showBasic(title: "Error", message: error.localizedDescription, vc: self)
                 } else {
-                    Alert.showBasic(title: "Error", message: error!.localizedDescription, vc: self)
+                    let userData = [
+                        "fullName": self.fullNameTextField.text! as String,
+                        "email": self.emailTextField.text! as String
+                    ]
+                    self.ref.child("users").child(user!.user.uid).setValue(userData)
+                    print("Sign Up Successful!")
+                    self.presentTabbarPage()
                 }
             }
-            let vc: TabbarViewController = TabbarViewController()
-            vc.modalPresentationStyle = .fullScreen
-            present(vc, animated: true, completion: nil)
+            self.presentTabbarPage()
         }
         Alert.showBasic(title: "Oops!", message: "You didn't fill out a required field", vc: self)
     }
@@ -196,7 +208,6 @@ extension OnboardingViewController {
         contentVStack.addArrangedSubview(helloLabel)
         contentVStack.addArrangedSubview(subLabel)
         
-        contentVStack.addArrangedSubview(appleButtonLogin)
         
         contentVStack.addArrangedSubview(infoVStack)
         infoVStack.addArrangedSubview(fullNameLabel)
@@ -208,6 +219,7 @@ extension OnboardingViewController {
         
         contentVStack.addArrangedSubview(signUpHStack)
         contentVStack.addArrangedSubview(signUpButton)
+        contentVStack.addArrangedSubview(appleButtonLogin)
         contentVStack.addArrangedSubview(loginButton)
         
         view.addSubview(backgroundImage)

@@ -12,8 +12,9 @@ class SettingsViewController: UIViewController {
     
     var user: User?
     var isUserLoggedIn = false
+    var ref: DatabaseReference!
     
-    let fullNameLabel = CustomLabel(style: .title, text: "Aaron Cleveland")
+    let fullNameLabel = CustomLabel(style: .title, text: "")
     
     let signOutButton: UIButton = {
         let signOut = UIButton()
@@ -50,6 +51,7 @@ class SettingsViewController: UIViewController {
         let bmCV = UICollectionView(frame: .zero, collectionViewLayout: layout)
         bmCV.translatesAutoresizingMaskIntoConstraints = false
         bmCV.register(BookmarkCollectionViewCell.self, forCellWithReuseIdentifier: BookmarkCollectionViewCell.identifier)
+        bmCV.backgroundColor = .white
         return bmCV
     }()
     
@@ -60,6 +62,7 @@ class SettingsViewController: UIViewController {
         bookmarkCollectionView.dataSource = self
         setupSubviews()
         setupConstraints()
+        ref = Database.database().reference()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,8 +71,6 @@ class SettingsViewController: UIViewController {
             self.isUserLoggedIn = true
             print(self.isUserLoggedIn)
         }
-        
-        
     }
     
     @objc func signOutTapped() {
@@ -83,6 +84,7 @@ class SettingsViewController: UIViewController {
             print("sign out of apple", providerId)
         }
         do {
+            print(self.isUserLoggedIn)
             try firebaseAuth.signOut()
             vc.modalPresentationStyle = .fullScreen
             present(vc, animated: true, completion: nil)
@@ -113,7 +115,7 @@ extension SettingsViewController {
             signOutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             signOutButton.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 20),
             
-            bookmarkCollectionView.topAnchor.constraint(equalTo: userInfoHStack.bottomAnchor, constant: 8),
+            bookmarkCollectionView.topAnchor.constraint(equalTo: userInfoHStack.bottomAnchor, constant: 40),
             bookmarkCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             bookmarkCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             bookmarkCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
