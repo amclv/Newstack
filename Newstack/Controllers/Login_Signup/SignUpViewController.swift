@@ -10,6 +10,8 @@ import Firebase
 
 class SignUpViewController: ShiftableViewController {
     
+    var ref: DatabaseReference!
+    
     let fullNameLabel = CustomLabel(style: .infoLabel, text: "Full Name")
     let emailLabel = CustomLabel(style: .infoLabel, text: "Email Address")
     let passwordLabel = CustomLabel(style: .infoLabel, text: "Password")
@@ -81,7 +83,7 @@ class SignUpViewController: ShiftableViewController {
                         "fullName": self.fullNameTextField.text! as String,
                         "email": self.emailTextField.text! as String
                     ]
-//                    self.ref.child("users").child(user!.user.uid).setValue(userData)
+                    self.ref.child("users").child(user!.user.uid).setValue(userData)
                     print("Sign Up Successful!")
                     self.presentTabbarPage()
                 }
@@ -106,17 +108,11 @@ extension SignUpViewController {
         signUpVStack.addArrangedSubview(passwordLabel)
         signUpVStack.addArrangedSubview(passwordTextField)
         signUpVStack.addArrangedSubview(signUpButton)
-//        view.addSubview(backgroundImage)
         view.addSubview(signUpVStack)
     }
     
     private func constraints() {
         NSLayoutConstraint.activate([
-//            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
-//            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            
             signUpVStack.topAnchor.constraint(greaterThanOrEqualTo: view.topAnchor),
             signUpVStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             signUpVStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
