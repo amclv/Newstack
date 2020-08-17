@@ -22,6 +22,12 @@ class CustomStackView: UIStackView {
         
         //OnboardingViewController
         case onboardContentVStack, onboardInfoVStack, onboardSignUpHStack, onboardSocialHStack
+        
+        //SignUpViewController
+        case signUpVStack
+        
+        //LoginViewController
+        case loginVStack
     }
     
     enum Distribution {
@@ -98,6 +104,15 @@ class CustomStackView: UIStackView {
         case .onboardSocialHStack:
             axis = .horizontal
             spacing = 0
+            
+            //SignUpVStack
+        case .signUpVStack:
+            axis = .vertical
+            spacing = 16
+            
+        case .loginVStack:
+            axis = .vertical
+            spacing = 16
         default:
             break
         }

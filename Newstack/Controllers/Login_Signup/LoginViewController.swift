@@ -10,7 +10,7 @@ import Firebase
 
 class LoginViewController: ShiftableViewController {
     
-    let loginInfoVStack = CustomStackView(style: .vertical, distribution: .fill, alignment: .fill)
+    let loginInfoVStack = CustomStackView(style: .loginVStack, distribution: .fill, alignment: .fill)
     let emailLabel = CustomLabel(style: .infoLabel, text: "Email Address")
     let passwordLabel = CustomLabel(style: .infoLabel, text: "Password")
     
@@ -63,22 +63,17 @@ class LoginViewController: ShiftableViewController {
     }
     
     @objc func loginButtonTapped() {
-        let vc: TabbarViewController = TabbarViewController()
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
-        
-//        guard let email = emailTextField.text, let password = passwordTextField.text else { return }
-//        Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
-//
-//            if let error = error {
-//                print("There was an error", error)
-//                Alert.showBasic(title: "Oops!", message: "Looks like either you didn't fill in the fields or you did them wrong you idiot or simply you just don't have an account", vc: self!)
-//            } else {
-//                let vc: TabbarViewController = TabbarViewController()
-//                vc.modalPresentationStyle = .fullScreen
-//                self!.present(vc, animated: true, completion: nil)
-//            }
-//        }
+        guard let email = emailTextField.text, let password = passwordTextField.text else { return }
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] user, error in
+            if let error = error {
+                print("There was an error", error)
+                Alert.showBasic(title: "Oops!", message: "Looks like either you didn't fill in the fields or you did them wrong you idiot or simply you just don't have an account", vc: self!)
+            } else {
+                let vc: TabbarViewController = TabbarViewController()
+                vc.modalPresentationStyle = .fullScreen
+                self!.present(vc, animated: true, completion: nil)
+            }
+        }
     }
 }
 
