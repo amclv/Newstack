@@ -31,6 +31,11 @@ class BookmarkViewController: UIViewController {
         setupCollectionView()
     }
     
+    func setupNavigationController() {
+        self.navigationItem.title = "Favorites"
+        navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
     func setupCollectionView() {
         view.addSubview(bookmarkCollectionView)
         NSLayoutConstraint.activate([

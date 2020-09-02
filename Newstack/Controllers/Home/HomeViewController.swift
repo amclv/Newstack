@@ -15,7 +15,7 @@ class HomeViewController: UIViewController {
     //=======================
     // MARK: - Stored Properties
     let mainNewsTitle = CustomLabel(style: .header, text: "Overview")
-    let secondaryNewsLabel = CustomLabel(style: .header, text: "Everything")
+    let secondaryNewsLabel = CustomLabel(style: .description, text: "Everything")
     
     let contentStack = CustomStackView(style: .contentStack, distribution: .fill, alignment: .fill)
     
@@ -56,18 +56,10 @@ class HomeViewController: UIViewController {
         return cv
     }()
     
-    let everythingCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.itemSize = CGSize(width: 375, height: 110)
-        layout.minimumLineSpacing = 20
-        
-        let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.translatesAutoresizingMaskIntoConstraints = false
-        cv.register(EverythingCollectionViewCell.self, forCellWithReuseIdentifier: EverythingCollectionViewCell.identifier)
-        cv.backgroundColor = .clear
-        cv.showsVerticalScrollIndicator = false
-        return cv
+    let catergoryTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     
     override func viewDidLoad() {
@@ -77,16 +69,9 @@ class HomeViewController: UIViewController {
         headlineCollectionView.delegate = self
         headlineCollectionView.dataSource = self
         
-        everythingCollectionView.delegate = self
-        everythingCollectionView.dataSource = self
-        
         networkManager.fetchHeadlines(sources: "bbc-news") {
             self.updateViews()
         }
-        networkManager.fetchEverything(sources: "bbc-news") {
-            self.updateViews()
-        }
-        
         setupNavigationController()
         setupSubviews()
         setupConstraints()
@@ -103,13 +88,11 @@ class HomeViewController: UIViewController {
     func setupNavigationController() {
         self.navigationItem.title = "Overview"
         navigationController?.navigationBar.prefersLargeTitles = true
-        //        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "newspaper"), style: .plain, target: self, action: #selector(menuButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(menuButtonTapped))
     }
     
     func updateViews() {
         headlineCollectionView.reloadData()
-        everythingCollectionView.reloadData()
         picker.reloadAllComponents()
     }
     
@@ -143,7 +126,7 @@ extension HomeViewController {
         scrollView.addSubview(firstHStack)
         scrollView.addSubview(headlineCollectionView)
         scrollView.addSubview(secondaryHStack)
-        scrollView.addSubview(everythingCollectionView)
+        scrollView.addSubview(catergoryTableView)
         view.addSubview(scrollView)
     }
     
@@ -167,10 +150,10 @@ extension HomeViewController {
             secondaryHStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             secondaryHStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
-            everythingCollectionView.topAnchor.constraint(equalTo: secondaryHStack.bottomAnchor, constant: 10),
-            everythingCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            everythingCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            everythingCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            catergoryTableView.topAnchor.constraint(equalTo: secondaryHStack.bottomAnchor),
+            catergoryTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            catergoryTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            catergoryTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
         ])
     }
 }

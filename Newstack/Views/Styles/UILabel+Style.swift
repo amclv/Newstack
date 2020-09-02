@@ -16,7 +16,6 @@ class CustomLabel: UILabel {
         case detailTitle, detailDate, detailAuthor, detailPaper, detailContent
         //collectionView
         case collectionTitle, collectionAuthor
-        
         // onboarding screen
         case helloLabel, subLabel, infoLabel
     }
