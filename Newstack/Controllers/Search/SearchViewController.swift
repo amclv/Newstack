@@ -26,6 +26,7 @@ class SearchViewController: UIViewController {
         tb.translatesAutoresizingMaskIntoConstraints = false
         tb.register(SearchResultTableViewCell.self, forCellReuseIdentifier: SearchResultTableViewCell.identifier)
         tb.backgroundColor = UIColor(named: "Background")
+        tb.separatorStyle = .none
         return tb
     }()
 
@@ -37,27 +38,31 @@ class SearchViewController: UIViewController {
         tableView.dataSource = self
         setupSubviews()
         setupConstraints()
+        configureNavigationController()
+    }
+    
+    func configureNavigationController() {
+        self.navigationItem.title = "Search"
+//        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 
 extension SearchViewController {
     private func setupSubviews() {
-        searchHStack.addArrangedSubview(searchBar)
-        
+        view.addSubview(searchBar)
         view.addSubview(tableView)
-        view.addSubview(searchHStack)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            searchHStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            searchHStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            searchHStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
-            tableView.topAnchor.constraint(equalTo: searchHStack.bottomAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
         ])
     }
 }
@@ -70,7 +75,7 @@ extension SearchViewController: UISearchBarDelegate {
             if let error = error {
                 print("Error: \(error)")
             } else {
-                if searchBar == "Covid".lowercased() || searchBar == "Covid-19".lowercased() || searchBar == "Coronavirus".lowercased() || searchBar == "Covid19".lowercased() {
+                if searchBar == "Covid".lowercased() || searchBar == "Covid-19".lowercased() || searchBar == "Coronavirus".lowercased() || searchBar == "Covid19".lowercased() || searchBar == "19".lowercased() {
                     DispatchQueue.main.async {
                         Alert.showBasic(title: "Oops!", message: "Can't display Covid related information", vc: self)
                     }

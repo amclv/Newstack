@@ -14,7 +14,7 @@ class HomeViewController: UIViewController {
     
     //=======================
     // MARK: - Stored Properties
-    let mainNewsTitle = CustomLabel(style: .header, text: "Headlines ")
+    let mainNewsTitle = CustomLabel(style: .header, text: "Overview")
     let secondaryNewsLabel = CustomLabel(style: .header, text: "Everything")
     
     let contentStack = CustomStackView(style: .contentStack, distribution: .fill, alignment: .fill)
@@ -101,7 +101,7 @@ class HomeViewController: UIViewController {
     }
     
     func setupNavigationController() {
-        self.navigationItem.title = "Newstack"
+        self.navigationItem.title = "Overview"
         navigationController?.navigationBar.prefersLargeTitles = true
         //        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "newspaper"), style: .plain, target: self, action: #selector(menuButtonTapped))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(menuButtonTapped))

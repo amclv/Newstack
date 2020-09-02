@@ -49,7 +49,6 @@ class NetworkingManager {
     let language = URLQueryItem(name: "language", value: "en")
     let country = URLQueryItem(name: "country", value: "us")
     
-    let category = URLQueryItem(name: "category", value: "general")
     let domains = URLQueryItem(name: "domains", value: "techcrunch.com")
     
     func performSearch(searchTerm: String, completionHandler: @escaping (_ error: Error?) -> Void) {
