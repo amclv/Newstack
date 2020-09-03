@@ -213,7 +213,6 @@
 				1A055CC224FF49FB00CA7320 /* Sources */,
 				1A3708F724BAB7930047419B /* Search */,
 				1A5AC9D424A506D70030A43A /* ArticleDetail */,
-				1A244A5F24A4F8B40091518D /* Settings */,
 				1A244A5C24A4F89E0091518D /* Bookmark */,
 				1A244A5B24A4F8970091518D /* Home */,
 				1A88271224FEF2CB00E4AE51 /* MainTabController.swift */,
@@ -235,13 +234,6 @@
 				1A244A5D24A4F8AA0091518D /* BookmarkViewController.swift */,
 			);
 			path = Bookmark;
-			sourceTree = "<group>";
-		};
-		1A244A5F24A4F8B40091518D /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Settings;
 			sourceTree = "<group>";
 		};
 		1A3708F724BAB7930047419B /* Search */ = {
