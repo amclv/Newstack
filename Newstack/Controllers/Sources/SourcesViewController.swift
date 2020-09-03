@@ -16,7 +16,7 @@ class SourcesViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .backgroundColor
         configureTableView()
         configureNavigationController()
         networkManager.fetchSources {
@@ -30,7 +30,16 @@ class SourcesViewController: UIViewController {
         setTableViewDelegates()
         tableView.rowHeight = 50
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        tableView.addConstraintsToFillView(view)
+        tableView.showsVerticalScrollIndicator = false
+        tableView.layer.cornerRadius = 10
+        tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                         bottom: view.bottomAnchor,
+                         leading: view.leadingAnchor,
+                         trailing: view.trailingAnchor,
+                         paddingTop: 20,
+                         paddingBottom: 20,
+                         anchorLeading: 20,
+                         anchorTrailing: -20)
     }
     
     func setTableViewDelegates() {
@@ -53,6 +62,7 @@ extension SourcesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.accessoryType = .disclosureIndicator
         cell.textLabel?.text = networkManager.sourcesFeed[indexPath.row].name
         return cell
     }

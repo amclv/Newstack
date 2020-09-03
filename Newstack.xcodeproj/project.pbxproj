@@ -27,6 +27,7 @@
 		1A5AC9D624A506EA0030A43A /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D524A506EA0030A43A /* ArticleDetailViewController.swift */; };
 		1A5AC9D824A507190030A43A /* UIButton+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5AC9D724A507190030A43A /* UIButton+Style.swift */; };
 		1A64E6D324C5430900DF2B97 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A64E6D224C5430900DF2B97 /* Extensions.swift */; };
+		1A6DA626250180B000E8423E /* EverythingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6DA625250180B000E8423E /* EverythingViewController.swift */; };
 		1A6EE32624C7F64A006E01AB /* Shiftable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6EE32524C7F64A006E01AB /* Shiftable.swift */; };
 		1A865F6C24B379AC004B547C /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A865F6B24B379AC004B547C /* Article.swift */; };
 		1A88271324FEF2CB00E4AE51 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88271224FEF2CB00E4AE51 /* MainTabController.swift */; };
@@ -79,6 +80,7 @@
 		1A5AC9D524A506EA0030A43A /* ArticleDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewController.swift; sourceTree = "<group>"; };
 		1A5AC9D724A507190030A43A /* UIButton+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Style.swift"; sourceTree = "<group>"; };
 		1A64E6D224C5430900DF2B97 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		1A6DA625250180B000E8423E /* EverythingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EverythingViewController.swift; sourceTree = "<group>"; };
 		1A6EE32524C7F64A006E01AB /* Shiftable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shiftable.swift; sourceTree = "<group>"; };
 		1A865F6B24B379AC004B547C /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		1A88271224FEF2CB00E4AE51 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				1A244A5C24A4F89E0091518D /* Bookmark */,
 				1A244A5B24A4F8970091518D /* Home */,
 				1A88271224FEF2CB00E4AE51 /* MainTabController.swift */,
+				1A6DA625250180B000E8423E /* EverythingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				1A865F6C24B379AC004B547C /* Article.swift in Sources */,
 				1A64E6D324C5430900DF2B97 /* Extensions.swift in Sources */,
 				1A88271324FEF2CB00E4AE51 /* MainTabController.swift in Sources */,
+				1A6DA626250180B000E8423E /* EverythingViewController.swift in Sources */,
 				1A5AC9D324A506A50030A43A /* UILabel+Style.swift in Sources */,
 				1A244A5E24A4F8AA0091518D /* BookmarkViewController.swift in Sources */,
 				1A6EE32624C7F64A006E01AB /* Shiftable.swift in Sources */,

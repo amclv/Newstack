@@ -18,8 +18,7 @@ class HomeViewController: UIViewController {
     
     let contentStack = CustomStackView(style: .contentStack, distribution: .fill, alignment: .fill)
     
-    var picker = UIPickerView()
-    var toolBar = UIToolbar()
+    let tableBackgroundView = UIView()
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -55,17 +54,11 @@ class HomeViewController: UIViewController {
         return cv
     }()
     
-    let catergoryTableView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        return tableView
-    }()
+    let catergoryTableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "Background")
-        
+        view.backgroundColor = .backgroundColor
         headlineCollectionView.delegate = self
         headlineCollectionView.dataSource = self
         
@@ -75,6 +68,7 @@ class HomeViewController: UIViewController {
         setupNavigationController()
         setupSubviews()
         setupConstraints()
+        configureTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -86,8 +80,25 @@ class HomeViewController: UIViewController {
     }
     
     func configureTableView() {
-        catergoryTableView.dataSource = self
+        view.addSubview(catergoryTableView)
+        setTableViewDelegates()
+        catergoryTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        catergoryTableView.layer.cornerRadius = 10
+        catergoryTableView.separatorStyle = .none
+        catergoryTableView.showsVerticalScrollIndicator = false
+        catergoryTableView.anchor(top: secondaryHStack.bottomAnchor,
+                                  bottom: view.bottomAnchor,
+                                  leading: view.leadingAnchor,
+                                  trailing: view.trailingAnchor,
+                                  paddingTop: 20,
+                                  paddingBottom: 20,
+                                  anchorLeading: 20,
+                                  anchorTrailing: -20)
+    }
+    
+    func setTableViewDelegates() {
         catergoryTableView.delegate = self
+        catergoryTableView.dataSource = self
     }
     
     func setupNavigationController() {
@@ -97,6 +108,7 @@ class HomeViewController: UIViewController {
     
     func updateViews() {
         headlineCollectionView.reloadData()
+        catergoryTableView.reloadData()
     }
 }
 
@@ -104,10 +116,8 @@ extension HomeViewController {
     func setupSubviews() {
         secondaryHStack.addArrangedSubview(secondaryNewsLabel)
         
-        scrollView.addSubview(firstHStack)
         scrollView.addSubview(headlineCollectionView)
         scrollView.addSubview(secondaryHStack)
-        scrollView.addSubview(catergoryTableView)
         view.addSubview(scrollView)
     }
     
@@ -125,12 +135,7 @@ extension HomeViewController {
             
             secondaryHStack.topAnchor.constraint(equalTo: headlineCollectionView.bottomAnchor, constant: 10),
             secondaryHStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            secondaryHStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            
-            catergoryTableView.topAnchor.constraint(equalTo: secondaryHStack.bottomAnchor),
-            catergoryTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            catergoryTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            catergoryTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+            secondaryHStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
     }
 }
@@ -175,11 +180,14 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return networkManager.sourcesFeed.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.text = networkManager.sourcesFeed[indexPath.row].category
+        return cell
     }
     
     

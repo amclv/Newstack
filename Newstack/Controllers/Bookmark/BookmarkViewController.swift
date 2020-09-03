@@ -57,6 +57,4 @@ extension BookmarkViewController: UICollectionViewDelegate, UICollectionViewData
         cell.backgroundColor = .red
         return cell
     }
-    
-    
 }
