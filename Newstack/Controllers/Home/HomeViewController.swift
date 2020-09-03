@@ -14,7 +14,6 @@ class HomeViewController: UIViewController {
     
     //=======================
     // MARK: - Stored Properties
-    let mainNewsTitle = CustomLabel(style: .header, text: "Overview")
     let secondaryNewsLabel = CustomLabel(style: .description, text: "Everything")
     
     let contentStack = CustomStackView(style: .contentStack, distribution: .fill, alignment: .fill)
@@ -59,6 +58,7 @@ class HomeViewController: UIViewController {
     let catergoryTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return tableView
     }()
     
@@ -80,47 +80,28 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         networkManager.fetchSources {
-            print("TEST THIS BITCH::::::::::\(self.networkManager.sourcesFeed.count)")
+            print("\(self.networkManager.sourcesFeed.count)")
             self.updateViews()
         }
+    }
+    
+    func configureTableView() {
+        catergoryTableView.dataSource = self
+        catergoryTableView.delegate = self
     }
     
     func setupNavigationController() {
         self.navigationItem.title = "Overview"
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "slider.horizontal.3"), style: .plain, target: self, action: #selector(menuButtonTapped))
     }
     
     func updateViews() {
         headlineCollectionView.reloadData()
-        picker.reloadAllComponents()
-    }
-    
-    @objc func menuButtonTapped() {
-        picker = UIPickerView.init()
-        picker.delegate = self
-        picker.backgroundColor = UIColor(named: "Background")
-        picker.setValue(UIColor.label, forKey: "textColor")
-        picker.autoresizingMask = .flexibleWidth
-        picker.contentMode = .center
-        picker.frame = CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 350, width: UIScreen.main.bounds.size.width, height: 300)
-        self.view.addSubview(picker)
-        
-        toolBar = UIToolbar.init(frame: CGRect.init(x: 0.0, y: UIScreen.main.bounds.size.height - 350, width: UIScreen.main.bounds.size.width, height: 50))
-        toolBar.barStyle = .default
-        toolBar.items = [UIBarButtonItem.init(title: "Done", style: .done, target: self, action: #selector(onDoneButtonTapped))]
-        self.view.addSubview(toolBar)
-    }
-    
-    @objc func onDoneButtonTapped() {
-        toolBar.removeFromSuperview()
-        picker.removeFromSuperview()
     }
 }
 
 extension HomeViewController {
     func setupSubviews() {
-        firstHStack.addArrangedSubview(mainNewsTitle)
         secondaryHStack.addArrangedSubview(secondaryNewsLabel)
         
         scrollView.addSubview(firstHStack)
@@ -137,11 +118,7 @@ extension HomeViewController {
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             
-            firstHStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            firstHStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            firstHStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            
-            headlineCollectionView.topAnchor.constraint(equalTo: firstHStack.bottomAnchor),
+            headlineCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             headlineCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             headlineCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             headlineCollectionView.heightAnchor.constraint(equalToConstant: 300),
@@ -153,7 +130,7 @@ extension HomeViewController {
             catergoryTableView.topAnchor.constraint(equalTo: secondaryHStack.bottomAnchor),
             catergoryTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             catergoryTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            catergoryTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
+            catergoryTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
         ])
     }
 }
@@ -167,33 +144,18 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == headlineCollectionView {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadlineCollectionViewCell.identifier, for: indexPath) as! HeadlineCollectionViewCell
-            
-            let newArticle = networkManager.headlineFeed[indexPath.item]
-            cell.headlineArticle = newArticle
-            
-            if let url = newArticle.urlToImage {
-                networkManager.fetchImage(imageURL: url) { (data) in
-                    guard let newImage = UIImage(data: data) else { return }
-                    cell.headlineImage.image = newImage
-                }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HeadlineCollectionViewCell.identifier, for: indexPath) as! HeadlineCollectionViewCell
+        
+        let newArticle = networkManager.headlineFeed[indexPath.item]
+        cell.headlineArticle = newArticle
+        
+        if let url = newArticle.urlToImage {
+            networkManager.fetchImage(imageURL: url) { (data) in
+                guard let newImage = UIImage(data: data) else { return }
+                cell.headlineImage.image = newImage
             }
-            return cell
-        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EverythingCollectionViewCell.identifier, for: indexPath) as! EverythingCollectionViewCell
-            
-            let everyArticle = networkManager.everythingFeed[indexPath.item]
-            cell.everythingArticle = everyArticle
-            
-            if let url = everyArticle.urlToImage {
-                networkManager.fetchImage(imageURL: url) { (data) in
-                    guard let newImage = UIImage(data: data) else { return }
-                    cell.articleImage.image = newImage
-                }
-            }
-            return cell
         }
+        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -211,32 +173,14 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
 }
 
-extension HomeViewController: UIPickerViewDelegate, UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 6
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return networkManager.sourcesFeed.count
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return networkManager.sourcesFeed[row].name
-    }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(networkManager.sourcesFeed[row])
-        guard let id = networkManager.sourcesFeed[row].id else { return }
-        self.networkManager.fetchHeadlines(sources: id) {
-            DispatchQueue.main.async {
-                self.updateViews()
-            }
-        }
-        self.networkManager.fetchEverything(sources: id) {
-            DispatchQueue.main.async {
-                self.updateViews()
-            }
-        }
-        self.mainNewsTitle.text = "Headlines on \(self.networkManager.sourcesFeed[row].name ?? "")"
-    }
 }

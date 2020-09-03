@@ -43,7 +43,7 @@ class SearchViewController: UIViewController {
     
     func configureNavigationController() {
         self.navigationItem.title = "Search"
-//        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 

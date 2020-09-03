@@ -39,7 +39,7 @@ class BookmarkViewController: UIViewController {
     func setupCollectionView() {
         view.addSubview(bookmarkCollectionView)
         NSLayoutConstraint.activate([
-            bookmarkCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
+            bookmarkCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             bookmarkCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             bookmarkCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             bookmarkCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)

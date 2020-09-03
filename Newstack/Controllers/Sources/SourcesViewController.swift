@@ -9,32 +9,33 @@ import UIKit
 
 class SourcesViewController: UIViewController {
     
+    // MARK: - Properties
     private let networkManager = NetworkingManager()
-    
-    let sourcesTableView: UITableView = {
-        let sourcesTV = UITableView()
-        sourcesTV.translatesAutoresizingMaskIntoConstraints = false
-        sourcesTV.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        return sourcesTV
-    }()
+    let tableView = UITableView()
 
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
+        view.backgroundColor = .systemBackground
+        configureTableView()
         configureNavigationController()
-        sourcesTableView.delegate = self
-        sourcesTableView.dataSource = self
+        networkManager.fetchSources {
+            self.tableView.reloadData()
+        }
     }
     
-    func configureUI() {
-        view.backgroundColor = .systemBackground
-        view.addSubview(sourcesTableView)
-        sourcesTableView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
-                                bottom: view.safeAreaLayoutGuide.bottomAnchor,
-                                leading: view.leadingAnchor,
-                                trailing: view.trailingAnchor,
-                                anchorLeading: 20,
-                                anchorTrailing: -20)
+    // MARK: - Helpers
+    func configureTableView() {
+        view.addSubview(tableView)
+        setTableViewDelegates()
+        tableView.rowHeight = 50
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.addConstraintsToFillView(view)
+    }
+    
+    func setTableViewDelegates() {
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     func configureNavigationController() {
@@ -43,7 +44,9 @@ class SourcesViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDelegate / UITableViewDataSource
 extension SourcesViewController: UITableViewDelegate, UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return networkManager.sourcesFeed.count
     }
@@ -54,5 +57,7 @@ extension SourcesViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(networkManager.sourcesFeed[indexPath.row].name)
+    }
 }
