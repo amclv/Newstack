@@ -9,9 +9,12 @@ import UIKit
 
 class SourcesViewController: UIViewController {
     
+    private let networkManager = NetworkingManager()
+    
     let sourcesTableView: UITableView = {
         let sourcesTV = UITableView()
         sourcesTV.translatesAutoresizingMaskIntoConstraints = false
+        sourcesTV.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return sourcesTV
     }()
 
@@ -42,11 +45,13 @@ class SourcesViewController: UIViewController {
 
 extension SourcesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        return networkManager.sourcesFeed.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.textLabel?.text = networkManager.sourcesFeed[indexPath.row].name
+        return cell
     }
     
     
