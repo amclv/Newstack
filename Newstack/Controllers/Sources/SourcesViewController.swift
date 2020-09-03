@@ -32,6 +32,7 @@ class SourcesViewController: UIViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.showsVerticalScrollIndicator = false
         tableView.layer.cornerRadius = 10
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                          bottom: view.bottomAnchor,
                          leading: view.leadingAnchor,
@@ -68,6 +69,7 @@ extension SourcesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(networkManager.sourcesFeed[indexPath.row].name)
+        let everythingVC = EverythingViewController()
+        navigationController?.pushViewController(everythingVC, animated: true)
     }
 }

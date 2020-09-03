@@ -33,6 +33,7 @@
 		1A88271324FEF2CB00E4AE51 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88271224FEF2CB00E4AE51 /* MainTabController.swift */; };
 		1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */; };
 		1ADC857124BAC52B008251C2 /* UIStackView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */; };
+		5D63DBF52501A9D8001EB5FA /* EverythingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D63DBF42501A9D8001EB5FA /* EverythingCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		1A88271224FEF2CB00E4AE51 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Style.swift"; sourceTree = "<group>"; };
+		5D63DBF42501A9D8001EB5FA /* EverythingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EverythingCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +260,7 @@
 			children = (
 				1A5AC9CA24A505E30030A43A /* HeadlineCollectionViewCell.swift */,
 				1A020E0924E5CAA30091AE2D /* BookmarkCollectionViewCell.swift */,
+				5D63DBF42501A9D8001EB5FA /* EverythingCollectionViewCell.swift */,
 			);
 			path = CollectionCells;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A865F6C24B379AC004B547C /* Article.swift in Sources */,
+				5D63DBF52501A9D8001EB5FA /* EverythingCollectionViewCell.swift in Sources */,
 				1A64E6D324C5430900DF2B97 /* Extensions.swift in Sources */,
 				1A88271324FEF2CB00E4AE51 /* MainTabController.swift in Sources */,
 				1A6DA626250180B000E8423E /* EverythingViewController.swift in Sources */,
