@@ -32,6 +32,7 @@ class BookmarkViewController: UIViewController {
         view.addSubview(tableView)
         setTableViewDelegates()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.rowHeight = 75
         tableView.addConstraintsToFillView(view)
     }
     
@@ -53,7 +54,9 @@ extension BookmarkViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        cell.backgroundColor = .yellow
+        return cell
     }
     
     

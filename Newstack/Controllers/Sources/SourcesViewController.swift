@@ -64,12 +64,15 @@ extension SourcesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.accessoryType = .disclosureIndicator
+        cell.selectionStyle = .none
         cell.textLabel?.text = networkManager.sourcesFeed[indexPath.row].name
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let everythingVC = EverythingViewController()
+        let selectedSource = networkManager.sourcesFeed[indexPath.row].id
+        
         navigationController?.pushViewController(everythingVC, animated: true)
     }
 }

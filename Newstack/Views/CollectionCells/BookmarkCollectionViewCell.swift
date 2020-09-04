@@ -11,23 +11,25 @@ class BookmarkCollectionViewCell: UICollectionViewCell {
     
     static var identifier: String = "bookmarkCell"
     
+    let articleImage = UIImageView()
+    let articleTitle = UILabel()
+    
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        setupCellSubviews()
-        setupCellConstraints()
+//        configureArticleImage()
+        configureArticleLabel()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-}
-
-extension BookmarkCollectionViewCell {
-    private func setupCellSubviews() {
-        
-    }
     
-    private func setupCellConstraints() {
-        
+    func configureArticleLabel() {
+        articleTitle.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(articleTitle)
+        articleTitle.anchor(top: contentView.topAnchor,
+                            bottom: contentView.bottomAnchor,
+                            leading: contentView.leadingAnchor,
+                            trailing: contentView.trailingAnchor)
     }
 }

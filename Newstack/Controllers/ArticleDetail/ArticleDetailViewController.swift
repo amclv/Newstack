@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import WebKit
 
 class ArticleDetailViewController: UIViewController {
     
@@ -84,7 +85,7 @@ class ArticleDetailViewController: UIViewController {
     
     let bookmarkButton: CustomButton = {
         let bookButton = CustomButton(style: .bookmarkButton)
-        bookButton.setImage(UIImage(systemName: "bookmark")?.scaled(to: 25)?.withTintColor(.clear, renderingMode: .alwaysOriginal), for: .normal)
+        bookButton.setImage(UIImage(systemName: "bookmark")?.scaled(to: 25)?.withTintColor(.label, renderingMode: .alwaysOriginal), for: .normal)
         bookButton.addTarget(self, action: #selector(bookmarkArticleTapped), for: .touchUpInside)
         return bookButton
     }()
@@ -108,7 +109,7 @@ class ArticleDetailViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super .viewWillLayoutSubviews()
-//        addGradientDetail()
+        addGradientDetail()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -134,7 +135,10 @@ class ArticleDetailViewController: UIViewController {
     @objc func readMoreButtonTapped() {
         print("READ MORE BUTTON TAPPED")
         guard let url = article?.url else { return }
-        UIApplication.shared.open(url)
+        let webView = WKWebView()
+        webView.load(URLRequest(url: url))
+
+//        UIApplication.shared.open(url)
     }
     
     private func addGradientDetail() {
