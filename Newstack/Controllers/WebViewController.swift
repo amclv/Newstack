@@ -11,22 +11,11 @@ import WebKit
 class WebViewController: UIViewController, WKUIDelegate {
     
     var webView = WKWebView()
-    let forwardBarItem = UIBarButtonItem(title: "Forward",
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(fowardAction))
-    let backwardBarItem = UIBarButtonItem(title: "Backward",
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(backwardAction))
-
+    var articleURL: URL?
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .backgroundColor
-        let dummyURL = URL(string: "https://www.apple.com")
-        let myRequest = URLRequest(url: dummyURL!)
-        webView.load(myRequest)
-        configureNavigationBar()
+        fetchURL()
     }
     
     override func loadView() {
@@ -36,26 +25,10 @@ class WebViewController: UIViewController, WKUIDelegate {
         view = webView
     }
     
-    // MARK: - Selectors
-    @objc func fowardAction() {
-        if webView.canGoForward {
-            webView.goForward()
-        }
-    }
-    
-    @objc func backwardAction() {
-        if webView.canGoBack {
-            webView.goBack()
-        }
-    }
-    
     // MARK: - Helpers
-    func configureNavigationBar() {
-        self.navigationItem.leftBarButtonItem = backwardBarItem
-        self.navigationItem.rightBarButtonItem = forwardBarItem
-        
-        self.navigationController?.navigationBar.barTintColor = .systemBlue
-        self.navigationController?.navigationBar.tintColor = .white
+    func fetchURL() {
+        guard let url = articleURL else { return }
+        let myRequest = URLRequest(url: url)
+        webView.load(myRequest)
     }
-
 }

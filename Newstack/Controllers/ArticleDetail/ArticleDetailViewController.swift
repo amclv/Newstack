@@ -135,10 +135,9 @@ class ArticleDetailViewController: UIViewController {
     @objc func readMoreButtonTapped() {
         print("READ MORE BUTTON TAPPED")
         guard let url = article?.url else { return }
-        let webView = WKWebView()
-        webView.load(URLRequest(url: url))
-
-//        UIApplication.shared.open(url)
+        let vc = WebViewController()
+        vc.articleURL = url
+        present(vc, animated: true, completion: nil)
     }
     
     private func addGradientDetail() {

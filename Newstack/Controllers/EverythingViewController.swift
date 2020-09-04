@@ -10,6 +10,10 @@ import UIKit
 class EverythingViewController: UIViewController {
     
     let networkManager = NetworkingManager()
+    let vc = ArticleDetailViewController()
+    
+    var id: String?
+    var name: String?
     
     let everythingCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -29,12 +33,19 @@ class EverythingViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .backgroundColor
         configureCollectionView()
-        networkManager.fetchEverything(sources: "bbc-news") {
+        configureNavigationController()
+        fetchData()
+    }
+    
+    func fetchData() {
+        guard let id = id else { return }
+        networkManager.fetchEverything(sources: id) {
             self.everythingCollectionView.reloadData()
         }
     }
     
     func configureCollectionView() {
+        setCollectionDelegate()
         view.addSubview(everythingCollectionView)
         everythingCollectionView.addConstraintsToFillView(view)
     }
@@ -42,6 +53,12 @@ class EverythingViewController: UIViewController {
     func setCollectionDelegate() {
         everythingCollectionView.delegate = self
         everythingCollectionView.dataSource = self
+    }
+    
+    func configureNavigationController() {
+        guard let name = name else { return }
+        self.navigationItem.title = name 
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 
@@ -54,7 +71,9 @@ extension EverythingViewController: UICollectionViewDelegate, UICollectionViewDa
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EverythingCollectionViewCell.identifier, for: indexPath) as! EverythingCollectionViewCell
         
         let everyArticle = networkManager.everythingFeed[indexPath.item]
+        
         cell.everythingArticle = everyArticle
+        
         if let url = everyArticle.urlToImage {
             networkManager.fetchImage(imageURL: url) { (data) in
                 guard let newImage = UIImage(data: data) else { return }
@@ -64,5 +83,11 @@ extension EverythingViewController: UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedArticle = networkManager.everythingFeed[indexPath.item]
+        vc.article = selectedArticle
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
     
 }

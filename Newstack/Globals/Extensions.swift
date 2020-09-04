@@ -147,4 +147,3 @@ extension UIColor {
     static let twitterBlue = UIColor.rgb(red: 29, green: 161, blue: 242)
     static let backgroundColor = UIColor.rgb(red: 245, green: 245, blue: 245)
 }
-

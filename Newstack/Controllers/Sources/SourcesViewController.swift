@@ -71,8 +71,8 @@ extension SourcesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let everythingVC = EverythingViewController()
-        let selectedSource = networkManager.sourcesFeed[indexPath.row].id
-        
+        everythingVC.id = networkManager.sourcesFeed[indexPath.row].id
+        everythingVC.name = networkManager.sourcesFeed[indexPath.row].name
         navigationController?.pushViewController(everythingVC, animated: true)
     }
 }

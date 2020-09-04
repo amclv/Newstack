@@ -19,7 +19,7 @@ class MainTabController: UITabBarController {
         let sources = SourcesViewController()
         let search = SearchViewController()
         let favorite = BookmarkViewController()
-        let webView = WebViewController()
+        let webView = EverythingViewController()
         
         let nav1 = templateNavigationController(image: UIImage(systemName: "house"), rootViewController: overview)
         let nav2 = templateNavigationController(image: UIImage(systemName: "list.bullet"), rootViewController: sources)
