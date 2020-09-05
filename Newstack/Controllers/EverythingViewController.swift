@@ -11,9 +11,14 @@ class EverythingViewController: UIViewController {
     
     let networkManager = NetworkingManager()
     let vc = ArticleDetailViewController()
+    let home = HomeViewController()
+    let source = SourcesViewController()
     
     var id: String?
     var name: String?
+    var sourceDescription: String?
+    
+    let sourceDescriptionLabel = UILabel()
     
     let everythingCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -32,8 +37,8 @@ class EverythingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundColor
-        configureCollectionView()
         configureNavigationController()
+        configureUI()
         fetchData()
     }
     
@@ -44,11 +49,26 @@ class EverythingViewController: UIViewController {
         }
     }
     
-    func configureCollectionView() {
+    func configureUI() {
         setCollectionDelegate()
+        sourceDescriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        sourceDescriptionLabel.text = sourceDescription
+        sourceDescriptionLabel.numberOfLines = 0
+        view.addSubview(sourceDescriptionLabel)
+        sourceDescriptionLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor,
+                                      leading: view.leadingAnchor,
+                                      trailing: view.trailingAnchor,
+                                      anchorLeading: 20,
+                                      anchorTrailing: -20)
+        
         view.addSubview(everythingCollectionView)
-        everythingCollectionView.addConstraintsToFillView(view)
+        everythingCollectionView.anchor(top: sourceDescriptionLabel.bottomAnchor,
+                                        bottom: view.bottomAnchor,
+                                        leading: view.leadingAnchor,
+                                        trailing: view.trailingAnchor,
+                                        paddingTop: 20)
     }
+        
     
     func setCollectionDelegate() {
         everythingCollectionView.delegate = self
@@ -64,14 +84,15 @@ class EverythingViewController: UIViewController {
 
 extension EverythingViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if collectionView == home.catergoryTableView {
+            return networkManager.headlineFeed.count
+        }
         return networkManager.everythingFeed.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EverythingCollectionViewCell.identifier, for: indexPath) as! EverythingCollectionViewCell
-        
         let everyArticle = networkManager.everythingFeed[indexPath.item]
-        
         cell.everythingArticle = everyArticle
         
         if let url = everyArticle.urlToImage {

@@ -73,6 +73,7 @@ extension SourcesViewController: UITableViewDelegate, UITableViewDataSource {
         let everythingVC = EverythingViewController()
         everythingVC.id = networkManager.sourcesFeed[indexPath.row].id
         everythingVC.name = networkManager.sourcesFeed[indexPath.row].name
+        everythingVC.sourceDescription = networkManager.sourcesFeed[indexPath.row].description
         navigationController?.pushViewController(everythingVC, animated: true)
     }
 }

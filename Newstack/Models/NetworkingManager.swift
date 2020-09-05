@@ -43,12 +43,9 @@ class NetworkingManager {
     let secretAPI = URLQueryItem(name: "apiKey", value: "569bbdc4ab8c42af93e505b90149e026")
     
     let sortBy = URLQueryItem(name: "sortBy", value: SortOptions.publishedAt.rawValue)
-    let search = URLQueryItem(name: "q", value: "trump")
     let fromDate = URLQueryItem(name: "from", value: "2018-01-01")
     let toDate = URLQueryItem(name: "to", value: "2019-01-01")
     let language = URLQueryItem(name: "language", value: "en")
-    let country = URLQueryItem(name: "country", value: "us")
-    
     let domains = URLQueryItem(name: "domains", value: "techcrunch.com")
     
     func performSearch(searchTerm: String, completionHandler: @escaping (_ error: Error?) -> Void) {
@@ -94,18 +91,18 @@ class NetworkingManager {
         .resume()
     }
     
-    func fetchHeadlines(sources: String, completionHandler: @escaping () -> Void) {
-        let sourcesName = URLQueryItem(name: "sources", value: sources)
+    func fetchHeadlines(country: String, completionHandler: @escaping () -> Void) {
+        let sourcesName = URLQueryItem(name: "country", value: country)
         var urlComponents = URLComponents(url: headlineURL, resolvingAgainstBaseURL: true)
         urlComponents?.queryItems?.append(sourcesName)
         urlComponents?.queryItems?.append(secretAPI)
         
         guard let requestURL = urlComponents?.url else {
-            print("request URL is nil in fetchNews")
+            print("request URL is nil in fetchHeadlineNews")
             completionHandler()
             return
         }
-        print("functioning in fetchNews")
+        print("functioning in fetchHeadlineNews")
         
         URLSession.shared.dataTask(with: requestURL) { (data, _, _) in
             let decoder = JSONDecoder()

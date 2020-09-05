@@ -19,15 +19,13 @@ class MainTabController: UITabBarController {
         let sources = SourcesViewController()
         let search = SearchViewController()
         let favorite = BookmarkViewController()
-        let webView = EverythingViewController()
     
         let nav1 = templateNavigationController(image: UIImage(systemName: "house"), rootViewController: overview)
         let nav2 = templateNavigationController(image: UIImage(systemName: "list.bullet"), rootViewController: sources)
         let nav3 = templateNavigationController(image: UIImage(systemName: "magnifyingglass"), rootViewController: search)
         let nav4 = templateNavigationController(image: UIImage(systemName: "heart"), rootViewController: favorite)
-        let nav5 = templateNavigationController(image: UIImage(systemName: "person"), rootViewController: webView)
         
-        viewControllers = [nav1, nav2, nav3, nav4, nav5]
+        viewControllers = [nav1, nav2, nav3, nav4]
     }
     
     private func templateNavigationController(image: UIImage?, rootViewController: UIViewController) -> UINavigationController {
