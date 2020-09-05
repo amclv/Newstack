@@ -11,8 +11,11 @@ class EverythingViewController: UIViewController {
     
     let networkManager = NetworkingManager()
     let vc = ArticleDetailViewController()
+    let sources = SourcesViewController()
+    let home = HomeViewController()
     
     var id: String?
+    var category: String?
     var name: String?
     
     let everythingCollectionView: UICollectionView = {
@@ -38,8 +41,12 @@ class EverythingViewController: UIViewController {
     }
     
     func fetchData() {
-        guard let id = id else { return }
-        networkManager.fetchEverything(sources: id) {
+        guard let id = id,
+              let category = category else { return }
+        networkManager.fetchEverything(sources: id, category: nil) {
+            self.everythingCollectionView.reloadData()
+        }
+        networkManager.fetchEverything(sources: nil, category: category) {
             self.everythingCollectionView.reloadData()
         }
     }

@@ -122,8 +122,9 @@ class NetworkingManager {
         }.resume()
     }
     
-    func fetchEverything(sources: String, completionHandler: @escaping () -> Void) {
+    func fetchEverything(sources: String?, category: String?, completionHandler: @escaping () -> Void) {
         let sourcesName = URLQueryItem(name: "sources", value: sources)
+        let category = URLQueryItem(name: "category", value: category)
         var urlComponents = URLComponents(url: everythingURL, resolvingAgainstBaseURL: true)
         urlComponents?.queryItems?.append(sourcesName)
         urlComponents?.queryItems?.append(secretAPI)
