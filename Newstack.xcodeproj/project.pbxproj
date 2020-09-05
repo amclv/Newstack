@@ -30,7 +30,7 @@
 		1A6DA626250180B000E8423E /* EverythingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6DA625250180B000E8423E /* EverythingViewController.swift */; };
 		1A6DA6642501D2AB00E8423E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6DA6632501D2AB00E8423E /* WebViewController.swift */; };
 		1A6EE32624C7F64A006E01AB /* Shiftable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A6EE32524C7F64A006E01AB /* Shiftable.swift */; };
-		1A865F6C24B379AC004B547C /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A865F6B24B379AC004B547C /* Article.swift */; };
+		1A865F6C24B379AC004B547C /* ArticleRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A865F6B24B379AC004B547C /* ArticleRepresentation.swift */; };
 		1A88271324FEF2CB00E4AE51 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A88271224FEF2CB00E4AE51 /* MainTabController.swift */; };
 		1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */; };
 		1ADC857124BAC52B008251C2 /* UIStackView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */; };
@@ -85,7 +85,7 @@
 		1A6DA625250180B000E8423E /* EverythingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EverythingViewController.swift; sourceTree = "<group>"; };
 		1A6DA6632501D2AB00E8423E /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		1A6EE32524C7F64A006E01AB /* Shiftable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shiftable.swift; sourceTree = "<group>"; };
-		1A865F6B24B379AC004B547C /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		1A865F6B24B379AC004B547C /* ArticleRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleRepresentation.swift; sourceTree = "<group>"; };
 		1A88271224FEF2CB00E4AE51 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Style.swift"; sourceTree = "<group>"; };
@@ -132,7 +132,6 @@
 				1A244A3B24A4F7970091518D /* NewstackTests */,
 				1A244A4624A4F7970091518D /* NewstackUITests */,
 				1A244A2324A4F7960091518D /* Products */,
-				6A2539B0D921089BE96B0B99 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -204,8 +203,9 @@
 		1A244A5724A4F8550091518D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1AD1586E25032DD100547344 /* CoreData */,
 				1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */,
-				1A865F6B24B379AC004B547C /* Article.swift */,
+				1A865F6B24B379AC004B547C /* ArticleRepresentation.swift */,
 				1A1CD04124C417AB0012D13F /* Sources.swift */,
 			);
 			path = Models;
@@ -303,11 +303,11 @@
 			path = Globals;
 			sourceTree = "<group>";
 		};
-		6A2539B0D921089BE96B0B99 /* Pods */ = {
+		1AD1586E25032DD100547344 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Pods;
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -440,7 +440,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A865F6C24B379AC004B547C /* Article.swift in Sources */,
+				1A865F6C24B379AC004B547C /* ArticleRepresentation.swift in Sources */,
 				5D63DBF52501A9D8001EB5FA /* EverythingCollectionViewCell.swift in Sources */,
 				1A64E6D324C5430900DF2B97 /* Extensions.swift in Sources */,
 				1A88271324FEF2CB00E4AE51 /* MainTabController.swift in Sources */,
