@@ -190,10 +190,5 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = EverythingViewController()
-        vc.category = networkManager.sourcesFeed[indexPath.row].category
-        vc.name = networkManager.sourcesFeed[indexPath.row].name
-        navigationController?.pushViewController(vc, animated: true)
-    }
+    
 }
