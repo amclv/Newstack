@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1A020E0A24E5CAA30091AE2D /* BookmarkCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A020E0924E5CAA30091AE2D /* BookmarkCollectionViewCell.swift */; };
 		1A055CC424FF4A2100CA7320 /* SourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A055CC324FF4A2100CA7320 /* SourcesViewController.swift */; };
+		1A0C3CC625045F5B0077912B /* Newstack.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C3CC525045F5B0077912B /* Newstack.xcdatamodeld */; };
 		1A1CD04224C417AB0012D13F /* Sources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1CD04124C417AB0012D13F /* Sources.swift */; };
 		1A244A2624A4F7960091518D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A2524A4F7960091518D /* AppDelegate.swift */; };
 		1A244A2824A4F7960091518D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A2724A4F7960091518D /* SceneDelegate.swift */; };
@@ -306,6 +307,7 @@
 		1AD1586E25032DD100547344 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				1A0C3CC525045F5B0077912B /* Newstack.xcdatamodeld */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -445,6 +447,7 @@
 				1A64E6D324C5430900DF2B97 /* Extensions.swift in Sources */,
 				1A88271324FEF2CB00E4AE51 /* MainTabController.swift in Sources */,
 				1A6DA626250180B000E8423E /* EverythingViewController.swift in Sources */,
+				1A0C3CC625045F5B0077912B /* Newstack.xcdatamodeld in Sources */,
 				1A5AC9D324A506A50030A43A /* UILabel+Style.swift in Sources */,
 				1A244A5E24A4F8AA0091518D /* BookmarkViewController.swift in Sources */,
 				1A6EE32624C7F64A006E01AB /* Shiftable.swift in Sources */,
@@ -799,6 +802,18 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1A0C3CC525045F5B0077912B /* Newstack.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+			);
+			name = Newstack.xcdatamodeld;
+			path = ../../../../CoreDataDemo/CoreDataDemo/Model/Newstack.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1A244A1A24A4F7960091518D /* Project object */;
 }
