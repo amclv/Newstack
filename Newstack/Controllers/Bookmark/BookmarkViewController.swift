@@ -6,11 +6,17 @@
 //
 
 import UIKit
+import CoreData
 
 class BookmarkViewController: UIViewController {
     
+    // NSFetchedResultsController - In charge of managing the results of a Core Data fetch request and displaying the data to the user.
+    private var fetchedArticle: NSFetchedResultsController<Article>!
+    private var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     let tableView = UITableView()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundColor
@@ -20,7 +26,22 @@ class BookmarkViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        emptyTableView()
+        let request = Article.fetchRequest() as NSFetchRequest<Article>
+        let sort = NSSortDescriptor(key: #keyPath(Article.title), ascending: true)
+        request.sortDescriptors = [sort]
+        do {
+            fetchedArticle = NSFetchedResultsController(fetchRequest: request,
+                                                        managedObjectContext: context,
+                                                        sectionNameKeyPath: nil,
+                                                        cacheName: nil)
+            try fetchedArticle.performFetch()
+            fetchedArticle.delegate = self
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        } catch let error as NSError {
+            print("Could not fetch. \(error), \(error.userInfo)")
+        }
     }
     
     func setupNavigationController() {
@@ -31,7 +52,7 @@ class BookmarkViewController: UIViewController {
     func configureTableView() {
         view.addSubview(tableView)
         setTableViewDelegates()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(BookmarkTableViewCell.self, forCellReuseIdentifier: BookmarkTableViewCell.identifier)
         tableView.rowHeight = 75
         tableView.addConstraintsToFillView(view)
     }
@@ -40,24 +61,46 @@ class BookmarkViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
     }
-    
-    func emptyTableView() {
-        if tableView.indexPathsForVisibleRows == nil {
-            Alert.showBasic(title: "Woah!", message: "Sorry you don't have any saved articles, please go save some", vc: self)
-        }
-    }
 }
 
 extension BookmarkViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        guard let articles = fetchedArticle.fetchedObjects else { return 0 }
+        return articles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.backgroundColor = .clear
+        let cell = tableView.dequeueReusableCell(withIdentifier: BookmarkTableViewCell.identifier, for: indexPath) as! BookmarkTableViewCell
+        
+        let article = fetchedArticle.object(at: indexPath)
+//        cell.articleTitle.text = article.title
+        cell.textLabel?.text = article.title
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let article = fetchedArticle.object(at: indexPath)
+            context.delete(article)
+            appDelegate.saveContext()
+            tableView.reloadData()
+        }
+    }
+}
+
+extension BookmarkViewController: NSFetchedResultsControllerDelegate {
+    // controller is the method to notify the receiver that a fetchd object has been changed due to an add, remove, move or update.
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        // indexpath represents the idnex path of the changed object.
+        // newindexpath represents the destination path for the object for insertions or moves.
+        let index = indexPath ?? (newIndexPath ?? nil)
+        guard let cellIndex = index else { return }
+        switch type {
+        case .insert:
+            tableView.insertRows(at: [cellIndex], with: .fade)
+        default:
+            break
+        }
+    }
 }

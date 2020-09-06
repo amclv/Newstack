@@ -22,7 +22,7 @@ class SearchResultTableViewCell: UITableViewCell {
         return articleImage
     }()
 
-    var results: NewsSource.Article? {
+    var results: ArticleRepresentation? {
         didSet {
             updateViews()
         }

@@ -8,13 +8,17 @@
 import Foundation
 import UIKit
 import WebKit
+import CoreData
 
 class ArticleDetailViewController: UIViewController {
+    
+    private var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var gradientView = CAGradientLayer()
     var activityViewController: UIActivityViewController?
     
-    var article: NewsSource.Article? {
+    var article: ArticleRepresentation? {
         didSet {
             updateViews()
         }
@@ -123,6 +127,9 @@ class ArticleDetailViewController: UIViewController {
     
     @objc func bookmarkArticleTapped() {
         print("BOOKMARKED ARTICLE PRESSED")
+        let article = Article(context: context)
+        article.title = articleTitle.text
+        appDelegate.saveContext()
         dismiss(animated: true, completion: nil)
     }
     
