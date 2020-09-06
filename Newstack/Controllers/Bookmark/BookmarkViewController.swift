@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import WebKit
 
 class BookmarkViewController: UIViewController {
     
@@ -14,6 +15,8 @@ class BookmarkViewController: UIViewController {
     private var fetchedArticle: NSFetchedResultsController<Article>!
     private var appDelegate = UIApplication.shared.delegate as! AppDelegate
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    let networkManager = NetworkingManager()
     
     let tableView = UITableView()
     
@@ -53,7 +56,7 @@ class BookmarkViewController: UIViewController {
         view.addSubview(tableView)
         setTableViewDelegates()
         tableView.register(BookmarkTableViewCell.self, forCellReuseIdentifier: BookmarkTableViewCell.identifier)
-        tableView.rowHeight = 75
+        tableView.rowHeight = 100
         tableView.addConstraintsToFillView(view)
     }
     
@@ -73,9 +76,22 @@ extension BookmarkViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: BookmarkTableViewCell.identifier, for: indexPath) as! BookmarkTableViewCell
         
         let article = fetchedArticle.object(at: indexPath)
-//        cell.articleTitle.text = article.title
-        cell.textLabel?.text = article.title
+        cell.articleTitle.text = article.title
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = ArticleDetailViewController()
+        let article = fetchedArticle.object(at: indexPath)
+        
+        vc.articleTitle.text = article.title
+        vc.articleDate.text = article.publishedAt
+        vc.articleDetail.text = article.content
+        vc.articleAuthorPaper.text = article.author
+        vc.articleURL = article.url
+        
+        vc.modalPresentationStyle = .fullScreen
+        present(vc, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

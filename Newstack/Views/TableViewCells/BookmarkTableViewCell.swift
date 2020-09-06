@@ -15,7 +15,9 @@ class BookmarkTableViewCell: UITableViewCell {
     let articleImage = UIImageView()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configureArticleImage()
+        configureArticleLabel()
     }
     
     required init?(coder: NSCoder) {
@@ -24,8 +26,25 @@ class BookmarkTableViewCell: UITableViewCell {
     
     func configureArticleLabel() {
         articleTitle.translatesAutoresizingMaskIntoConstraints = false
+        articleTitle.numberOfLines = 0
         contentView.addSubview(articleTitle)
-        articleTitle.addConstraintsToFillView(contentView)
+        articleTitle.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        articleTitle.anchor(leading: articleImage.trailingAnchor,
+                            trailing: contentView.trailingAnchor,
+                            anchorLeading: 20,
+                            anchorTrailing: -20)
+    }
+    
+    func configureArticleImage() {
+        articleImage.translatesAutoresizingMaskIntoConstraints = false
+        articleImage.contentMode = .scaleAspectFill
+        articleImage.layer.cornerRadius = 25
+        articleImage.clipsToBounds = true
+        contentView.addSubview(articleImage)
+        articleImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
+        articleImage.setDimensions(width: 100, height: 100)
+        articleImage.anchor(leading: leadingAnchor,
+                            anchorLeading: 20)
     }
 
 }
