@@ -11,7 +11,7 @@ class HeadlineCollectionViewCell: UICollectionViewCell {
     
     static var identifier: String = "headlineCell"
     
-    var headlineArticle: NewsSource.Article? {
+    var headlineArticle: ArticleRepresentation? {
         didSet {
             updateViews()
         }

@@ -11,7 +11,7 @@ class EverythingCollectionViewCell: UICollectionViewCell {
     
     static var identifier: String = "everythingCell"
     
-    var everythingArticle: NewsSource.Article? {
+    var everythingArticle: ArticleRepresentation? {
         didSet {
             updateViews()
         }

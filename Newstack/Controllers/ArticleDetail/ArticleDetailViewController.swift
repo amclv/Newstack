@@ -8,13 +8,18 @@
 import Foundation
 import UIKit
 import WebKit
+import CoreData
 
 class ArticleDetailViewController: UIViewController {
     
+    private var appDelegate = UIApplication.shared.delegate as! AppDelegate
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     var gradientView = CAGradientLayer()
     var activityViewController: UIActivityViewController?
+    let networkManager = NetworkingManager()
     
-    var article: NewsSource.Article? {
+    var article: ArticleRepresentation? {
         didSet {
             updateViews()
         }
@@ -25,6 +30,7 @@ class ArticleDetailViewController: UIViewController {
     let articleDetail = CustomLabel(style: .detailContent, text: "")
     let articleAuthorName = CustomLabel(style: .detailAuthor, text: "")
     let articleAuthorPaper = CustomLabel(style: .detailPaper, text: "")
+    var articleURL: URL? = nil
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -123,6 +129,13 @@ class ArticleDetailViewController: UIViewController {
     
     @objc func bookmarkArticleTapped() {
         print("BOOKMARKED ARTICLE PRESSED")
+        let article = Article(context: context)
+        article.url = articleURL
+        article.title = articleTitle.text
+        article.publishedAt = articleDate.text
+        article.content = articleDetail.text
+        article.author = articleAuthorPaper.text
+        appDelegate.saveContext()
         dismiss(animated: true, completion: nil)
     }
     

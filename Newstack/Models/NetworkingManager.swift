@@ -32,9 +32,9 @@ enum SortOptions: String {
 
 class NetworkingManager {
     
-    var headlineFeed: [NewsSource.Article] = []
-    var everythingFeed: [NewsSource.Article] = []
-    var searchResult: [NewsSource.Article] = []
+    var headlineFeed: [ArticleRepresentation] = []
+    var everythingFeed: [ArticleRepresentation] = []
+    var searchResult: [ArticleRepresentation] = []
     var sourcesFeed: [PaperSource.Sources] = []
     
     let headlineURL = URL(string: "https://newsapi.org/v2/top-headlines?")!
