@@ -9,7 +9,10 @@ import Foundation
 import CoreData
 
 class CoreDataStack {
+    
+    //create a shared access point to be able to get anywhere in the application
     static let shared = CoreDataStack()
+    
     var mainContext: NSManagedObjectContext { return container.viewContext }
     
     lazy var container: NSPersistentContainer = {
