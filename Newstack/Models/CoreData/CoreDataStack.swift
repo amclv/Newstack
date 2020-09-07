@@ -9,6 +9,19 @@ import Foundation
 import CoreData
 
 class CoreDataStack {
+    static let shared = CoreDataStack()
+    var mainContext: NSManagedObjectContext { return container.viewContext }
+    
+    lazy var container: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Newstack" as String)
+        container.loadPersistentStores() { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        }
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        return container
+    }()
     
     func save(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         context.performAndWait {
@@ -20,20 +33,4 @@ class CoreDataStack {
             }
         }
     }
-    
-    static let shared = CoreDataStack()
-    
-    let container: NSPersistentContainer = {
-        
-        let container = NSPersistentContainer(name: "JournalCoreData" as String)
-        container.loadPersistentStores() { (storeDescription, error) in
-            if let error = error as NSError? {
-                fatalError("Unresolved error \(error), \(error.userInfo)")
-            }
-        }
-        container.viewContext.automaticallyMergesChangesFromParent = true
-        return container
-    }()
-    
-    var mainContext: NSManagedObjectContext { return container.viewContext }
 }
