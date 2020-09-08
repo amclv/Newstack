@@ -29,7 +29,6 @@ class BookmarkViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .backgroundColor
         configureTableView()
         setupNavigationController()
     }
@@ -49,6 +48,7 @@ class BookmarkViewController: UIViewController {
         setTableViewDelegates()
         tableView.register(BookmarkTableViewCell.self, forCellReuseIdentifier: BookmarkTableViewCell.identifier)
         tableView.rowHeight = 150
+        tableView.backgroundColor = UIColor(named: "Background")
         tableView.addConstraintsToFillView(view)
     }
     

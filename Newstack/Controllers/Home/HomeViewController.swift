@@ -11,6 +11,7 @@ class HomeViewController: UIViewController {
     
     private let networkManager = NetworkingManager()
     private let articleDetailVC = ArticleDetailViewController()
+    let refreshControl = UIRefreshControl()
     
     //=======================
     // MARK: - Stored Properties
@@ -37,15 +38,30 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .backgroundColor
+        view.backgroundColor = UIColor(named: "Background")
         headlineCollectionView.delegate = self
         headlineCollectionView.dataSource = self
         setupNavigationController()
         configureUI()
+        
+        refreshControl.addTarget(self, action: #selector(HomeViewController.loadData), for: UIControl.Event.valueChanged)
+        refreshControl.attributedTitle = NSAttributedString(string: "Refresh Collection View", attributes: nil)
+        
+        headlineCollectionView.addSubview(refreshControl)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        fetchHeadlines()
+    }
+    
+    @objc func loadData() {
+        fetchHeadlines()
+        headlineCollectionView.reloadData()
+        refreshControl.endRefreshing()
+    }
+    
+    func fetchHeadlines() {
         networkManager.fetchSources {
             print("\(self.networkManager.sourcesFeed.count)")
             self.updateViews()

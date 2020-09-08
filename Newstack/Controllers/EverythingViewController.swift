@@ -36,7 +36,7 @@ class EverythingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .backgroundColor
+        view.backgroundColor = UIColor(named: "Background")
         configureNavigationController()
         configureUI()
         fetchData()

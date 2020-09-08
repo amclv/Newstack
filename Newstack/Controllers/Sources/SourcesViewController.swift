@@ -16,7 +16,7 @@ class SourcesViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .backgroundColor
+        view.backgroundColor = UIColor(named: "Background")
         configureTableView()
         configureNavigationController()
         networkManager.fetchSources {
@@ -33,6 +33,7 @@ class SourcesViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.layer.cornerRadius = 10
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = UIColor(named: "Background")
         tableView.anchor(top: view.safeAreaLayoutGuide.topAnchor,
                          bottom: view.bottomAnchor,
                          leading: view.leadingAnchor,

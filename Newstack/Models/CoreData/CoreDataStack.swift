@@ -9,10 +9,10 @@ import Foundation
 import CoreData
 
 class CoreDataStack {
+    private init() {}
     
     //create a singleton that is only one instance : you would start with 'CoreDataStack.shared .... '
     static let shared = CoreDataStack()
-    
     
     // creating a computer property of NSPersistentContainer
     // adding lazy, won't create it until I access it. because it's expensive to create in memory.
