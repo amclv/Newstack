@@ -9,7 +9,13 @@ import Foundation
 import CoreData
 
 extension Article {
-    convenience init(author: String, content: String, publishedAt: String, title: String, url: String, urlToImage: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+    convenience init(author: String,
+                     content: String,
+                     publishedAt: String,
+                     title: String,
+                     url: String,
+                     urlToImage: String,
+                     context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.author = author
         self.content = content

@@ -14,12 +14,15 @@ class ArticleDetailViewController: UIViewController {
     var gradientView = CAGradientLayer()
     var activityViewController: UIActivityViewController?
     let networkManager = NetworkingManager()
+    var articleController: ArticleController?
     
     var article: ArticleRepresentation? {
         didSet {
             updateViews()
         }
     }
+    
+    var articleSave: Article?
     
     let articleDate = CustomLabel(style: .detailDate, text: "")
     let articleTitle = CustomLabel(style: .detailTitle, text: "")
@@ -120,6 +123,26 @@ class ArticleDetailViewController: UIViewController {
     
     @objc func bookmarkArticleTapped() {
         print("BOOKMARKED ARTICLE PRESSED")
+        if let article = article {
+            guard let author = articleAuthorPaper.text,
+                let content = articleDetail.text,
+                let publishedAt = articleDate.text,
+                let title = articleTitle.text,
+                let url = article.url?.absoluteString,
+                let urlToImage = article.urlToImage?.absoluteString else { return }
+            _ = Article(author: author,
+                                  content: content,
+                                  publishedAt: publishedAt,
+                                  title: title,
+                                  url: url,
+                                  urlToImage: urlToImage,
+                                  context: CoreDataStack.shared.mainContext)
+            do {
+                try? CoreDataStack.shared.mainContext.save()
+            } catch {
+                print("Error Saving data")
+            }
+        }
         dismiss(animated: true, completion: nil)
     }
     

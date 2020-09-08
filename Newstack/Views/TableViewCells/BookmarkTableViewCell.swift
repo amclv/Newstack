@@ -14,6 +14,12 @@ class BookmarkTableViewCell: UITableViewCell {
     let articleTitle = UILabel()
     let articleImage = UIImageView()
     
+    var article: Article? {
+        didSet {
+            updateViews()
+        }
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureArticleImage()
@@ -22,6 +28,15 @@ class BookmarkTableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateViews() {
+        guard let article = article,
+            let urlToImage = article.urlToImage else { return }
+        
+        let imageURL = URL(string: urlToImage)!
+        articleTitle.text = article.title
+        articleImage.image = try? UIImage(withContentsOfUrl: imageURL)
     }
     
     func configureArticleLabel() {
@@ -45,6 +60,16 @@ class BookmarkTableViewCell: UITableViewCell {
         articleImage.setDimensions(width: 100, height: 100)
         articleImage.anchor(leading: leadingAnchor,
                             anchorLeading: 20)
+    }
+
+}
+
+extension UIImage {
+
+    convenience init?(withContentsOfUrl url: URL) throws {
+        let imageData = try Data(contentsOf: url)
+    
+        self.init(data: imageData)
     }
 
 }

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1A055CC424FF4A2100CA7320 /* SourcesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A055CC324FF4A2100CA7320 /* SourcesViewController.swift */; };
+		1A18AABE2507325C007C67BD /* ArticleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A18AABD2507325C007C67BD /* ArticleController.swift */; };
 		1A1CD04224C417AB0012D13F /* Sources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1CD04124C417AB0012D13F /* Sources.swift */; };
 		1A244A2624A4F7960091518D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A2524A4F7960091518D /* AppDelegate.swift */; };
 		1A244A2824A4F7960091518D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A244A2724A4F7960091518D /* SceneDelegate.swift */; };
@@ -58,6 +59,7 @@
 
 /* Begin PBXFileReference section */
 		1A055CC324FF4A2100CA7320 /* SourcesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcesViewController.swift; sourceTree = "<group>"; };
+		1A18AABD2507325C007C67BD /* ArticleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleController.swift; sourceTree = "<group>"; };
 		1A1CD04124C417AB0012D13F /* Sources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources.swift; sourceTree = "<group>"; };
 		1A244A2224A4F7960091518D /* Newstack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Newstack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A244A2524A4F7960091518D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +130,14 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
+		1A18AABC25073248007C67BD /* Model Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1A18AABD2507325C007C67BD /* ArticleController.swift */,
+			);
+			path = "Model Controller";
+			sourceTree = "<group>";
+		};
 		1A244A1924A4F7960091518D = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +161,7 @@
 		1A244A2424A4F7960091518D /* Newstack */ = {
 			isa = PBXGroup;
 			children = (
+				1A18AABC25073248007C67BD /* Model Controller */,
 				1A64E6D124C542FD00DF2B97 /* Globals */,
 				1A244A5724A4F8550091518D /* Models */,
 				1A244A5624A4F84D0091518D /* Views */,
@@ -458,6 +469,7 @@
 				1A5AC9D824A507190030A43A /* UIButton+Style.swift in Sources */,
 				1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */,
 				1ADC857124BAC52B008251C2 /* UIStackView+Style.swift in Sources */,
+				1A18AABE2507325C007C67BD /* ArticleController.swift in Sources */,
 				1A6DA6642501D2AB00E8423E /* WebViewController.swift in Sources */,
 				1A52E4A72505338800B17D39 /* CoreDataStack.swift in Sources */,
 				1A244A2824A4F7960091518D /* SceneDelegate.swift in Sources */,
