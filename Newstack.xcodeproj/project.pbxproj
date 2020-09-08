@@ -60,6 +60,7 @@
 /* Begin PBXFileReference section */
 		1A055CC324FF4A2100CA7320 /* SourcesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourcesViewController.swift; sourceTree = "<group>"; };
 		1A18AABD2507325C007C67BD /* ArticleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleController.swift; sourceTree = "<group>"; };
+		1A18AABF25075043007C67BD /* Newstack.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Newstack.entitlements; sourceTree = "<group>"; };
 		1A1CD04124C417AB0012D13F /* Sources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sources.swift; sourceTree = "<group>"; };
 		1A244A2224A4F7960091518D /* Newstack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Newstack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1A244A2524A4F7960091518D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -161,6 +162,7 @@
 		1A244A2424A4F7960091518D /* Newstack */ = {
 			isa = PBXGroup;
 			children = (
+				1A18AABF25075043007C67BD /* Newstack.entitlements */,
 				1A18AABC25073248007C67BD /* Model Controller */,
 				1A64E6D124C542FD00DF2B97 /* Globals */,
 				1A244A5724A4F8550091518D /* Models */,
@@ -658,7 +660,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AaronCleveland.StackNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -682,7 +684,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.4;
+				MARKETING_VERSION = 1.0.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.AaronCleveland.StackNews;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
