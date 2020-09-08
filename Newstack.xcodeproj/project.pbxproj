@@ -36,6 +36,7 @@
 		1A8E44D124B2E0DF003A949B /* NetworkingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */; };
 		1ADC857124BAC52B008251C2 /* UIStackView+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */; };
 		5D63DBF52501A9D8001EB5FA /* EverythingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D63DBF42501A9D8001EB5FA /* EverythingCollectionViewCell.swift */; };
+		5D8FA65F250713E7003F1EEB /* Article+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D8FA65E250713E7003F1EEB /* Article+Convenience.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		1A8E44D024B2E0DF003A949B /* NetworkingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingManager.swift; sourceTree = "<group>"; };
 		1ADC857024BAC52B008251C2 /* UIStackView+Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Style.swift"; sourceTree = "<group>"; };
 		5D63DBF42501A9D8001EB5FA /* EverythingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EverythingCollectionViewCell.swift; sourceTree = "<group>"; };
+		5D8FA65E250713E7003F1EEB /* Article+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Article+Convenience.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +256,7 @@
 			children = (
 				1A52E4A62505338800B17D39 /* CoreDataStack.swift */,
 				1A52E4A8250533A300B17D39 /* Newstack.xcdatamodeld */,
+				5D8FA65E250713E7003F1EEB /* Article+Convenience.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -458,6 +461,7 @@
 				1A6DA6642501D2AB00E8423E /* WebViewController.swift in Sources */,
 				1A52E4A72505338800B17D39 /* CoreDataStack.swift in Sources */,
 				1A244A2824A4F7960091518D /* SceneDelegate.swift in Sources */,
+				5D8FA65F250713E7003F1EEB /* Article+Convenience.swift in Sources */,
 				1A3708F924BAB7A60047419B /* SearchViewController.swift in Sources */,
 				1A1CD04224C417AB0012D13F /* Sources.swift in Sources */,
 				1A2E0D6B24C00F0300212BF1 /* SearchResultTableViewCell.swift in Sources */,

@@ -6,12 +6,23 @@
 //
 
 import UIKit
+import CoreData
 
 class BookmarkViewController: UIViewController {
     
     let networkManager = NetworkingManager()
-    
     let tableView = UITableView()
+    
+    var articles: [Article] {
+        let fetchRequest: NSFetchRequest<Article> = Article.fetchRequest()
+        let context = CoreDataStack.shared.mainContext
+        do {
+            return try context.fetch(fetchRequest)
+        } catch {
+            NSLog("Error fetching articles: \(error)")
+            return []
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,12 +56,15 @@ class BookmarkViewController: UIViewController {
 
 extension BookmarkViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return articles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: BookmarkTableViewCell.identifier, for: indexPath) as! BookmarkTableViewCell
-        
+        let article = articles[indexPath.row]
+        cell.articleTitle.text = article.title
+        #warning("Need to save image")
+//        cell.articleImage.image = article.urlToImage
         return cell
     }
     

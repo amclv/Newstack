@@ -26,17 +26,6 @@ class ArticleDetailViewController: UIViewController {
     let articleDetail = CustomLabel(style: .detailContent, text: "")
     let articleAuthorName = CustomLabel(style: .detailAuthor, text: "")
     let articleAuthorPaper = CustomLabel(style: .detailPaper, text: "")
-    
-    let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.alwaysBounceVertical = true
-        scrollView.contentInsetAdjustmentBehavior = .never
-        scrollView.delaysContentTouches = false
-        scrollView.bounces = false
-        return scrollView
-    }()
-    
     let contentStack = CustomStackView(style: .contentStack, distribution: .fill, alignment: .fill)
     let articleDetailVStack = CustomStackView(style: .articleDetailVStack, distribution: .fill, alignment: .fill)
     let authorDetailHStack = CustomStackView(style: .authorDetailHStack, distribution: .equalCentering, alignment: .leading)
@@ -113,6 +102,13 @@ class ArticleDetailViewController: UIViewController {
         addGradientDetail()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        if article == nil {
+            
+        }
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
     }
@@ -180,27 +176,20 @@ extension ArticleDetailViewController {
         contentStack.addArrangedSubview(topButtons)
         contentStack.addArrangedSubview(topView)
         contentStack.addArrangedSubview(articleDetailVStack)
-        scrollView.addSubview(readMoreButton)
-        scrollView.addSubview(contentStack)
-        view.addSubview(scrollView)
+        view.addSubview(readMoreButton)
+        view.addSubview(contentStack)
     }
 
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-
-            contentStack.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentStack.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentStack.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentStack.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            contentStack.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             contentStack.widthAnchor.constraint(equalTo: view.widthAnchor),
             
             topButtons.topAnchor.constraint(equalTo: contentStack.topAnchor, constant: 20),
-            topButtons.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
-            topButtons.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
+            topButtons.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            topButtons.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
 
             topView.topAnchor.constraint(equalTo: topRightButtons.bottomAnchor),
             topView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -222,8 +211,8 @@ extension ArticleDetailViewController {
             line.heightAnchor.constraint(equalToConstant: 4),
             
             readMoreButton.topAnchor.constraint(greaterThanOrEqualTo: contentStack.bottomAnchor),
-            readMoreButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
-            readMoreButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -20),
+            readMoreButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            readMoreButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             readMoreButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             readMoreButton.heightAnchor.constraint(equalToConstant: 60),
         ])
