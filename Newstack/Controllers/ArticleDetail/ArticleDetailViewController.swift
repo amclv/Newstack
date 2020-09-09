@@ -24,6 +24,7 @@ class ArticleDetailViewController: UIViewController {
     
     var articleSave: Article?
     
+    var articleURL = UILabel()
     let articleDate = CustomLabel(style: .detailDate, text: "")
     let articleTitle = CustomLabel(style: .detailTitle, text: "")
     let articleDetail = CustomLabel(style: .detailContent, text: "")
@@ -50,7 +51,6 @@ class ArticleDetailViewController: UIViewController {
         topImage.translatesAutoresizingMaskIntoConstraints = false
         topImage.contentMode = .scaleAspectFill
         topImage.image = UIImage(named: "")
-        topImage.backgroundColor = .blue
         return topImage
     }()
     
@@ -102,14 +102,8 @@ class ArticleDetailViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super .viewWillLayoutSubviews()
-        addGradientDetail()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        if article == nil {
-            
-        }
+        // adding gradient
+//        addGradientDetail()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -168,13 +162,13 @@ class ArticleDetailViewController: UIViewController {
 
     private func updateViews() {
         guard let article = article,
-              let url = article.urlToImage else { return }
-        let data = try? Data(contentsOf: url)
+            let urlToImage = article.urlToImage else { return }
+        let data = try? UIImage(withContentsOfUrl: urlToImage)
         articleTitle.text = article.title
         articleDate.text = article.formattedDate
         articleDetail.text = article.content ?? "No Content"
         articleAuthorPaper.text = "@\(article.source.name ?? "No Source")"
-        topViewBackgroundImage.image = UIImage(data: data!)
+        topViewBackgroundImage.image = data ?? UIImage(systemName: "xmark.octagon.fill")?.scaled(to: 100)?.withTintColor(.label)
     }
 }
 

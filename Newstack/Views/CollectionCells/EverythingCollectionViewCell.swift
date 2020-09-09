@@ -50,8 +50,11 @@ class EverythingCollectionViewCell: UICollectionViewCell {
     }
     
     private func updateViews() {
+        guard let urlToImage = everythingArticle?.urlToImage else { return }
+        let data = try? UIImage(withContentsOfUrl: urlToImage)
         self.articleTitleLabel.text = everythingArticle?.title
         self.articleDateLabel.text = everythingArticle?.formattedDate
+        self.articleImage.image = data ?? UIImage(systemName: "xmark.octagon.fill")?.scaled(to: 100)?.withTintColor(.label)
     }
     
     private func setupCellSubviews() {

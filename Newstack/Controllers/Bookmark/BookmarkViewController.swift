@@ -89,9 +89,11 @@ extension BookmarkViewController: UITableViewDelegate, UITableViewDataSource {
         let vc = ArticleDetailViewController()
         let fetchedArticle = fetchedResultsController.object(at: indexPath)
         
-        guard let urlToImage = fetchedArticle.urlToImage else { return }
+        guard let urlToImage = fetchedArticle.urlToImage,
+            let url = fetchedArticle.url else { return }
         let imageURL = URL(string: urlToImage)!
         
+        vc.articleURL.text = URL(string: url)?.absoluteString
         vc.articleTitle.text = fetchedArticle.title
         vc.articleDate.text = fetchedArticle.publishedAt
         vc.articleAuthorPaper.text = fetchedArticle.author
@@ -99,10 +101,6 @@ extension BookmarkViewController: UITableViewDelegate, UITableViewDataSource {
         vc.topViewBackgroundImage.image = try? UIImage(withContentsOfUrl: imageURL)
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true, completion: nil)
-//        guard let url = fetchedArticle.url else { return }
-//        let vc = WebViewController()
-//        vc.articleURL = URL(string: url)
-//        present(vc, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

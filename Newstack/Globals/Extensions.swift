@@ -35,6 +35,11 @@ extension UITextField
 }
 
 extension UIImage {
+    convenience init?(withContentsOfUrl url: URL) throws {
+        let imageData = try Data(contentsOf: url)
+        self.init(data: imageData)
+    }
+    
     func scaled(to maxSize: CGFloat) -> UIImage? {
         let aspectRatio: CGFloat = min(maxSize / size.width, maxSize / size.height)
         let newSize = CGSize(width: size.width * aspectRatio, height: size.height * aspectRatio)

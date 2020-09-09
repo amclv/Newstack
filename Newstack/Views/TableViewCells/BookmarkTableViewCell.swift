@@ -33,7 +33,6 @@ class BookmarkTableViewCell: UITableViewCell {
     func updateViews() {
         guard let article = article,
             let urlToImage = article.urlToImage else { return }
-        
         let imageURL = URL(string: urlToImage)!
         articleTitle.text = article.title
         articleImage.image = try? UIImage(withContentsOfUrl: imageURL)
@@ -64,12 +63,4 @@ class BookmarkTableViewCell: UITableViewCell {
 
 }
 
-extension UIImage {
 
-    convenience init?(withContentsOfUrl url: URL) throws {
-        let imageData = try Data(contentsOf: url)
-    
-        self.init(data: imageData)
-    }
-
-}

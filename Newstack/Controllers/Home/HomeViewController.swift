@@ -63,7 +63,6 @@ class HomeViewController: UIViewController {
     
     func fetchHeadlines() {
         networkManager.fetchSources {
-            print("\(self.networkManager.sourcesFeed.count)")
             self.updateViews()
         }
     }
@@ -104,7 +103,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         if let url = newArticle.urlToImage {
             networkManager.fetchImage(imageURL: url) { (data) in
                 guard let newImage = UIImage(data: data) else { return }
-                cell.headlineImage.image = newImage
+                cell.headlineImage.image = newImage ?? UIImage(systemName: "person")
             }
         }
         return cell
