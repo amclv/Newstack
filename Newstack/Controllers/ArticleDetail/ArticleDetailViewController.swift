@@ -24,7 +24,6 @@ class ArticleDetailViewController: UIViewController {
     
     var articleSave: Article?
     
-    var articleURL = UILabel()
     let articleDate = CustomLabel(style: .detailDate, text: "")
     let articleTitle = CustomLabel(style: .detailTitle, text: "")
     let articleDetail = CustomLabel(style: .detailContent, text: "")
@@ -142,7 +141,8 @@ class ArticleDetailViewController: UIViewController {
     
     @objc func shareButtonTapped() {
         print("SHARED ARTICLE BUTTON PRESSED")
-        activityViewController = UIActivityViewController(activityItems: [article!.url!], applicationActivities: nil)
+        guard let url = article?.url else { return }
+        activityViewController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
         present(activityViewController!, animated: true, completion: nil)
     }
     

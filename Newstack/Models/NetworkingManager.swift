@@ -111,6 +111,7 @@ class NetworkingManager {
                 let articles = source.articles
                 self.headlineFeed = articles
                 DispatchQueue.main.async {
+                    self.headlineFeed = self.headlineFeed.filter { !($0.content?.lowercased().contains("covid") ?? false || $0.content?.lowercased().contains("coronavirus") ?? false || $0.title?.lowercased().contains("coronavirus") ?? false || $0.title?.lowercased().contains("covid") ?? false) }
                     completionHandler()
                 }
             } catch {
@@ -145,6 +146,7 @@ class NetworkingManager {
                 let articles = source.articles
                 self.everythingFeed = articles
                 DispatchQueue.main.async {
+                    self.everythingFeed = self.everythingFeed.filter { !($0.content?.lowercased().contains("covid") ?? false || $0.content?.lowercased().contains("coronavirus") ?? false || $0.title?.lowercased().contains("coronavirus") ?? false || $0.title?.lowercased().contains("covid") ?? false) }
                     completionHandler()
                 }
             } catch {

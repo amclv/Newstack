@@ -92,8 +92,7 @@ extension BookmarkViewController: UITableViewDelegate, UITableViewDataSource {
         guard let urlToImage = fetchedArticle.urlToImage,
             let url = fetchedArticle.url else { return }
         let imageURL = URL(string: urlToImage)!
-        
-        vc.articleURL.text = URL(string: url)?.absoluteString
+
         vc.articleTitle.text = fetchedArticle.title
         vc.articleDate.text = fetchedArticle.publishedAt
         vc.articleAuthorPaper.text = fetchedArticle.author
